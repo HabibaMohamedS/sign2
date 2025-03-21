@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sign2/all.dart';
 import 'cameraview.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class SignLanguageApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sign Language Recognition',
       theme: ThemeData.dark(),
-      home: CameraView(),
+      home: SignLanguageRecognition(),
     );
   }
 }
