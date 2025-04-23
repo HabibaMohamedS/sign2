@@ -366,6 +366,9 @@
 //   }
 // }
 import 'dart:convert';
+import 'package:typed_data/typed_data.dart';
+
+import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -417,6 +420,7 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   }
 
   Future<void> _initializeCamera() async {
+    print("Initializing camera...");
     final cameras = await availableCameras();
     _cameraController = CameraController(cameras[0], ResolutionPreset.medium);
     await _cameraController!.initialize();
@@ -427,6 +431,7 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
 
   Future<void> _loadModel() async {
     _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
+    print("Model loaded successfully.");
   }
 
   /// **Sends Image to Python Server for Pose, Face & Hands Extraction**
@@ -435,7 +440,7 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-          'http://192.168.1.10:5000/process',
+          'http://192.168.1.107:5000',
         ), // 🔹 Replace with your actual server IP
       );
       request.files.add(
@@ -452,8 +457,8 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
       var decoded = json.decode(jsonResponse);
       return List<double>.from(decoded['keypoints']);
     } catch (e) {
-      print("❌ Error processing image: $e");
-      return List.filled(543, 0.0); // 🔹 Return default empty keypoints
+      print("Error processing image: $e");
+      return List.filled(543, 0.0); // Return default empty keypoints
     }
   }
 
@@ -482,18 +487,21 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   /// **Runs TFLite Model to Predict Sign Language Gesture**
   void _predictSign() {
     if (sequence.isEmpty) return;
-
+    print("Predicting sign...");
     var input = [sequence.map((e) => Float32List.fromList(e)).toList()];
     var output = List.filled(actions.length, 0.0).reshape([1, actions.length]);
 
     _interpreter.run(input, output);
 
-    int predictedIndex = output[0].indexWhere(
-      (val) => val == output[0].reduce((a, b) => a > b ? a : b),
-    );
+    // int predictedIndex = output[0].indexWhere(
+    //   (val) => val == output[0].reduce((a, b) => a > b ? a : b),
+    // );
+    int predictedIndex = output[0].indexOf(output[0].reduce(max));
 
     if (output[0][predictedIndex] > threshold) {
       String predictedAction = actions[predictedIndex];
+      print("Predicted Action: $predictedAction");
+      print("Confidence: ${output[0][predictedIndex]}");
       if (sentence.isEmpty || predictedAction != sentence.last) {
         setState(() {
           sentence.add(predictedAction);

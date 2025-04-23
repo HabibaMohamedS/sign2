@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sign2/all.dart';
-import 'cameraview.dart';
+//import 'cameraview.dart';
 
 void main() {
   runApp(SignLanguageApp());
