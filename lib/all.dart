@@ -384,7 +384,7 @@ class SignLanguageRecognition extends StatefulWidget {
 class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   CameraController? _cameraController;
   late Interpreter _interpreter;
-
+  bool _isInterpreterReady = false;
   List<String> actions = [
     'baby',
     'eat',
@@ -415,23 +415,77 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
-    _loadModel();
+    _initialize();
   }
 
+  Future<void> _initialize() async {
+    await _loadModel();
+    await _initializeCamera();
+  }
+
+  // Future<void> _initializeCamera() async {
+  //   try {
+  //     print("Initializing camera...");
+  //     final cameras = await availableCameras();
+  //     _cameraController = CameraController(cameras[0], ResolutionPreset.medium);
+  //     await _cameraController!.initialize();
+  //     setState(() {}); // Add this to rebuild UI after init
+  //     _cameraController!.startImageStream((image) async {
+  //       processCameraImage(image);
+  //     });
+  //   } catch (e) {
+  //     print("Camera initialization error: $e");
+  //   }
+  // }
+  int _cameraIndex = 0;
+  List<CameraDescription> _cameras = [];
+
   Future<void> _initializeCamera() async {
-    print("Initializing camera...");
-    final cameras = await availableCameras();
-    _cameraController = CameraController(cameras[0], ResolutionPreset.medium);
+    try {
+      print("Initializing camera...");
+      _cameras = await availableCameras();
+      _cameraController = CameraController(
+        _cameras[_cameraIndex],
+        ResolutionPreset.medium,
+      );
+      await _cameraController!.initialize();
+      setState(() {});
+      _cameraController!.startImageStream((image) async {
+        processCameraImage(image);
+      });
+    } catch (e) {
+      print("Camera initialization error: $e");
+    }
+  }
+
+  void _flipCamera() async {
+    if (_cameras.length < 2) return;
+
+    _cameraIndex = (_cameraIndex + 1) % _cameras.length;
+
+    await _cameraController?.stopImageStream();
+    await _cameraController?.dispose();
+
+    _cameraController = CameraController(
+      _cameras[_cameraIndex],
+      ResolutionPreset.medium,
+    );
+
     await _cameraController!.initialize();
+    setState(() {});
     _cameraController!.startImageStream((image) async {
       processCameraImage(image);
     });
   }
 
   Future<void> _loadModel() async {
-    _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
-    print("Model loaded successfully.");
+    try {
+      _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
+      _isInterpreterReady = true;
+      print("Model loaded successfully.");
+    } catch (e) {
+      print("Failed to load model: $e");
+    }
   }
 
   /// **Sends Image to Python Server for Pose, Face & Hands Extraction**
@@ -439,9 +493,7 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse(
-          'http://192.168.1.107:5000',
-        ), // 🔹 Replace with your actual server IP
+        Uri.parse('http://192.168.1.107:5000/process'),
       );
       request.files.add(
         http.MultipartFile.fromBytes(
@@ -486,16 +538,14 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
 
   /// **Runs TFLite Model to Predict Sign Language Gesture**
   void _predictSign() {
-    if (sequence.isEmpty) return;
+    if (sequence.isEmpty || !_isInterpreterReady) return;
+
     print("Predicting sign...");
     var input = [sequence.map((e) => Float32List.fromList(e)).toList()];
     var output = List.filled(actions.length, 0.0).reshape([1, actions.length]);
 
     _interpreter.run(input, output);
 
-    // int predictedIndex = output[0].indexWhere(
-    //   (val) => val == output[0].reduce((a, b) => a > b ? a : b),
-    // );
     int predictedIndex = output[0].indexOf(output[0].reduce(max));
 
     if (output[0][predictedIndex] > threshold) {
@@ -522,20 +572,42 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Sign Language Recognition")),
-      body: Column(
-        children: [
+      body:
           _cameraController != null && _cameraController!.value.isInitialized
-              ? AspectRatio(
-                aspectRatio: _cameraController!.value.aspectRatio,
-                child: CameraPreview(_cameraController!),
+              ? Stack(
+                children: [
+                  SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _cameraController!.value.previewSize!.height,
+                        height: _cameraController!.value.previewSize!.width,
+                        child: CameraPreview(_cameraController!),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      color: Colors.black.withOpacity(0.5),
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        sentence.join(" "),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               )
               : Center(child: CircularProgressIndicator()),
-          SizedBox(height: 20),
-          Text(
-            sentence.join(" "),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: _flipCamera,
+        child: Icon(Icons.cameraswitch),
       ),
     );
   }
