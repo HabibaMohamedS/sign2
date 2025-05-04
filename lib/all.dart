@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:camera/camera.dart';
@@ -5,10 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:tflite_flutter_helper/tflite_flutter_helper.dart' show FlexDelegate; // if you're using helpers
+
 
 class SignLanguageRecognition extends StatefulWidget {
   @override
-  _SignLanguageRecognitionState createState() => _SignLanguageRecognitionState();
+  _SignLanguageRecognitionState createState() =>
+      _SignLanguageRecognitionState();
 }
 
 class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
@@ -16,11 +20,29 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   late Interpreter _interpreter;
   bool _isInterpreterReady = false;
   bool _isCameraInitialized = false;
+  bool _isCapturing = false;
 
   List<String> actions = [
-    'baby', 'eat', 'father', 'finish', 'good', 'happy', 'hear', 'house',
-    'important', 'love', 'mall', 'me', 'mosque', 'mother', 'normal',
-    'sad', 'stop', 'thanks', 'thinking', 'worry',
+    'baby',
+    'eat',
+    'father',
+    'finish',
+    'good',
+    'happy',
+    'hear',
+    'house',
+    'important',
+    'love',
+    'mall',
+    'me',
+    'mosque',
+    'mother',
+    'normal',
+    'sad',
+    'stop',
+    'thanks',
+    'thinking',
+    'worry',
   ];
 
   List<List<double>> sequence = [];
@@ -43,14 +65,31 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   }
 
   Future<void> _loadModel() async {
-    try {
-      _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
-      _isInterpreterReady = true;
-      print("Model loaded successfully.");
-    } catch (e) {
-      print("Failed to load model: $e");
-    }
+  print("LOADING MODEL WITH FLEX DELEGATE...");
+  try {
+    final options = InterpreterOptions()..addDelegate(FlexDelegate());
+  _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite', options: options);
+  _isInterpreterReady = true;
+    print("Model loaded successfully with Flex support.");
+  } catch (e) {
+    print("Failed to load model with Flex delegate: $e");
   }
+}
+  // Future<void> _loadModel() async {
+  //   print("LOADING MODEL.....................");
+  //   try {
+  //     final interpreterOptions = InterpreterOptions()
+  //     ..addDelegate(FlexDelegate());
+
+  //     _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite', options: interpreterOptions);
+
+  //     // _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
+  //     // _isInterpreterReady = true;
+  //     print("Model loaded successfully.");
+  //   } catch (e) {
+  //     print("Failed to load model: $e");
+  //   }
+  // }
 
   Future<void> _initializeCamera() async {
     try {
@@ -58,21 +97,67 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
       _cameraController = CameraController(
         _cameras[_cameraIndex],
         ResolutionPreset.medium,
+        imageFormatGroup: ImageFormatGroup.jpeg,
       );
+
+      // _cameraController = CameraController(
+      //   _cameras[_cameraIndex],
+      //   ResolutionPreset.medium,
+      // );
 
       await _cameraController!.initialize();
       setState(() {
         _isCameraInitialized = true;
       });
 
-      _cameraController!.startImageStream((image) async {
-        if (!_isCameraInitialized) return;
-        processCameraImage(image);
+      Timer.periodic(Duration(seconds: 1), (timer) {
+        processCameraImage();
       });
+      // _cameraController!.startImageStream((image) async {
+      //   if (!_isCameraInitialized) return;
+      //   processCameraImage(image);
+      // });
     } catch (e) {
       print("Camera initialization error: $e");
     }
   }
+
+  //   void _flipCamera() async {
+  //     if (_cameras.length < 2) return;
+
+  //     setState(() {
+  //       _isCameraInitialized = false;
+  //     });
+
+  //     await _cameraController?.stopImageStream();
+  //     await _cameraController?.dispose();
+
+  //     _cameraIndex = (_cameraIndex + 1) % _cameras.length;
+  //     _cameraController = CameraController(
+  //   _cameras[_cameraIndex],
+  //   ResolutionPreset.medium,
+  //   imageFormatGroup: ImageFormatGroup.jpeg,
+  // );
+
+  //     // _cameraController = CameraController(
+  //     //   _cameras[_cameraIndex],
+  //     //   ResolutionPreset.medium,
+  //     // );
+
+  //     await _cameraController!.initialize();
+  //     setState(() {
+  //       _isCameraInitialized = true;
+  //     });
+
+  //     Timer.periodic(Duration(seconds: 2), (timer) {
+  //     processCameraImage();
+  //     });
+
+  //     // _cameraController!.startImageStream((image) async {
+  //     //   if (!_isCameraInitialized) return;
+  //     //   processCameraImage(image);
+  //     // });
+  //   }
 
   void _flipCamera() async {
     if (_cameras.length < 2) return;
@@ -81,31 +166,34 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
       _isCameraInitialized = false;
     });
 
-    await _cameraController?.stopImageStream();
     await _cameraController?.dispose();
 
     _cameraIndex = (_cameraIndex + 1) % _cameras.length;
     _cameraController = CameraController(
       _cameras[_cameraIndex],
       ResolutionPreset.medium,
+      imageFormatGroup: ImageFormatGroup.jpeg, // ✅ ensure consistent format
     );
 
-    await _cameraController!.initialize();
-    setState(() {
-      _isCameraInitialized = true;
-    });
+    try {
+      await _cameraController!.initialize();
+      setState(() {
+        _isCameraInitialized = true;
+      });
 
-    _cameraController!.startImageStream((image) async {
-      if (!_isCameraInitialized) return;
-      processCameraImage(image);
-    });
+      Timer.periodic(Duration(seconds: 1), (timer) {
+        processCameraImage();
+      });
+    } catch (e) {
+      print("Front camera initialization failed: $e");
+    }
   }
 
   Future<List<double>> _processImage(Uint8List imageBytes) async {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://192.168.56.1:5000/process'),
+        Uri.parse('http://192.168.1.16:5000/process'),
       );
       request.files.add(
         http.MultipartFile.fromBytes(
@@ -114,10 +202,12 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
           filename: 'frame.jpg',
         ),
       );
+      print("Sending image to server...");
 
       var response = await request.send();
       var jsonResponse = await response.stream.bytesToString();
       var decoded = json.decode(jsonResponse);
+      print("Decoded keypoints: $decoded");
       return List<double>.from(decoded['keypoints']);
     } catch (e) {
       print("Error processing image: $e");
@@ -133,17 +223,71 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
     return buffer.done().buffer.asUint8List();
   }
 
-  void processCameraImage(CameraImage image) async {
-    final Uint8List imageBytes = await _convertToBytes(image);
-    List<double> keypoints = await _processImage(imageBytes);
+  void processCameraImage() async {
+    if (_isCapturing) return; // prevent overlap
+    _isCapturing = true;
 
-    sequence.add(keypoints);
-    if (sequence.length > windowSize) sequence.removeAt(0);
+    try {
+      if (_cameraController == null ||
+          !_cameraController!.value.isInitialized) {
+        _isCapturing = false;
+        return;
+      }
 
-    if (sequence.length == windowSize) {
-      _predictSign();
+      XFile file = await _cameraController!.takePicture();
+      Uint8List bytes = await file.readAsBytes();
+
+      List<double> keypoints = await _processImage(bytes);
+
+      sequence.add(keypoints);
+      print("SEQUENCE LENGHT ${sequence.length}");
+      if (sequence.length > windowSize) sequence.removeAt(0);
+
+      if (sequence.length == windowSize) {
+        _predictSign();
+      }
+    } catch (e) {
+      print("Error capturing image: $e");
+    } finally {
+      _isCapturing = false; // release the flag
     }
   }
+
+  //   void processCameraImage() async {
+  //   try {
+  //     if (_cameraController == null || !_cameraController!.value.isInitialized) {
+  //       return;
+  //     }
+
+  //     // 📸 Take a real JPEG picture
+  //     XFile file = await _cameraController!.takePicture();
+  //     Uint8List bytes = await file.readAsBytes();
+
+  //     // Now send this to Python server
+  //     List<double> keypoints = await _processImage(bytes);
+
+  //     sequence.add(keypoints);
+  //     if (sequence.length > windowSize) sequence.removeAt(0);
+
+  //     if (sequence.length == windowSize) {
+  //       _predictSign();
+  //     }
+  //   } catch (e) {
+  //     print("Error capturing image: $e");
+  //   }
+  // }
+
+  // void processCameraImage(CameraImage image) async {
+  //   final Uint8List imageBytes = await _convertToBytes(image);
+  //   List<double> keypoints = await _processImage(imageBytes);
+
+  //   sequence.add(keypoints);
+  //   if (sequence.length > windowSize) sequence.removeAt(0);
+
+  //   if (sequence.length == windowSize) {
+  //     _predictSign();
+  //   }
+  // }
 
   void _predictSign() {
     if (sequence.isEmpty || !_isInterpreterReady) return;
@@ -178,38 +322,39 @@ class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Sign Language Recognition")),
-      body: _isCameraInitialized && _cameraController != null
-          ? Stack(
-              children: [
-                SizedBox.expand(
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: _cameraController!.value.previewSize!.height,
-                      height: _cameraController!.value.previewSize!.width,
-                      child: CameraPreview(_cameraController!),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: Colors.black.withOpacity(0.5),
-                    padding: EdgeInsets.all(12),
-                    child: Text(
-                      sentence.join(" "),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+      body:
+          _isCameraInitialized && _cameraController != null
+              ? Stack(
+                children: [
+                  SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _cameraController!.value.previewSize!.height,
+                        height: _cameraController!.value.previewSize!.width,
+                        child: CameraPreview(_cameraController!),
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-              ],
-            )
-          : Center(child: CircularProgressIndicator()),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      color: Colors.black.withOpacity(0.5),
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        sentence.join(" "),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+              : Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: _flipCamera,
         child: Icon(Icons.cameraswitch),
