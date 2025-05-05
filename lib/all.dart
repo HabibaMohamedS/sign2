@@ -27,49 +27,41 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
   }
 
   Future<void> _initCamera() async {
-    print('🔧 Initializing cameras...');
     _cameras = await availableCameras();
     _controller = CameraController(
       _cameras![_cameraIndex],
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
       imageFormatGroup: ImageFormatGroup.yuv420,
     );
     await _controller!.initialize();
-    print('✅ Camera initialized: ${_cameras![_cameraIndex].lensDirection}');
     setState(() {});
   }
 
   Future<void> _toggleCamera() async {
-    print('🔄 Toggling camera...');
     if (_cameras!.length < 2) return;
     await _controller!.dispose();
     _cameraIndex = (_cameraIndex + 1) % _cameras!.length;
     _controller = CameraController(
       _cameras![_cameraIndex],
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
       imageFormatGroup: ImageFormatGroup.yuv420,
     );
     await _controller!.initialize();
-    print('✅ Camera now: ${_cameras![_cameraIndex].lensDirection}');
     setState(() {});
   }
 
   Future<void> _onRecordButtonPressed() async {
     if (_isRecording) {
-      print('⏹️ Stopping recording...');
       _videoFile = await _controller!.stopVideoRecording();
-      print('📹 Video saved to ${_videoFile!.path}');
       setState(() {
         _isRecording = false;
         _isTranslating = true;
       });
       await _uploadAndTranslate(_videoFile!);
     } else {
-      print('🔴 Starting recording...');
       final dir = await getTemporaryDirectory();
       final filePath = '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.mp4';
       await _controller!.startVideoRecording();
-      print('Recording to $filePath');
       setState(() => _isRecording = true);
     }
   }
@@ -79,21 +71,16 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
       final uri = Uri.parse('http://192.168.1.16:5000/translate_video');
       final req = http.MultipartRequest('POST', uri)
         ..files.add(await http.MultipartFile.fromPath('video', file.path));
-      print('📤 Uploading video...');
       final streamed = await req.send();
-      print('⬇️ Waiting for response...');
       final respStr = await streamed.stream.bytesToString();
-      print('📥 Response status: ${streamed.statusCode}');
-      print('📄 Response body: $respStr');
 
       setState(() {
         _translation = streamed.statusCode == 200 ? respStr : 'Error ${streamed.statusCode}';
         _isTranslating = false;
       });
     } catch (e) {
-      print('❌ Upload error: $e');
       setState(() {
-        _translation = 'Upload failed';
+        _translation = 'Upload failed: $e';
         _isTranslating = false;
       });
     }
@@ -106,29 +93,47 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
   }
 
   Widget _buildTranslationPanel() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        width: double.infinity,
-        color: Colors.white70,
-        padding: EdgeInsets.all(16),
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black26)],
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             if (_isTranslating) ...[
-              Text('Translating...', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 8),
+              Text('Translating...', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 12),
               CircularProgressIndicator(),
             ] else ...[
-              Text(_translation ?? '', style: TextStyle(fontSize: 20)),
-              SizedBox(height: 12),
-              ElevatedButton(
+              Text(
+                _translation ?? '',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
                 onPressed: () {
                   setState(() {
                     _translation = null;
+                    _isRecording = false;
                   });
                 },
-                child: Text('Take another one'),
+                icon: Icon(Icons.refresh),
+                label: Text('Translate Again'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
               ),
             ],
           ],
@@ -140,35 +145,67 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
   @override
   Widget build(BuildContext context) {
     if (_controller == null || !_controller!.value.isInitialized) {
-      return Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          CameraPreview(_controller!),
-          Positioned(
-            top: 40,
-            right: 20,
-            child: FloatingActionButton(
-              mini: true,
-              onPressed: _toggleCamera,
-              child: Icon(Icons.flip_camera_ios),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 80),
-              child: FloatingActionButton(
-                backgroundColor: _isRecording ? Colors.red : null,
-                child: Icon(_isRecording ? Icons.stop : Icons.videocam),
-                onPressed: _onRecordButtonPressed,
+          SizedBox.expand(
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller!.value.previewSize!.height,
+                height: _controller!.value.previewSize!.width,
+                child: CameraPreview(_controller!),
               ),
             ),
           ),
+
+          // Flip camera button
+          Positioned(
+            top: 40,
+            right: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black45,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.flip_camera_ios, color: Colors.white),
+                onPressed: _toggleCamera,
+              ),
+            ),
+          ),
+
+          // Recording button
+          if (!_isTranslating && _translation == null)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: GestureDetector(
+                  onTap: _onRecordButtonPressed,
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: _isRecording ? Colors.red : Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.black54, width: 2),
+                    ),
+                    child: Icon(
+                      _isRecording ? Icons.stop : Icons.videocam,
+                      color: _isRecording ? Colors.white : Colors.black,
+                      size: 40,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+          // Translation overlay
           if (_isTranslating || _translation != null) _buildTranslationPanel(),
         ],
       ),
