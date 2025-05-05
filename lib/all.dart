@@ -1,363 +1,176 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
-import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 import 'package:http/http.dart' as http;
-import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:tflite_flutter_helper/tflite_flutter_helper.dart' show FlexDelegate; // if you're using helpers
+import 'package:path_provider/path_provider.dart';
 
+class VideoTranslateScreen extends StatefulWidget {
+  const VideoTranslateScreen({super.key});
 
-class SignLanguageRecognition extends StatefulWidget {
   @override
-  _SignLanguageRecognitionState createState() =>
-      _SignLanguageRecognitionState();
+  _VideoTranslateScreenState createState() => _VideoTranslateScreenState();
 }
 
-class _SignLanguageRecognitionState extends State<SignLanguageRecognition> {
-  CameraController? _cameraController;
-  late Interpreter _interpreter;
-  bool _isInterpreterReady = false;
-  bool _isCameraInitialized = false;
-  bool _isCapturing = false;
-
-  List<String> actions = [
-    'baby',
-    'eat',
-    'father',
-    'finish',
-    'good',
-    'happy',
-    'hear',
-    'house',
-    'important',
-    'love',
-    'mall',
-    'me',
-    'mosque',
-    'mother',
-    'normal',
-    'sad',
-    'stop',
-    'thanks',
-    'thinking',
-    'worry',
-  ];
-
-  List<List<double>> sequence = [];
-  List<String> sentence = [];
-  final int windowSize = 30;
-  final double threshold = 0.85;
-
+class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
+  CameraController? _controller;
+  List<CameraDescription>? _cameras;
   int _cameraIndex = 0;
-  List<CameraDescription> _cameras = [];
+
+  bool _isRecording = false;
+  bool _isTranslating = false;
+  String? _translation;
+  XFile? _videoFile;
 
   @override
   void initState() {
     super.initState();
-    _initialize();
+    _initCamera();
   }
 
-  Future<void> _initialize() async {
-    await _loadModel();
-    await _initializeCamera();
-  }
-
-  Future<void> _loadModel() async {
-  print("LOADING MODEL WITH FLEX DELEGATE...");
-  try {
-    final options = InterpreterOptions()..addDelegate(FlexDelegate());
-  _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite', options: options);
-  _isInterpreterReady = true;
-    print("Model loaded successfully with Flex support.");
-  } catch (e) {
-    print("Failed to load model with Flex delegate: $e");
-  }
-}
-  // Future<void> _loadModel() async {
-  //   print("LOADING MODEL.....................");
-  //   try {
-  //     final interpreterOptions = InterpreterOptions()
-  //     ..addDelegate(FlexDelegate());
-
-  //     _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite', options: interpreterOptions);
-
-  //     // _interpreter = await Interpreter.fromAsset('assets/modelh5.tflite');
-  //     // _isInterpreterReady = true;
-  //     print("Model loaded successfully.");
-  //   } catch (e) {
-  //     print("Failed to load model: $e");
-  //   }
-  // }
-
-  Future<void> _initializeCamera() async {
-    try {
-      _cameras = await availableCameras();
-      _cameraController = CameraController(
-        _cameras[_cameraIndex],
-        ResolutionPreset.medium,
-        imageFormatGroup: ImageFormatGroup.jpeg,
-      );
-
-      // _cameraController = CameraController(
-      //   _cameras[_cameraIndex],
-      //   ResolutionPreset.medium,
-      // );
-
-      await _cameraController!.initialize();
-      setState(() {
-        _isCameraInitialized = true;
-      });
-
-      Timer.periodic(Duration(seconds: 1), (timer) {
-        processCameraImage();
-      });
-      // _cameraController!.startImageStream((image) async {
-      //   if (!_isCameraInitialized) return;
-      //   processCameraImage(image);
-      // });
-    } catch (e) {
-      print("Camera initialization error: $e");
-    }
-  }
-
-  //   void _flipCamera() async {
-  //     if (_cameras.length < 2) return;
-
-  //     setState(() {
-  //       _isCameraInitialized = false;
-  //     });
-
-  //     await _cameraController?.stopImageStream();
-  //     await _cameraController?.dispose();
-
-  //     _cameraIndex = (_cameraIndex + 1) % _cameras.length;
-  //     _cameraController = CameraController(
-  //   _cameras[_cameraIndex],
-  //   ResolutionPreset.medium,
-  //   imageFormatGroup: ImageFormatGroup.jpeg,
-  // );
-
-  //     // _cameraController = CameraController(
-  //     //   _cameras[_cameraIndex],
-  //     //   ResolutionPreset.medium,
-  //     // );
-
-  //     await _cameraController!.initialize();
-  //     setState(() {
-  //       _isCameraInitialized = true;
-  //     });
-
-  //     Timer.periodic(Duration(seconds: 2), (timer) {
-  //     processCameraImage();
-  //     });
-
-  //     // _cameraController!.startImageStream((image) async {
-  //     //   if (!_isCameraInitialized) return;
-  //     //   processCameraImage(image);
-  //     // });
-  //   }
-
-  void _flipCamera() async {
-    if (_cameras.length < 2) return;
-
-    setState(() {
-      _isCameraInitialized = false;
-    });
-
-    await _cameraController?.dispose();
-
-    _cameraIndex = (_cameraIndex + 1) % _cameras.length;
-    _cameraController = CameraController(
-      _cameras[_cameraIndex],
+  Future<void> _initCamera() async {
+    print('🔧 Initializing cameras...');
+    _cameras = await availableCameras();
+    _controller = CameraController(
+      _cameras![_cameraIndex],
       ResolutionPreset.medium,
-      imageFormatGroup: ImageFormatGroup.jpeg, // ✅ ensure consistent format
+      imageFormatGroup: ImageFormatGroup.yuv420,
     );
+    await _controller!.initialize();
+    print('✅ Camera initialized: ${_cameras![_cameraIndex].lensDirection}');
+    setState(() {});
+  }
 
-    try {
-      await _cameraController!.initialize();
+  Future<void> _toggleCamera() async {
+    print('🔄 Toggling camera...');
+    if (_cameras!.length < 2) return;
+    await _controller!.dispose();
+    _cameraIndex = (_cameraIndex + 1) % _cameras!.length;
+    _controller = CameraController(
+      _cameras![_cameraIndex],
+      ResolutionPreset.medium,
+      imageFormatGroup: ImageFormatGroup.yuv420,
+    );
+    await _controller!.initialize();
+    print('✅ Camera now: ${_cameras![_cameraIndex].lensDirection}');
+    setState(() {});
+  }
+
+  Future<void> _onRecordButtonPressed() async {
+    if (_isRecording) {
+      print('⏹️ Stopping recording...');
+      _videoFile = await _controller!.stopVideoRecording();
+      print('📹 Video saved to ${_videoFile!.path}');
       setState(() {
-        _isCameraInitialized = true;
+        _isRecording = false;
+        _isTranslating = true;
       });
+      await _uploadAndTranslate(_videoFile!);
+    } else {
+      print('🔴 Starting recording...');
+      final dir = await getTemporaryDirectory();
+      final filePath = '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.mp4';
+      await _controller!.startVideoRecording();
+      print('Recording to $filePath');
+      setState(() => _isRecording = true);
+    }
+  }
 
-      Timer.periodic(Duration(seconds: 1), (timer) {
-        processCameraImage();
+  Future<void> _uploadAndTranslate(XFile file) async {
+    try {
+      final uri = Uri.parse('http://192.168.1.16:5000/translate_video');
+      final req = http.MultipartRequest('POST', uri)
+        ..files.add(await http.MultipartFile.fromPath('video', file.path));
+      print('📤 Uploading video...');
+      final streamed = await req.send();
+      print('⬇️ Waiting for response...');
+      final respStr = await streamed.stream.bytesToString();
+      print('📥 Response status: ${streamed.statusCode}');
+      print('📄 Response body: $respStr');
+
+      setState(() {
+        _translation = streamed.statusCode == 200 ? respStr : 'Error ${streamed.statusCode}';
+        _isTranslating = false;
       });
     } catch (e) {
-      print("Front camera initialization failed: $e");
-    }
-  }
-
-  Future<List<double>> _processImage(Uint8List imageBytes) async {
-    try {
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('http://192.168.1.16:5000/process'),
-      );
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'image',
-          imageBytes,
-          filename: 'frame.jpg',
-        ),
-      );
-      print("Sending image to server...");
-
-      var response = await request.send();
-      var jsonResponse = await response.stream.bytesToString();
-      var decoded = json.decode(jsonResponse);
-      print("Decoded keypoints: $decoded");
-      return List<double>.from(decoded['keypoints']);
-    } catch (e) {
-      print("Error processing image: $e");
-      return List.filled(543, 0.0);
-    }
-  }
-
-  Future<Uint8List> _convertToBytes(CameraImage image) async {
-    final WriteBuffer buffer = WriteBuffer();
-    for (var plane in image.planes) {
-      buffer.putUint8List(plane.bytes);
-    }
-    return buffer.done().buffer.asUint8List();
-  }
-
-  void processCameraImage() async {
-    if (_isCapturing) return; // prevent overlap
-    _isCapturing = true;
-
-    try {
-      if (_cameraController == null ||
-          !_cameraController!.value.isInitialized) {
-        _isCapturing = false;
-        return;
-      }
-
-      XFile file = await _cameraController!.takePicture();
-      Uint8List bytes = await file.readAsBytes();
-
-      List<double> keypoints = await _processImage(bytes);
-
-      sequence.add(keypoints);
-      print("SEQUENCE LENGHT ${sequence.length}");
-      if (sequence.length > windowSize) sequence.removeAt(0);
-
-      if (sequence.length == windowSize) {
-        _predictSign();
-      }
-    } catch (e) {
-      print("Error capturing image: $e");
-    } finally {
-      _isCapturing = false; // release the flag
-    }
-  }
-
-  //   void processCameraImage() async {
-  //   try {
-  //     if (_cameraController == null || !_cameraController!.value.isInitialized) {
-  //       return;
-  //     }
-
-  //     // 📸 Take a real JPEG picture
-  //     XFile file = await _cameraController!.takePicture();
-  //     Uint8List bytes = await file.readAsBytes();
-
-  //     // Now send this to Python server
-  //     List<double> keypoints = await _processImage(bytes);
-
-  //     sequence.add(keypoints);
-  //     if (sequence.length > windowSize) sequence.removeAt(0);
-
-  //     if (sequence.length == windowSize) {
-  //       _predictSign();
-  //     }
-  //   } catch (e) {
-  //     print("Error capturing image: $e");
-  //   }
-  // }
-
-  // void processCameraImage(CameraImage image) async {
-  //   final Uint8List imageBytes = await _convertToBytes(image);
-  //   List<double> keypoints = await _processImage(imageBytes);
-
-  //   sequence.add(keypoints);
-  //   if (sequence.length > windowSize) sequence.removeAt(0);
-
-  //   if (sequence.length == windowSize) {
-  //     _predictSign();
-  //   }
-  // }
-
-  void _predictSign() {
-    if (sequence.isEmpty || !_isInterpreterReady) return;
-
-    print("Predicting sign...");
-    var input = [sequence.map((e) => Float32List.fromList(e)).toList()];
-    var output = List.filled(actions.length, 0.0).reshape([1, actions.length]);
-
-    _interpreter.run(input, output);
-
-    int predictedIndex = output[0].indexOf(output[0].reduce(max));
-
-    if (output[0][predictedIndex] > threshold) {
-      String predictedAction = actions[predictedIndex];
-      if (sentence.isEmpty || predictedAction != sentence.last) {
-        setState(() {
-          sentence.add(predictedAction);
-          if (sentence.length > 5) sentence.removeAt(0);
-        });
-      }
+      print('❌ Upload error: $e');
+      setState(() {
+        _translation = 'Upload failed';
+        _isTranslating = false;
+      });
     }
   }
 
   @override
   void dispose() {
-    _cameraController?.dispose();
-    _interpreter.close();
+    _controller?.dispose();
     super.dispose();
+  }
+
+  Widget _buildTranslationPanel() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: double.infinity,
+        color: Colors.white70,
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (_isTranslating) ...[
+              Text('Translating...', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 8),
+              CircularProgressIndicator(),
+            ] else ...[
+              Text(_translation ?? '', style: TextStyle(fontSize: 20)),
+              SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _translation = null;
+                  });
+                },
+                child: Text('Take another one'),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_controller == null || !_controller!.value.isInitialized) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
-      appBar: AppBar(title: Text("Sign Language Recognition")),
-      body:
-          _isCameraInitialized && _cameraController != null
-              ? Stack(
-                children: [
-                  SizedBox.expand(
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: SizedBox(
-                        width: _cameraController!.value.previewSize!.height,
-                        height: _cameraController!.value.previewSize!.width,
-                        child: CameraPreview(_cameraController!),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      color: Colors.black.withOpacity(0.5),
-                      padding: EdgeInsets.all(12),
-                      child: Text(
-                        sentence.join(" "),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-              : Center(child: CircularProgressIndicator()),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _flipCamera,
-        child: Icon(Icons.cameraswitch),
+      body: Stack(
+        children: [
+          CameraPreview(_controller!),
+          Positioned(
+            top: 40,
+            right: 20,
+            child: FloatingActionButton(
+              mini: true,
+              onPressed: _toggleCamera,
+              child: Icon(Icons.flip_camera_ios),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 80),
+              child: FloatingActionButton(
+                backgroundColor: _isRecording ? Colors.red : null,
+                child: Icon(_isRecording ? Icons.stop : Icons.videocam),
+                onPressed: _onRecordButtonPressed,
+              ),
+            ),
+          ),
+          if (_isTranslating || _translation != null) _buildTranslationPanel(),
+        ],
       ),
     );
   }
