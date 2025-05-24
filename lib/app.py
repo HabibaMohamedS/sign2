@@ -147,8 +147,13 @@ from starlette.responses import PlainTextResponse
 import mediapipe as mp
 import tensorflow as tf
 import uvicorn
-
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 print("⏳ Starting app.py...")
+
+
+# Load tokenizer and NLP model
+# tokenizer = AutoTokenizer.from_pretrained("akhooli/gpt2-small-arabic")
+# NLPmodel = AutoModelForCausalLM.from_pretrained("akhooli/gpt2-small-arabic")
 
 # 1. Load Keras model once
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'models', '100model.h5')
@@ -162,6 +167,11 @@ ACTIONS = [
     'baby','eat','father','finish','good','happy','hear','house','important',
     'love','mall','me','mosque','mother','normal','sad','stop','thanks',
     'thinking','worry'
+]
+ARABIC_ACTIONS = [
+    'طفل', 'أكل', 'أب', 'إنهاء', 'جيد', 'سعيد', 'سمع', 'منزل', 'مهم',
+    'حب', 'مول', 'أنا', 'مسجد', 'أم', 'عادي', 'حزين', 'توقف', 'شكرا',
+    'تفكير', 'قلق'
 ]
 THRESHOLD = 0.90
 WINDOW_SIZE = 30
@@ -205,6 +215,27 @@ def motion_filter(seq):
     face_motion = np.linalg.norm(diff[:, 42+132:], axis=1).mean()
     weighted = 0.8*hand_motion + 0.15*body_motion + 0.05*face_motion
     return weighted > MOTION_THRESHOLD
+
+
+def signs_to_arabic_sentence(signs):
+    tokenizer = AutoTokenizer.from_pretrained("UBC-NLP/araT5-base")
+    model = AutoModelForSeq2SeqLM.from_pretrained("UBC-NLP/araT5-base")
+
+    prompt = " ".join(signs)  
+    input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+
+    output_ids = model.generate(
+    input_ids,
+    max_length=10,
+    num_beams=5,
+    no_repeat_ngram_size=2,
+    early_stopping=True,
+    temperature=0.7
+    )
+
+    sentence = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+    return sentence
+
 
 @app.post("/translate_video", response_class=PlainTextResponse)
 async def translate_video(video: UploadFile = File(...)):
@@ -260,15 +291,17 @@ async def translate_video(video: UploadFile = File(...)):
     sentence = []
     for probs in batch_preds:
         if np.max(probs) > THRESHOLD:
-            action = ACTIONS[np.argmax(probs)]
+            action = ARABIC_ACTIONS[np.argmax(probs)]
             if not sentence or action != sentence[-1]:
                 sentence.append(action)
     sentence = sentence[-5:]  # limit length
     final = ' '.join(sentence) if sentence else '---'
+    arabic_sentence = signs_to_arabic_sentence(final.split())
     print(f"🏁 Final sentence: {final}")
-
-    return final
+    print(f"📝 Translated to Arabic: {arabic_sentence}")
+    return arabic_sentence
+    # return final
 
 if __name__ == "__main__":
-    print("🚀 Launching Uvicorn server on port 5000 with 2 workers")
-    uvicorn.run("app:app", host="0.0.0.0", port=5000, workers=2)
+    print("🚀 Launching Uvicorn server on port 5000 ")
+    uvicorn.run("app:app", host="0.0.0.0", port=5000)

@@ -68,7 +68,7 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
 
   Future<void> _uploadAndTranslate(XFile file) async {
     try {
-      final uri = Uri.parse('http://192.168.1.16:5000/translate_video');
+      final uri = Uri.parse('http://192.168.1.13:5000/translate_video');
       final req = http.MultipartRequest('POST', uri)
         ..files.add(await http.MultipartFile.fromPath('video', file.path));
       final streamed = await req.send();
