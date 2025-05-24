@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class VideoTranslateScreen extends StatefulWidget {
   const VideoTranslateScreen({super.key});
@@ -19,6 +20,15 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
   bool _isTranslating = false;
   String? _translation;
   XFile? _videoFile;
+  final FlutterTts flutterTts = FlutterTts();
+  Future<void> _speakTranslation() async {
+    if (_translation != null && _translation!.isNotEmpty) {
+      await flutterTts.setLanguage("ar-SA"); // Or "en-US", etc.
+      await flutterTts.setPitch(1.0);
+      await flutterTts.setSpeechRate(0.5); // Optional: Adjust speed
+      await flutterTts.speak(_translation!);
+    }
+  }
 
   @override
   void initState() {
@@ -60,7 +70,8 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
       await _uploadAndTranslate(_videoFile!);
     } else {
       final dir = await getTemporaryDirectory();
-      final filePath = '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.mp4';
+      final filePath =
+          '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.mp4';
       await _controller!.startVideoRecording();
       setState(() => _isRecording = true);
     }
@@ -75,7 +86,10 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
       final respStr = await streamed.stream.bytesToString();
 
       setState(() {
-        _translation = streamed.statusCode == 200 ? respStr : 'Error ${streamed.statusCode}';
+        _translation =
+            streamed.statusCode == 200
+                ? respStr
+                : 'Error ${streamed.statusCode}';
         _isTranslating = false;
       });
     } catch (e) {
@@ -109,7 +123,10 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (_isTranslating) ...[
-              Text('Translating...', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              Text(
+                'Translating...',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              ),
               const SizedBox(height: 12),
               CircularProgressIndicator(),
             ] else ...[
@@ -117,6 +134,19 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
                 _translation ?? '',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
+              ),
+              ElevatedButton.icon(
+                onPressed: _speakTranslation,
+                icon: Icon(Icons.volume_up),
+                label: Text('Listen'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
               ElevatedButton.icon(
@@ -132,7 +162,9 @@ class _VideoTranslateScreenState extends State<VideoTranslateScreen> {
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ],
