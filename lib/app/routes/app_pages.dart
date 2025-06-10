@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
-import '../../views/video_translate_screen.dart';
-import '../bindings/video_translate_binding.dart';
+import 'package:sign2/app/bindings/sign_to_text_binding.dart';
+import 'package:sign2/features/sign-to-text/views/sign_to_text_view.dart';
+import 'app_routes.dart';
 
 class AppPages {
-  static const initial = '/';
-
   static final routes = [
     GetPage(
-      name: '/',
-      page: () => VideoTranslateScreen(),
-      binding: VideoTranslateBinding(),
+      name: AppRoutes.videoTranslate,
+      page: () => SignToTextScreen(),
+      binding: SignToTextBinding(),
     ),
   ];
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
+import 'app/routes/app_routes.dart';
 
-void main() {
+void main() async{
   runApp(SignLanguageApp());
 }
 
@@ -12,9 +13,10 @@ class SignLanguageApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Sign Language Recognition',
       theme: ThemeData.dark(),
-      initialRoute: AppPages.initial,
+      initialRoute: AppRoutes.videoTranslate,
       getPages: AppPages.routes,
     );
   }
 }
+
 
