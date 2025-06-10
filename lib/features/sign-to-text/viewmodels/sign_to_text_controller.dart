@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:sign2/core/constants/api_constants.dart';
 
-
 class SignToTextController extends GetxController {
   // Using Rxn for nullable reactive variables
   final cameraController = Rxn<CameraController>();
@@ -89,6 +88,11 @@ class SignToTextController extends GetxController {
       await tts.setSpeechRate(0.5);
       await tts.speak(translation.value!);
     }
+  }
+  ///to be implemented
+  Future<void> translateToMultiLanguage() async {
+    // This method will handle multi-language translation
+    // Implementation will depend on the API or service used for translation
   }
 
   @override
