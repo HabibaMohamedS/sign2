@@ -21,7 +21,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final showTranslation = controller.isTranslating.value || controller.translation.value != null;
+         final showTranslation = controller.isTranslating.value || controller.translatedText.value != null;
 
           return Stack(
             fit: StackFit.expand,
@@ -49,6 +49,22 @@ class SignToTextScreen extends GetView<SignToTextController> {
                     ),
                   ),
                 ),
+
+                 // Exit camera button
+              Positioned(
+                top: 40.h,
+                left: 20.w,
+                child: CircleAvatar(
+                  backgroundColor: Colors.black45,
+                  child: IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white),
+                    onPressed: () {
+                      controller.cameraController.value?.dispose();
+                      Get.back();
+                    },
+                  ),
+                ),
+              ),
 
               // Record button
               if (!showTranslation)
@@ -100,7 +116,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                               Text(
                                 'Translating...',
                                 style: TextStyle(
-                                  fontSize: 18.sp,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.textPrimary,
                                 ),
@@ -121,26 +137,28 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                     Text(
                                       'Translation',
                                       style: TextStyle(
-                                        fontSize: 22.sp,
+                                        fontSize: 26.sp,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.textPrimary,
                                       ),
                                     ),
                                     SizedBox(height: 20.h),
                                     Text(
-                                      controller.translation.value ?? '',
+                                      controller.translatedText.value ?? '',
                                       style: TextStyle(
-                                        fontSize: 22.sp,
-                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w500,
                                         color: AppColors.textPrimary,
                                       ),
                                       textAlign: TextAlign.left,
                                     ),
+                        
                                   ],
                                 ),
                               ),
                               Column(
                                 children: [
+                                  SizedBox(height: 32.h),
                                   FloatingActionButton(
                                     heroTag: 'audio',
                                     mini: true,
@@ -150,22 +168,36 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                     child: Icon(Icons.volume_up, color: AppColors.white, size: 20.sp),
                                   ),
                                   SizedBox(height: 16.h),
-                                  FloatingActionButton(
-                                    heroTag: 'translate',
-                                    mini: true,
-                                    shape: const CircleBorder(),
-                                    backgroundColor: AppColors.darkPurple,
-                                    onPressed: controller.translateToMultiLanguage,
-                                    child: Icon(Icons.translate, color: AppColors.white, size: 20.sp),
+                                  Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.darkPurple,
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
+                                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                  child: DropdownButton<String>(
+                                    value: controller.selectedLanguage.value,
+                                    dropdownColor: AppColors.darkPurple,
+                                    style: const TextStyle(color: Colors.white), // Selected text color
+                                    iconEnabledColor: Colors.white,
+                                    underline: const SizedBox(), // Remove underline
+                                    onChanged: (v) {
+                                      controller.selectedLanguage.value = v!;
+                                      controller.translateToMultiLanguage();
+                                    },
+                                    items: controller.languages.map((lang) => DropdownMenuItem(
+                                      value: lang['code'],
+                                      child: Text(lang['name']!),
+                                    )).toList(),
+                                  ),
+                                )
                                 ],
                               ),
                             ],
                           ),
-                        SizedBox(height: 200.h),
+                        SizedBox(height: 230.h),
                         OutlinedButton(
                           onPressed: () {
-                            controller.translation.value = null;
+                           controller.translatedText.value = null;
                             controller.isRecording.value = false;
                           },
                           style: OutlinedButton.styleFrom(
