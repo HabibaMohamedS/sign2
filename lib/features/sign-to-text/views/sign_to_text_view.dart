@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:camera/camera.dart';
-import 'package:sign2/core/utils/app_colors.dart';
 import 'package:sign2/features/sign-to-text/viewmodels/sign_to_text_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 class SignToTextScreen extends GetView<SignToTextController> {
   const SignToTextScreen({super.key});
 
@@ -118,11 +118,11 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                 style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: AppColors.textPrimary,
+                                  color: AppColors.darkPurple,
                                 ),
                               ),
                               SizedBox(height: 12.h),
-                              const CircularProgressIndicator(color: AppColors.darkPurple),
+                              CircularProgressIndicator(color: AppColors.darkNavy),
                             ],
                           )
                         else
@@ -139,7 +139,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                       style: TextStyle(
                                         fontSize: 26.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.textPrimary,
+                                        color: AppColors.darkNavy,
                                       ),
                                     ),
                                     SizedBox(height: 20.h),
@@ -148,7 +148,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                       style: TextStyle(
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.w500,
-                                        color: AppColors.textPrimary,
+                                        color: AppColors.darkPurple,
                                       ),
                                       textAlign: TextAlign.left,
                                     ),
@@ -163,20 +163,20 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                     heroTag: 'audio',
                                     mini: true,
                                     shape: const CircleBorder(),
-                                    backgroundColor: AppColors.darkPurple,
+                                    backgroundColor: AppColors.darkNavy,
                                     onPressed: controller.speakTranslation,
                                     child: Icon(Icons.volume_up, color: AppColors.white, size: 20.sp),
                                   ),
                                   SizedBox(height: 16.h),
                                   Container(
                                   decoration: BoxDecoration(
-                                    color: AppColors.darkPurple,
+                                    color: AppColors.darkNavy,
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
                                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                                   child: DropdownButton<String>(
                                     value: controller.selectedLanguage.value,
-                                    dropdownColor: AppColors.darkPurple,
+                                    dropdownColor: AppColors.darkNavy,
                                     style: const TextStyle(color: Colors.white), // Selected text color
                                     iconEnabledColor: Colors.white,
                                     underline: const SizedBox(), // Remove underline
@@ -201,7 +201,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                             controller.isRecording.value = false;
                           },
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.darkPurple, width: 2),
+                            side: BorderSide(color: AppColors.darkNavy, width: 2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.r),
                             ),
