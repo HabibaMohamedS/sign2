@@ -30,7 +30,13 @@ class _QuizDetailsScreenState extends State<QuizDetailsScreen> {
 
     _youtubeController = YoutubePlayerController(
       initialVideoId: firstVideoId,
-      flags: const YoutubePlayerFlags(autoPlay: false, mute: false),
+      flags: const YoutubePlayerFlags(
+          autoPlay: true, mute: true,
+          enableCaption: false, hideControls: true,
+          loop: true, controlsVisibleAtStart: false,
+          disableDragSeek: true, showLiveFullscreenButton: false,
+          hideThumbnail: true
+      ),
     );
 
     // Update video when current question index changes
