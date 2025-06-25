@@ -9,4 +9,5 @@ class AppImages {
   static const String onboarding2 = "assets/images/brolearn.png";
   static const String onboarding3 = "assets/images/amico.png";
   static const String splash = "assets/images/Splash Screen.png";
+  static const String defaultAvatar = "assets/images/icon-user.png";
 }

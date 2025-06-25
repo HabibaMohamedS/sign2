@@ -130,10 +130,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   buttonBackgroundColor: AppColors.darkPurple,
                   backgroundColor: Colors.transparent,
                   animationDuration: const Duration(milliseconds: 450),
-                  onTap: (index) {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
+                  onTap: (index) async {
+                    // 1.  Move the bubble immediately
+                  setState(() => _selectedIndex = index);
+
+                  // 2.  Push pages based on index
+                  if (index == 2) {                     // profile
+                    await Get.toNamed(AppRoutes.profile);
+                    // 3.  When you return (user presses back), reset to home
+                    setState(() => _selectedIndex = 1); // 1 = home
+                  } else if (index == 0) {              // settings
+                    //await Get.toNamed(AppRoutes.settings);
+                    setState(() => _selectedIndex = 1);
+                  }
                   },
                   items: List.generate(3, (index) {
                     List<IconData> icons = [
