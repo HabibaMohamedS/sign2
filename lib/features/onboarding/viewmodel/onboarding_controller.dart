@@ -24,6 +24,6 @@ class OnboardingController extends GetxController {
 
   void complete() {
     storage.seenOnboarding = true;
-    Get.toNamed(MainMenuScreen.routeName);
+    Get.offAllNamed(MainMenuScreen.routeName);
   }
 }

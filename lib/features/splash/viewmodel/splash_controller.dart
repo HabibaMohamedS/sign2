@@ -4,23 +4,19 @@ import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/features/onboarding/services/storage_services.dart';
 
 class SplashController extends GetxController {
-  final StorageService storage = Get.find<StorageService>();
-
   @override
-  void onInit() {
-    super.onInit();
-    _navigateAfterDelay();
-  }
+  void onReady() {
+    super.onReady();
+    Get.log('👉 Splash onReady fired');                         // <-- add
+    Future.delayed(const Duration(seconds: 3), () {
+      final storage = Get.find<StorageService>();
+      Get.log('seenOnboarding=${storage.seenOnboarding}');      // <-- add
 
-  void _navigateAfterDelay() async {
-    await Future.delayed(const Duration(seconds: 3));
-    
-    Get.log('seenOnboarding=${storage.seenOnboarding}');
-
-    if (storage.seenOnboarding) {
-      Get.toNamed(MainMenuScreen.routeName);
-    } else {
-      Get.toNamed(AppRoutes.onboardingRoute);
-    }
+      if (storage.seenOnboarding) {
+        Get.offAllNamed(MainMenuScreen.routeName);
+      } else {
+        Get.offAllNamed(AppRoutes.onboardingRoute);             // <- make sure string matches
+      }
+    });
   }
 }

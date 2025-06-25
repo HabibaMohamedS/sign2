@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sign2/app/bindings/binding.dart';
-import 'package:sign2/features/menu/main_menu_screen.dart';
+import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/onboarding/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
 import 'app/routes/app_pages.dart';
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
 
           initialBinding: MyBinding(),
-          initialRoute:MainMenuScreen.routeName,
+          initialRoute:AppRoutes.splash,
           getPages: AppPages.routes,
           // onInit: () {
           //   if (storage.seenOnboarding) {

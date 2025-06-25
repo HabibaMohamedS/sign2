@@ -54,85 +54,87 @@ class _QuizDetailsScreenState extends State<QuizDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F3FF),
-      body: Obx(() {
-        final index = controller.currentQuestionIndex.value;
-        final question = controller.quizQuestions[index];
-        final options = question.options;
-
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.r),
-                    bottomRight: Radius.circular(40.r),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF9F3FF),
+        body: Obx(() {
+          final index = controller.currentQuestionIndex.value;
+          final question = controller.quizQuestions[index];
+          final options = question.options;
+      
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 300.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.r),
+                      bottomRight: Radius.circular(40.r),
+                    ),
+                    border: Border.all(color: Colors.grey.shade400),
                   ),
-                  border: Border.all(color: Colors.grey.shade400),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.r),
-                    bottomRight: Radius.circular(40.r),
-                  ),
-                  child: YoutubePlayer(
-                    controller: _youtubeController,
-                    showVideoProgressIndicator: true,
-                    progressColors: const ProgressBarColors(
-                      playedColor: Colors.deepPurple,
-                      handleColor: Colors.deepPurpleAccent,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.r),
+                      bottomRight: Radius.circular(40.r),
+                    ),
+                    child: YoutubePlayer(
+                      controller: _youtubeController,
+                      showVideoProgressIndicator: true,
+                      progressColors: const ProgressBarColors(
+                        playedColor: Colors.deepPurple,
+                        handleColor: Colors.deepPurpleAccent,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Question ${index + 1}", style: AppTextStyle.QHeader),
-                    SizedBox(height: 8.h),
-                    Text(question.question, style: AppTextStyle.QBody),
-                    SizedBox(height: 20.h),
-                    ...List.generate(options.length, (i) {
-                      return OptionTile(
-                        label: options[i],
-                        index: i,
-                        isSelected: controller.selectedOption.value == i,
-                        isSubmitted: controller.isSubmitted.value,
-                        isCorrect: i == question.correctAnswerIndex,
-                      );
-                    }),
-                    SizedBox(height: 20.h),
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomElevatedButton(
-                        buttonText: controller.isSubmitted.value
-                            ? (index == controller.quizQuestions.length - 1
-                            ? 'Finish'
-                            : 'Next')
-                            : 'Submit',
-                        onPressed: () {
-                          if (!controller.isSubmitted.value) {
-                            controller.submitAnswer();
-                          } else {
-                            controller.goToNextQuestion();
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      }),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Question ${index + 1}", style: AppTextStyle.QHeader),
+                      SizedBox(height: 8.h),
+                      Text(question.question, style: AppTextStyle.QBody),
+                      SizedBox(height: 20.h),
+                      ...List.generate(options.length, (i) {
+                        return OptionTile(
+                          label: options[i],
+                          index: i,
+                          isSelected: controller.selectedOption.value == i,
+                          isSubmitted: controller.isSubmitted.value,
+                          isCorrect: i == question.correctAnswerIndex,
+                        );
+                      }),
+                      SizedBox(height: 20.h),
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomElevatedButton(
+                          buttonText: controller.isSubmitted.value
+                              ? (index == controller.quizQuestions.length - 1
+                              ? 'Finish'
+                              : 'Next')
+                              : 'Submit',
+                          onPressed: () {
+                            if (!controller.isSubmitted.value) {
+                              controller.submitAnswer();
+                            } else {
+                              controller.goToNextQuestion();
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }
