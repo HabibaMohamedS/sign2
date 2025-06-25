@@ -2,13 +2,12 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/Learning_feature/view/learn_sl_screen.dart';
+import 'package:sign2/features/Recommendation%20System/view/learning_centers.dart';
 import 'package:sign2/features/menu/widgets/circular_menu_item.dart';
 import 'package:sign2/support/theme/app_images.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
-
 import '../../support/theme/app_colors.dart';
 
 class MainMenuScreen extends StatefulWidget {
@@ -84,9 +83,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           CircularMenuItem(
                             imagePath: AppImages.discoverPlacesLogo,
                             title: "Discover Places",
-                            onTap: () =>{
-                            //Get.toNamed(AppRoutes.discoverPlaces)
-                           },
+                            onTap: () => Get.toNamed(LearningCenters.routeName)
+                           ,
                           ),
                         ],
                       ),

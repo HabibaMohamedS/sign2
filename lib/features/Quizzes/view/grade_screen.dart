@@ -54,7 +54,7 @@ class GradeScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                        Image.asset(
-                        'assets/images/trophy.png',
+                        'assets/images/Trophy.png',
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: double.infinity,
