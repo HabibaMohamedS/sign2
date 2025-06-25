@@ -8,18 +8,28 @@ import 'package:sign2/features/Quizzes/view/grade_screen.dart';
 import 'package:sign2/features/Quizzes/view/quiz_detsails_screen.dart';
 import 'package:sign2/features/Recommendation%20System/view/learning_centers.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
+import 'package:sign2/features/onboarding/view/onboarding_view.dart';
 import 'package:sign2/features/sign-to-text/views/sign_to_text_view.dart';
+import 'package:sign2/features/splash/view/splash_view.dart';
 import 'app_routes.dart';
 
 class AppPages {
   static final List<GetPage> routes = [
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => SplashView(),
+    ),
+    GetPage(
+      name: AppRoutes.onboardingRoute,
+      page: () => const OnboardingView(),
+    ),
     GetPage(
       name: AppRoutes.videoTranslate,
       page: () => SignToTextScreen(),
       binding: SignToTextBinding(),
     ),
     GetPage(
-      name: '/mainMenu',
+      name: MainMenuScreen.routeName,
       page: () => const MainMenuScreen(),
     ),
     GetPage(

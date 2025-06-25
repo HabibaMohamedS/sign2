@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sign2/app/bindings/binding.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
+import 'package:sign2/features/onboarding/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
 import 'app/routes/app_pages.dart';
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  Get.put(StorageService(), permanent: true);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
         );
+        // final storage = Get.find<StorageService>();
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
@@ -48,26 +53,17 @@ class MyApp extends StatelessWidget {
           initialBinding: MyBinding(),
           initialRoute:MainMenuScreen.routeName,
           getPages: AppPages.routes,
+          // onInit: () {
+          //   if (storage.seenOnboarding) {
+          //     Get.offAllNamed(MainMenuScreen.routeName);
+          //   }
+          // },
         //  home: const MainMenuScreen(),
         
         );
       },
-
-      //const CategoryDetailsScreen(),
     );
   }
 }
-
-// class SignLanguageApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       title: 'Sign Language Recognition',
-//       theme: ThemeData.dark(),
-//       initialRoute: AppRoutes.videoTranslate,
-//       getPages: AppPages.routes,
-//     );
-//   }
-//}
 
 
