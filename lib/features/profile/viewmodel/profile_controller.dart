@@ -12,7 +12,7 @@ class ProfileController extends GetxController {
   RxString   phone       = ''.obs;
   Rx<DateTime?> dob      = Rx<DateTime?>(null);
 
-  // Non‑editable field (mock)
+  // Non‑editable field 
   String get email => '';
 
   /// Pick from camera / gallery

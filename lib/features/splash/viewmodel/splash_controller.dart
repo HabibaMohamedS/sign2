@@ -7,15 +7,14 @@ class SplashController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    Get.log('👉 Splash onReady fired');                         // <-- add
     Future.delayed(const Duration(seconds: 3), () {
       final storage = Get.find<StorageService>();
-      Get.log('seenOnboarding=${storage.seenOnboarding}');      // <-- add
+      Get.log('seenOnboarding=${storage.seenOnboarding}');     
 
       if (storage.seenOnboarding) {
         Get.offAllNamed(MainMenuScreen.routeName);
       } else {
-        Get.offAllNamed(AppRoutes.onboardingRoute);             // <- make sure string matches
+        Get.offAllNamed(AppRoutes.onboardingRoute);            
       }
     });
   }
