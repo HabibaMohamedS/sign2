@@ -1,27 +1,4 @@
  import 'package:get/get.dart';
-//
-// import '../view/grade_screen.dart';
-//
-// class QuizController extends GetxController {
-//   RxInt selectedOption = 0.obs;
-//
-//   final List<String> options = [
-//     'Egypt',
-//     'Qatar',
-//     'Saudi Arabia',
-//     'Libya',
-//   ];
-//
-//   void selectOption(int index) {
-//     selectedOption.value = index;
-//   }
-//
-//   void submitAnswer() {
-//     // Handle the submission logic here
-//     Get.toNamed(GradeScreen.routeName);//we will pass data soon to the grade screen (correct and incorrect)
-//     print('Selected Option: ${options[selectedOption.value]}');
-//   }
-// }
 import 'dart:math';
 
 import '../../Learning_feature/model/models/lesson_model.dart';
