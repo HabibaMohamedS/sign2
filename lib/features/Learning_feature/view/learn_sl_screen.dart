@@ -101,43 +101,43 @@ class _LearnSlScreenState extends State<LearnSlScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(18.0.h),
-                        child: Text("Quick start", style: AppTextStyle.titles),
+                        child: Text("Learn ASL 🌟", style: AppTextStyle.titles),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(18.0.h),
-                        child: Stack(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(right: 125.w),
-                              height: 130.h,
-                              width: double.infinity,
-                              child: Text(
-                                "Want to continue from where you left off ? Click start !",
-                                style: AppTextStyle.caption,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  backgroundColor: AppColors.darkNavy,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 20.h, horizontal: 35.w),
-                                ),
-                                child: Text(
-                                  "Start",
-                                  style: AppTextStyle.buttonLabel,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.all(18.0.h),
+                      //   child: Stack(
+                      //     children: [
+                      //       Container(
+                      //         padding: EdgeInsets.only(right: 125.w),
+                      //         height: 130.h,
+                      //         width: double.infinity,
+                      //         child: Text(
+                      //           "Want to continue from where you left off ? Click start !",
+                      //           style: AppTextStyle.caption,
+                      //         ),
+                      //       ),
+                      //       Positioned(
+                      //         bottom: 0,
+                      //         right: 0,
+                      //         child: ElevatedButton(
+                      //           onPressed: () {},
+                      //           style: ElevatedButton.styleFrom(
+                      //             shape: RoundedRectangleBorder(
+                      //               borderRadius: BorderRadius.circular(10.r),
+                      //             ),
+                      //             backgroundColor: AppColors.darkNavy,
+                      //             padding: EdgeInsets.symmetric(
+                      //                 vertical: 20.h, horizontal: 35.w),
+                      //           ),
+                      //           child: Text(
+                      //             "Start",
+                      //             style: AppTextStyle.buttonLabel,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Padding(
                         padding: EdgeInsets.all(18.0.h), //.h
       
@@ -161,14 +161,7 @@ class _LearnSlScreenState extends State<LearnSlScreen> {
                                 "Find out how to do Arabic ${category['title']} in ArSL.",
                             categoryName: category['title'],
                             onTap: () {
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   CategoryDetailsScreen.routeName,
-                              //   arguments: {
-                              //     'playlistId': category['id'],
-                              //     'title': category['title'],
-                              //   },
-                              // );
+                              
                               Get.toNamed(
                                 CategoryDetailsScreen.routeName,
                                 arguments: {
@@ -176,8 +169,7 @@ class _LearnSlScreenState extends State<LearnSlScreen> {
                                   'title': category['title'],
                                 },
                               );
-                              print("Tapped on category: ${category['id']}");
-                              // Navigate or fetch lessons here
+                                // Navigate or fetch lessons here
                             },
                           );
                         }).toList(),
@@ -197,6 +189,15 @@ class _LearnSlScreenState extends State<LearnSlScreen> {
                               padding: EdgeInsets.all(8.0.h),
                               child: PopularCategorySliderCard(
                                 title: category['title'],
+                                onTap: (){
+                                  Get.toNamed(
+                                CategoryDetailsScreen.routeName,
+                                arguments: {
+                                  'playlistId': category['id'],
+                                  'title': category['title'],
+                                },
+                              );
+                                },
                               ),
                             );
                           },
