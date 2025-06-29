@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sign2/features/Recommendation%20System/model/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/support/custom_widgets/custom_centers_card.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
+
+///TODO :add responsiveness ti=o the screen
 class LearningCenters extends StatelessWidget {
   static const String routeName = "/learningCentersScreen";
   const LearningCenters({super.key});

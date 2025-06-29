@@ -6,7 +6,8 @@ import 'package:sign2/support/theme/app_text_styles.dart';
 class CenterDetailsScreen extends StatelessWidget {
   final LearningCenter center;
   const CenterDetailsScreen({super.key, required this.center});
-
+  ///TODO:add responsiveness to the screen 
+  ///the texts style is aleady defined in another file 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
