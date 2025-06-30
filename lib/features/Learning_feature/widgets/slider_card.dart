@@ -19,7 +19,7 @@ class SliderCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(18.w),
             height: 306.h,
-            width: 267.w,
+            width: 290.w,
             decoration: BoxDecoration(
               color:AppColors.darkNavy,
               borderRadius: BorderRadius.circular(32.r),

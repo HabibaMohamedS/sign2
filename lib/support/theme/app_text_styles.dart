@@ -25,7 +25,7 @@ class AppTextStyle{
     color: AppColors.darkNavy,
   );
   static  TextStyle menuItemText = TextStyle(
-    fontSize: 22.sp,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w700,
     fontFamily: 'Poppins',
     color: AppColors.darkNavy,
@@ -34,6 +34,7 @@ class AppTextStyle{
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     color:AppColors.darkNavy,
+    fontFamily: 'Poppins',
     height: 2,
     wordSpacing: 1.5,
   );
@@ -42,24 +43,28 @@ class AppTextStyle{
     fontSize: 12.sp,
     fontWeight: FontWeight.normal,
     color: AppColors.buttonTextColor,
+    fontFamily: 'Poppins',
     height: 1.5
   );
 
   static  TextStyle buttonText = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    fontFamily: 'Poppins',
     color: Colors.white,
   );
 
   static TextStyle QHeader = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
     color: AppColors.darkNavy,
   );
 
   static TextStyle QBody = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    fontFamily: 'Poppins',
     color: AppColors.darkNavy,
   );
 }
