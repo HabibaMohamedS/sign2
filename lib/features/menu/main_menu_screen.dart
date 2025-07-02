@@ -43,7 +43,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           body: Stack(children: [
             Positioned.fill(
               child: Image.asset(
-                AppImages.backgroundImage, // Replace with your image path
+                AppImages.backgroundImage, 
                 fit: BoxFit.cover,
               ),
             ),
