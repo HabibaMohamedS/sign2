@@ -195,7 +195,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                 ),
                               ],
                             ),
-                          SizedBox(height: 230.h),
+                          SizedBox(height: 150.h),
                           OutlinedButton(
                             onPressed: () {
                              controller.translatedText.value = null;
