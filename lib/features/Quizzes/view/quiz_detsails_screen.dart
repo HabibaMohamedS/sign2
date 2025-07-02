@@ -21,6 +21,9 @@ class QuizDetailsScreen extends StatelessWidget {
     final String playlistId = args['playlistId'];
     final String title = args['title'];
 
+    controller.playlistId = playlistId;
+    controller.title = title;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFF9F3FF),
@@ -55,12 +58,14 @@ class QuizDetailsScreen extends StatelessWidget {
                       Text(question.question, style: AppTextStyle.QBody),
                       SizedBox(height: 20.h),
                       ...List.generate(options.length, (i) {
-                        return OptionTile(
+                        return Obx(()=>OptionTile(
                           label: options[i],
                           index: i,
                           isSelected: controller.selectedOption.value == i,
                           isSubmitted: controller.isSubmitted.value,
                           isCorrect: i == question.correctAnswerIndex,
+                          controller: controller,
+                        )
                         );
                       }),
                       SizedBox(height: 20.h),
