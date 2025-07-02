@@ -21,86 +21,84 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   @override
   Widget build(BuildContext context) {
     final tabs = const [SettingsView(), HomeView(), ProfileView()];
-    return SafeArea(
-      child: Scaffold(
-          extendBodyBehindAppBar:
-              true, // Optional, if you want the image under the AppBar too
-          appBar: AppBar(
-            title: Image.asset(AppImages.logo),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  size: 35.sp,
-                  color: AppColors.darkPurple,
-                ),
-                onPressed: () {},
-              )
+    return Scaffold(
+        extendBodyBehindAppBar:
+            true, // Optional, if you want the image under the AppBar too
+        appBar: AppBar(
+          title: Image.asset(AppImages.logo),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.notifications,
+                size: 35.sp,
+                color: AppColors.darkPurple,
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
+        body: Stack(children: [
+          Positioned.fill(
+            child: Image.asset(
+              AppImages.backgroundImage, 
+              fit: BoxFit.cover,
+            ),
+          ),
+          // tab content
+          Padding(
+            padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: tabs,
+            ),
+          ),]),
+          bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(11, 183, 140, 240), // Adjust opacity
+                blurRadius: 50, // Very blurred shadow
+                spreadRadius: 0,
+                offset: Offset(0, -6), // Soft upward shadow
+              ),
             ],
           ),
-          body: Stack(children: [
-            Positioned.fill(
-              child: Image.asset(
-                AppImages.backgroundImage, 
-                fit: BoxFit.cover,
-              ),
-            ),
-            // tab content
-            Padding(
-              padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
-              child: IndexedStack(
+          child: Material(
+            color: Colors.transparent,
+            child: CurvedNavigationBar(
+                height: 75.h,
                 index: _selectedIndex,
-                children: tabs,
-              ),
-            ),]),
-            bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(11, 183, 140, 240), // Adjust opacity
-                  blurRadius: 50, // Very blurred shadow
-                  spreadRadius: 0,
-                  offset: Offset(0, -6), // Soft upward shadow
-                ),
-              ],
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: CurvedNavigationBar(
-                  height: 75.h,
-                  index: _selectedIndex,
-                  // color: Color.fromARGB(172, 183, 140, 240),
-                  color: const Color.fromARGB(63, 255, 255, 255),
-                  // color:Color.fromARGB(73, 203, 169, 248),
-                  //buttonBackgroundColor:  Color.fromARGB(157, 141, 73, 230),
-                  buttonBackgroundColor: AppColors.darkPurple,
-                  backgroundColor: Colors.transparent,
-                  animationDuration: const Duration(milliseconds: 450),
-                  onTap: (index)  => setState(() => _selectedIndex = index),
-                  items: List.generate(3, (index) {
-                    List<IconData> icons = [
-                      Icons.settings,
-                      Icons.home,
-                      Icons.person
-                    ];
-                    final isSelected = _selectedIndex == index;
-      
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          icons[index],
-                          size: isSelected ? 40 : 30,
-                          color: isSelected ? Colors.white : AppColors.orange,
-                        ),
-                      ],
-                    );
-                  })),
-            ),
-          )),
-    );
+                // color: Color.fromARGB(172, 183, 140, 240),
+                color: const Color.fromARGB(63, 255, 255, 255),
+                // color:Color.fromARGB(73, 203, 169, 248),
+                //buttonBackgroundColor:  Color.fromARGB(157, 141, 73, 230),
+                buttonBackgroundColor: AppColors.darkPurple,
+                backgroundColor: Colors.transparent,
+                animationDuration: const Duration(milliseconds: 450),
+                onTap: (index)  => setState(() => _selectedIndex = index),
+                items: List.generate(3, (index) {
+                  List<IconData> icons = [
+                    Icons.settings,
+                    Icons.home,
+                    Icons.person
+                  ];
+                  final isSelected = _selectedIndex == index;
+    
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icons[index],
+                        size: isSelected ? 40 : 30,
+                        color: isSelected ? Colors.white : AppColors.orange,
+                      ),
+                    ],
+                  );
+                })),
+          ),
+        ));
   }
 }
 

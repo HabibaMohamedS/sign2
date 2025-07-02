@@ -77,137 +77,135 @@ class _LearnSlScreenState extends State<LearnSlScreen> {
     final popularCategories = [..._categories]..shuffle();
     final selectedPopular = popularCategories.take(10).toList();
 
-    return SafeArea(
-      child: Scaffold(
-        body: _isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(18.0.h),
-                        child: Text("Your Progress", style: AppTextStyle.titles),
+    return Scaffold(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(18.0.h),
+                      child: Text("Your Progress", style: AppTextStyle.titles),
+                    ),
+                    LinearProgressIndicator(
+                      value: 0.5,
+                      backgroundColor: const Color.fromARGB(62, 158, 158, 158),
+                      borderRadius: BorderRadius.circular(32.r),
+                      color: AppColors.orange,
+                      minHeight: 32.0.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(18.0.h),
+                      child: Text("Learn ASL 🌟", style: AppTextStyle.titles),
+                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.all(18.0.h),
+                    //   child: Stack(
+                    //     children: [
+                    //       Container(
+                    //         padding: EdgeInsets.only(right: 125.w),
+                    //         height: 130.h,
+                    //         width: double.infinity,
+                    //         child: Text(
+                    //           "Want to continue from where you left off ? Click start !",
+                    //           style: AppTextStyle.caption,
+                    //         ),
+                    //       ),
+                    //       Positioned(
+                    //         bottom: 0,
+                    //         right: 0,
+                    //         child: ElevatedButton(
+                    //           onPressed: () {},
+                    //           style: ElevatedButton.styleFrom(
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(10.r),
+                    //             ),
+                    //             backgroundColor: AppColors.darkNavy,
+                    //             padding: EdgeInsets.symmetric(
+                    //                 vertical: 20.h, horizontal: 35.w),
+                    //           ),
+                    //           child: Text(
+                    //             "Start",
+                    //             style: AppTextStyle.buttonLabel,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(18.0.h), //.h
+    
+                      child: Text("Categories", style: AppTextStyle.titles),
+                    ),
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 302.h,
+                        aspectRatio: 302 / 267,
+                        initialPage: 1,
+                        enlargeCenterPage: true,
+                        enableInfiniteScroll: false,
+                        viewportFraction: 0.7,
+                        scrollDirection: Axis.horizontal,
                       ),
-                      LinearProgressIndicator(
-                        value: 0.5,
-                        backgroundColor: const Color.fromARGB(62, 158, 158, 158),
-                        borderRadius: BorderRadius.circular(32.r),
-                        color: AppColors.orange,
-                        minHeight: 32.0.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(18.0.h),
-                        child: Text("Learn ASL 🌟", style: AppTextStyle.titles),
-                      ),
-                      // Padding(
-                      //   padding: EdgeInsets.all(18.0.h),
-                      //   child: Stack(
-                      //     children: [
-                      //       Container(
-                      //         padding: EdgeInsets.only(right: 125.w),
-                      //         height: 130.h,
-                      //         width: double.infinity,
-                      //         child: Text(
-                      //           "Want to continue from where you left off ? Click start !",
-                      //           style: AppTextStyle.caption,
-                      //         ),
-                      //       ),
-                      //       Positioned(
-                      //         bottom: 0,
-                      //         right: 0,
-                      //         child: ElevatedButton(
-                      //           onPressed: () {},
-                      //           style: ElevatedButton.styleFrom(
-                      //             shape: RoundedRectangleBorder(
-                      //               borderRadius: BorderRadius.circular(10.r),
-                      //             ),
-                      //             backgroundColor: AppColors.darkNavy,
-                      //             padding: EdgeInsets.symmetric(
-                      //                 vertical: 20.h, horizontal: 35.w),
-                      //           ),
-                      //           child: Text(
-                      //             "Start",
-                      //             style: AppTextStyle.buttonLabel,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.all(18.0.h), //.h
-      
-                        child: Text("Categories", style: AppTextStyle.titles),
-                      ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: 302.h,
-                          aspectRatio: 302 / 267,
-                          initialPage: 1,
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: false,
-                          viewportFraction: 0.7,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                        //for each category in categories
-                        items: _categories.map((category) {
-                          //Find out how to do Arabic letters in ArSL.
-                          return SliderCard(
-                            cardContent:
-                                "Find out how to do Arabic ${category['title']} in ArSL.",
-                            categoryName: category['title'],
-                            onTap: () {
-                              
-                              Get.toNamed(
-                                CategoryDetailsScreen.routeName,
-                                arguments: {
-                                  'playlistId': category['id'],
-                                  'title': category['title'],
-                                },
-                              );
-                                // Navigate or fetch lessons here
-                            },
-                          );
-                        }).toList(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(18.0.sp),
-                        child: Text("Popular", style: AppTextStyle.titles),
-                      ),
-                      SizedBox(
-                        height: 250.h,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: selectedPopular.length,
-                          itemBuilder: (context, index) {
-                            final category = selectedPopular[index];
-                            return Padding(
-                              padding: EdgeInsets.all(8.0.h),
-                              child: PopularCategorySliderCard(
-                                title: category['title'],
-                                onTap: (){
-                                  Get.toNamed(
-                                CategoryDetailsScreen.routeName,
-                                arguments: {
-                                  'playlistId': category['id'],
-                                  'title': category['title'],
-                                },
-                              );
-                                },
-                              ),
+                      //for each category in categories
+                      items: _categories.map((category) {
+                        //Find out how to do Arabic letters in ArSL.
+                        return SliderCard(
+                          cardContent:
+                              "Find out how to do Arabic ${category['title']} in ArSL.",
+                          categoryName: category['title'],
+                          onTap: () {
+                            
+                            Get.toNamed(
+                              CategoryDetailsScreen.routeName,
+                              arguments: {
+                                'playlistId': category['id'],
+                                'title': category['title'],
+                              },
                             );
+                              // Navigate or fetch lessons here
                           },
-                        ),
+                        );
+                      }).toList(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(18.0.sp),
+                      child: Text("Popular", style: AppTextStyle.titles),
+                    ),
+                    SizedBox(
+                      height: 250.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: selectedPopular.length,
+                        itemBuilder: (context, index) {
+                          final category = selectedPopular[index];
+                          return Padding(
+                            padding: EdgeInsets.all(8.0.h),
+                            child: PopularCategorySliderCard(
+                              title: category['title'],
+                              onTap: (){
+                                Get.toNamed(
+                              CategoryDetailsScreen.routeName,
+                              arguments: {
+                                'playlistId': category['id'],
+                                'title': category['title'],
+                              },
+                            );
+                              },
+                            ),
+                          );
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-      ),
+            ),
     );
   }
 }
