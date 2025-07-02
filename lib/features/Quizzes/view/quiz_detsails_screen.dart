@@ -92,7 +92,7 @@ class QuizDetailsScreen extends StatelessWidget {
                         child: CustomElevatedButton(
                             buttonText: 'Back',
                             onPressed: (){
-                              Get.toNamed(
+                              Get.offAllNamed(
                                 CategoryDetailsScreen.routeName,
                                 arguments: {
                                   'playlistId': playlistId,
