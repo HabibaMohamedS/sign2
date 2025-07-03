@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gp_dictionary/features/Auth/Controller/firebase_auth.dart';
-import 'package:gp_dictionary/features/Auth/model/UserModel.dart';
-import 'package:gp_dictionary/support/theme/app_colors.dart';
+import 'package:sign2/features/Auth/Controller/firebase_auth.dart';
+import 'package:sign2/features/Auth/model/UserModel.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 
 class SignUpStep2 extends StatefulWidget {
   final List<String> userData;
@@ -29,12 +29,13 @@ class _SignUpStep2State extends State<SignUpStep2> {
   void _onContinue() async {
     if (_formKey.currentState!.validate()) {
       UserModel user = UserModel(
-          username: widget.userData[0],
-          email: widget.userData[1],
-          password: widget.userData[2],
-          government: _govController.text,
-          address: _addressController.text,
-          phoneNumber: _phoneController.text);
+        username: widget.userData[0],
+        email: widget.userData[1],
+        password: widget.userData[2],
+        government: _govController.text,
+        address: _addressController.text,
+        phoneNumber: _phoneController.text,
+      );
       FirebaseAuthentication auth = FirebaseAuthentication();
       String result = await auth.register(user);
       print(result);
@@ -72,7 +73,9 @@ class _SignUpStep2State extends State<SignUpStep2> {
                         // Top Section
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 16),
+                            horizontal: 24,
+                            vertical: 16,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -107,7 +110,9 @@ class _SignUpStep2State extends State<SignUpStep2> {
                               const Text(
                                 "Step 2 out of 2",
                                 style: TextStyle(
-                                    fontSize: 14, color: Colors.black54),
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               SizedBox(
@@ -116,11 +121,15 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                        child: Container(
-                                            color: Colors.deepPurple)),
+                                      child: Container(
+                                        color: Colors.deepPurple,
+                                      ),
+                                    ),
                                     Expanded(
-                                        child: Container(
-                                            color: Colors.deepPurple)),
+                                      child: Container(
+                                        color: Colors.deepPurple,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -132,69 +141,85 @@ class _SignUpStep2State extends State<SignUpStep2> {
                         Expanded(
                           child: Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
                               child: Form(
                                 key: _formKey,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextFormField(
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       controller: _govController,
                                       decoration: InputDecoration(
                                         labelText: 'Government',
                                         hintText: 'Enter Government',
                                         prefixIcon: const Icon(
-                                            Icons.location_on_outlined),
+                                          Icons.location_on_outlined,
+                                        ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
-                                      validator: (value) => value!.isEmpty
-                                          ? 'Please enter your government'
-                                          : null,
+                                      validator:
+                                          (value) =>
+                                              value!.isEmpty
+                                                  ? 'Please enter your government'
+                                                  : null,
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       controller: _addressController,
                                       decoration: InputDecoration(
                                         labelText: 'Address',
                                         hintText: 'Enter Address',
-                                        prefixIcon:
-                                            const Icon(Icons.home_outlined),
+                                        prefixIcon: const Icon(
+                                          Icons.home_outlined,
+                                        ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
-                                      validator: (value) => value!.isEmpty
-                                          ? 'Please enter your address'
-                                          : null,
+                                      validator:
+                                          (value) =>
+                                              value!.isEmpty
+                                                  ? 'Please enter your address'
+                                                  : null,
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       controller: _phoneController,
                                       keyboardType: TextInputType.phone,
                                       decoration: InputDecoration(
                                         labelText: 'Phone number',
                                         hintText: 'Enter Phone number',
-                                        prefixIcon:
-                                            const Icon(Icons.phone_outlined),
+                                        prefixIcon: const Icon(
+                                          Icons.phone_outlined,
+                                        ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
-                                      validator: (value) => value!.isEmpty
-                                          ? 'Please enter your phone number'
-                                          : null,
+                                      validator:
+                                          (value) =>
+                                              value!.isEmpty
+                                                  ? 'Please enter your phone number'
+                                                  : null,
                                     ),
                                   ],
                                 ),
@@ -212,8 +237,9 @@ class _SignUpStep2State extends State<SignUpStep2> {
                               onPressed: _onContinue,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -221,11 +247,13 @@ class _SignUpStep2State extends State<SignUpStep2> {
                               child: const Text(
                                 'Continue',
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

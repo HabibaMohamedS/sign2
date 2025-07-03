@@ -1,9 +1,10 @@
- import 'package:get/get.dart';
 import 'dart:math';
-
+import 'package:get/get.dart';
+import '../../Learning_feature/model/data_sources/firebase_data_source.dart';
 import '../../Learning_feature/model/models/lesson_model.dart';
 import '../model/quiz_model.dart';
 import '../view/grade_screen.dart';
+import '../view/quiz_detsails_screen.dart';
 
 class QuizController extends GetxController {
   RxList<QuizQuestion> quizQuestions = <QuizQuestion>[].obs;
@@ -13,31 +14,28 @@ class QuizController extends GetxController {
   RxInt correctAnswersCount = 0.obs;
   RxInt incorrectAnswersCount = 0.obs;
 
-
   List<LessonModel> allLessons = [];
+
+  late String playlistId;
+  late String title;
 
   Future<void> generateQuiz(List<LessonModel> lessons) async {
     allLessons = lessons;
 
-    final random = Random();
     final questions = <QuizQuestion>[];
 
     for (var lesson in lessons) {
       final correctTitle = lesson.title ?? "Unknown";
 
-      // Get other random titles (wrong answers)
-      final otherLessons = List<LessonModel>.from(lessons)
-        ..remove(lesson);
-
+      final otherLessons = List<LessonModel>.from(lessons)..remove(lesson);
       otherLessons.shuffle();
+
       final wrongTitles = otherLessons
           .take(3)
           .map((e) => e.title ?? "Wrong Option")
           .toList();
 
-      // Combine correct + wrong titles
       final allOptions = [...wrongTitles, correctTitle]..shuffle();
-
       final correctIndex = allOptions.indexOf(correctTitle);
 
       questions.add(QuizQuestion(
@@ -45,12 +43,45 @@ class QuizController extends GetxController {
         options: allOptions,
         correctAnswerIndex: correctIndex,
         videoUrl: lesson.videoId ?? "",
-        //  videoUrl: "https://www.youtube.com/watch?v=2vaIeTRA0iw"
-
       ));
     }
 
     quizQuestions.value = questions;
+
+    // Reset state
+    selectedOption.value = -1;
+    currentQuestionIndex.value = 0;
+    isSubmitted.value = false;
+    correctAnswersCount.value = 0;
+    incorrectAnswersCount.value = 0;
+  }
+
+  Future<void> generateQuizFromPlaylist({
+    required String playlistId,
+    required String title,
+  }) async {
+
+    resetQuiz();
+    this.playlistId = playlistId;
+    this.title = title;
+
+    final dataSource = FirebaseDataSource();
+    final allLessons = await dataSource.fetchLessons(playlistId);
+    allLessons.shuffle();
+
+    final quizLessons = allLessons.length > 10
+        ? allLessons.take(10).toList()
+        : allLessons;
+
+    await generateQuiz(quizLessons);
+
+    Get.offAllNamed(
+      QuizDetailsScreen.routeName,
+      arguments: {
+        'playlistId': playlistId,
+        'title': title,
+      },
+    );
   }
 
   void selectOption(int index) {
@@ -63,12 +94,14 @@ class QuizController extends GetxController {
   }
 
   void submitAnswer() {
-    if (selectedOption.value == -1) return; // Prevent submitting if nothing selected
+    if (selectedOption.value == -1) return;
+
     if (isAnswerCorrect()) {
       correctAnswersCount++;
     } else {
       incorrectAnswersCount++;
     }
+
     isSubmitted.value = true;
   }
 
@@ -77,21 +110,31 @@ class QuizController extends GetxController {
       currentQuestionIndex.value++;
       selectedOption.value = -1;
       isSubmitted.value = false;
-    }else{
-      // End of quiz → Navigate to GradeScreen
+    } else {
       Get.offNamed(
         GradeScreen.routeName,
         arguments: {
           'correct': correctAnswersCount.value,
           'incorrect': incorrectAnswersCount.value,
+          'playlistId': playlistId,
+          'title': title,
         },
       );
     }
+  }
+
+  void resetQuiz() {
+    selectedOption.value = -1;
+    currentQuestionIndex.value = 0;
+    isSubmitted.value = false;
+    correctAnswersCount.value = 0;
+    incorrectAnswersCount.value = 0;
+    quizQuestions.clear();
+    allLessons.clear();
   }
 
   String get currentVideoId {
     final index = currentQuestionIndex.value;
     return allLessons[index].videoId ?? '';
   }
-
 }

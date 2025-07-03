@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:gp_dictionary/support/theme/app_colors.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 import 'sign_up_step2.dart';
 import 'welcome_screen.dart';
 
@@ -48,7 +48,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                         // Top Section (Back + Title + Step)
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 16),
+                            horizontal: 24,
+                            vertical: 16,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -59,7 +61,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => const WelcomeScreen()),
+                                      builder: (_) => const WelcomeScreen(),
+                                    ),
                                   );
                                 },
                               ),
@@ -76,7 +79,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                               const Text(
                                 "Step 1 out of 2",
                                 style: TextStyle(
-                                    fontSize: 14, color: Colors.black54),
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               SizedBox(
@@ -85,11 +90,15 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                        child: Container(
-                                            color: Colors.deepPurple)),
+                                      child: Container(
+                                        color: Colors.deepPurple,
+                                      ),
+                                    ),
                                     Expanded(
-                                        child: Container(
-                                            color: Colors.grey.shade300)),
+                                      child: Container(
+                                        color: Colors.grey.shade300,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -101,8 +110,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                         Expanded(
                           child: Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
                               child: Form(
                                 key: _formKey,
                                 child: Column(
@@ -116,16 +126,19 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           return null;
                                         }
                                       },
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       decoration: InputDecoration(
                                         labelText: 'Username',
                                         hintText: 'Enter Username',
-                                        prefixIcon:
-                                            const Icon(Icons.person_outline),
+                                        prefixIcon: const Icon(
+                                          Icons.person_outline,
+                                        ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -138,16 +151,19 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           return null;
                                         }
                                       },
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       decoration: InputDecoration(
                                         labelText: 'Email',
                                         hintText: 'Enter Email',
-                                        prefixIcon:
-                                            const Icon(Icons.email_outlined),
+                                        prefixIcon: const Icon(
+                                          Icons.email_outlined,
+                                        ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -161,18 +177,22 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                         }
                                       },
                                       controller: password,
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       obscureText: !_isPasswordVisible,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
                                         hintText: 'Enter Password',
-                                        prefixIcon:
-                                            const Icon(Icons.lock_outline),
+                                        prefixIcon: const Icon(
+                                          Icons.lock_outline,
+                                        ),
                                         suffixIcon: IconButton(
-                                          icon: Icon(_isPasswordVisible
-                                              ? Icons.visibility
-                                              : Icons.visibility_off),
+                                          icon: Icon(
+                                            _isPasswordVisible
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                          ),
                                           onPressed: () {
                                             setState(() {
                                               _isPasswordVisible =
@@ -181,8 +201,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           },
                                         ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -198,18 +219,22 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           return null;
                                         }
                                       },
-                                      style:
-                                          TextStyle(color: AppColors.darkNavy),
+                                      style: TextStyle(
+                                        color: AppColors.darkNavy,
+                                      ),
                                       obscureText: !_isConfirmPasswordVisible,
                                       decoration: InputDecoration(
                                         labelText: 'Confirm password',
                                         hintText: 'Confirm-password',
-                                        prefixIcon:
-                                            const Icon(Icons.lock_outline),
+                                        prefixIcon: const Icon(
+                                          Icons.lock_outline,
+                                        ),
                                         suffixIcon: IconButton(
-                                          icon: Icon(_isConfirmPasswordVisible
-                                              ? Icons.visibility
-                                              : Icons.visibility_off),
+                                          icon: Icon(
+                                            _isConfirmPasswordVisible
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                          ),
                                           onPressed: () {
                                             setState(() {
                                               _isConfirmPasswordVisible =
@@ -218,8 +243,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           },
                                         ),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -241,20 +267,23 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUpStep2(
-                                              userData: [
-                                                username.text,
-                                                email.text,
-                                                password.text
-                                              ],
-                                            )),
+                                      builder:
+                                          (context) => SignUpStep2(
+                                            userData: [
+                                              username.text,
+                                              email.text,
+                                              password.text,
+                                            ],
+                                          ),
+                                    ),
                                   );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -262,7 +291,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                               child: const Text(
                                 'Continue',
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

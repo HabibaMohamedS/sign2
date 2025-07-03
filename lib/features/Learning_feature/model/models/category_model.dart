@@ -2,26 +2,26 @@ class CategoryModel {
   String? playlistId;
   String? title;
   String? thumbnail;
-  String? timestamp;
+  // DateTime? timestamp;
 
   CategoryModel({
     this.playlistId,
     this.title,
     this.thumbnail,
-    this.timestamp,
+    // this.timestamp,
   });
-  CategoryModel.fromJson(Map<String, dynamic> json) {
+  CategoryModel.fromJson( Map<String, dynamic> json) {
     playlistId = json['playlistId'];
     title = json['title'];
     thumbnail = json['thumbnail'];
-    timestamp = json['timestamp'];
+    // timestamp = json['timestamp'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['playlistId'] = playlistId;
     data['title'] = title;
     data['thumbnail'] = thumbnail;
-    data['timestamp'] = timestamp;
+   // data['timestamp'] = timestamp;
     return data;
   }
 

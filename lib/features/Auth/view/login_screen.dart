@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gp_dictionary/features/Auth/view/sign_up_screen.dart';
-import 'package:gp_dictionary/support/theme/app_colors.dart';
+import 'package:sign2/features/Auth/view/sign_up_screen.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 
 // or wherever your Register screen is
 
@@ -73,9 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator: (value) => value!.isEmpty
-                          ? 'Please enter your email or username'
-                          : null,
+                      validator:
+                          (value) =>
+                              value!.isEmpty
+                                  ? 'Please enter your email or username'
+                                  : null,
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -101,8 +103,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? 'Please enter your password' : null,
+                      validator:
+                          (value) =>
+                              value!.isEmpty
+                                  ? 'Please enter your password'
+                                  : null,
                     ),
                   ],
                 ),
@@ -139,17 +144,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUpStep1()),
-                              (route) => false);
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpStep1(),
+                            ),
+                            (route) => false,
+                          );
                         },
                         child: Text(
                           "Register",
-                          style: TextStyle(
-                            color: AppColors.darkNavy,
-                          ),
+                          style: TextStyle(color: AppColors.darkNavy),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20), // Add bottom padding

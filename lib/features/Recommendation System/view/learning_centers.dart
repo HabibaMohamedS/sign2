@@ -1,160 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:gp_dictionary/features/Recommendation%20System/controller/firebase_operations.dart';
-import 'package:gp_dictionary/features/Recommendation%20System/model/learning_center_model.dart';
-import 'package:gp_dictionary/features/Recommendation%20System/view/search_screen.dart';
-import 'package:gp_dictionary/support/custom_widgets/custom_centers_card.dart';
-import 'package:gp_dictionary/support/theme/app_colors.dart';
+import 'package:get/get.dart';
+import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';
+import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
+import 'package:sign2/support/custom_widgets/custom_centers_card.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 
-List<LearningCenter> result = [];
-
-class LearningCenters extends StatefulWidget {
+///TODO :add responsiveness ti=o the screen
+class LearningCenters extends StatelessWidget {
+  static const String routeName = "/learningCentersScreen";
   const LearningCenters({super.key});
 
   @override
-  State<LearningCenters> createState() => _LearningCentersState();
-}
-
-class _LearningCentersState extends State<LearningCenters> {
-  List<LearningCenter> centers = [];
-  bool _isLoading = true;
-  String? _errorMessage;
-  bool _isEmpty = false;
-  Future<void> _fetchLearningCenters() async {
-    try {
-      centers = await operations.fetchLearningCenters();
-
-      if (centers.isEmpty) {
-        setState(() {
-          _isEmpty = true;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          centers = centers;
-          _isLoading = false;
-        });
-      }
-    } catch (error) {
-      setState(() {
-        _errorMessage = error.toString();
-        _isLoading = false;
-      });
-    }
-  }
-
-  Widget _buildContent() {
-    if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    if (_errorMessage != null) {
-      return Center(child: Text("Error: $_errorMessage"));
-    }
-    if (_isEmpty) {
-      return const Center(child: Text("No learning centers found."));
-    }
-
-    return Expanded(
-      child: ListView.separated(
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 20,
-          );
-        },
-        itemCount: (isFiltered) ? result.length : centers.length,
-        itemBuilder: (context, index) {
-          if (isFiltered) {
-            final center = result[index];
-            return CustomCentersCard(center: center);
-          } else {
-            final center = centers[index];
-            return CustomCentersCard(center: center);
-          }
-        },
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchLearningCenters();
-  }
-
-  bool isFiltered = false;
-  @override
   Widget build(BuildContext context) {
     final operations = FirebaseOperations();
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {},
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Get.back(),
             icon: const Icon(Icons.arrow_back_rounded),
-            color: AppColors.darkNavy),
-      ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Center(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SearchScreen()),
-              );
-            },
-            child: Container(
-              width: 320,
-              height: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: AppColors.darkNavy)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Search for a center...",
-                      style:
-                          TextStyle(color: AppColors.darkPurple, fontSize: 16),
-                    ),
-                    const Icon(Icons.search)
-                  ],
+            color: AppColors.darkNavy,
+          ),
+        ),
+        body: FutureBuilder<List<LearningCenter>>(
+          future: operations.fetchLearningCenters(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("No learning centers found."));
+            }
+
+            final centers = snapshot.data!;
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    separatorBuilder:
+                        (context, index) => const SizedBox(height: 30),
+                    itemCount: centers.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            top: 24,
+                            right: 24,
+                            left: 24,
+                          ),
+                          child: TextFormField(
+                            style: TextStyle(color: AppColors.darkNavy),
+                            decoration: InputDecoration(
+                              focusColor: AppColors.darkNavy,
+                              hintText: "Search for a center",
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.filter_alt_outlined),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.darkNavy,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      final center = centers[index - 1];
+                      return CustomCentersCard(center: center);
+                    },
+                  ),
                 ),
-              ),
-            ),
-          ),
+              ],
+            );
+          },
         ),
-        const SizedBox(
-          height: 15,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 14.0),
-          child: PopupMenuButton<String>(
-            onSelected: (value) async {
-              isFiltered = true;
-              result = await operations.sortCenters(value);
-              setState(() {});
-            },
-            icon: Icon(
-              Icons.filter_list_rounded,
-              color: AppColors.darkNavy,
-            ),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'Highest Price',
-                child: Text('Highest Price'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'Lowest Price',
-                child: Text('Lowest Price'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'Rating',
-                child: Text('Rating'),
-              ),
-            ],
-          ),
-        ),
-        _buildContent()
-      ]),
+      ),
     );
   }
 }

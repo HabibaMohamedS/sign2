@@ -6,6 +6,7 @@ import 'package:sign2/features/Learning_feature/view/video_screen.dart';
 import 'package:sign2/features/Learning_feature/view_model/lessons_state_management.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/custom_widgets/custom_elevated_button.dart';
+import 'package:sign2/support/theme/app_colors.dart';
 
 
 class LessonDetailScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
       //extendBodyBehindAppBar: true, // Allows body to extend under AppBar
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.black, // Makes AppBar transparent
+        backgroundColor: AppColors.darkNavy, // Makes AppBar transparent
         elevation: 0, // Removes shadow
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios,

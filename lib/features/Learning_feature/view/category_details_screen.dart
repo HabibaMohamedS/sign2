@@ -60,6 +60,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
   void _startQuiz() async {
     final args = Get.arguments as Map<String, dynamic>? ?? {};
     final playlistId = args['playlistId'] as String? ?? '';
+    final title = args['title'] as String? ?? '';
     if (playlistId.isEmpty) return;
 
     final allLessons = await dataSource.fetchLessons(playlistId);
@@ -71,15 +72,17 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
     final quizController = Get.put(QuizController());
     quizController.generateQuiz(quizLessons);
 
-    Get.toNamed(QuizDetailsScreen.routeName);
+    Get.toNamed(QuizDetailsScreen.routeName,  arguments: {
+      'playlistId': playlistId,
+      'title': title,
+    },);
   }
 
   @override
   Widget build(BuildContext context) {
     final String playlistId = Get.arguments['playlistId'] ?? "";
-    // final String? title = Get.arguments['title'] ?? "";
+     final String? title = Get.arguments['title'] ?? "";
     final args = Get.arguments as Map<String, dynamic>? ?? {};
-    final title = args['title'] as String? ?? '';
 
     return SafeArea(
       child: Scaffold(
