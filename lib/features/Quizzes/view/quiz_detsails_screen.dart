@@ -90,7 +90,7 @@ class QuizDetailsScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: CustomElevatedButton(
-                            buttonText: 'Back',
+                            buttonText: 'Quit',
                             onPressed: (){
                               Get.offAllNamed(
                                 CategoryDetailsScreen.routeName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/model/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
@@ -40,15 +41,15 @@ class LearningCenters extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     separatorBuilder:
-                        (context, index) => const SizedBox(height: 30),
+                        (context, index) => SizedBox(height: 30.h),
                     itemCount: centers.length + 1,
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 24,
-                            right: 24,
-                            left: 24,
+                          padding:  EdgeInsets.only(
+                            top: 24.h,
+                            right: 24.w,
+                            left: 24.w,
                           ),
                           child: TextFormField(
                             style: TextStyle(color: AppColors.darkNavy),
@@ -61,7 +62,7 @@ class LearningCenters extends StatelessWidget {
                               ),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.darkNavy),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                               ),
                             ),
                           ),
