@@ -2,11 +2,13 @@ class LearningCenter {
   final String image;
   final String name;
   final String price;
+  final String phone;
   final String address;
   final String description;
   final String rating;
 
   LearningCenter({
+    required this.phone,
     required this.image,
     required this.name,
     required this.price,
@@ -18,6 +20,7 @@ class LearningCenter {
   factory LearningCenter.fromJson(Map<String, dynamic> json) {
     return LearningCenter(
       image: json['image'] as String,
+      phone: json['phone'] as String,
       name: json['name'] as String,
       price: (json['price'] as String),
       address: json['address'] as String,
