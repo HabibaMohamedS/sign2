@@ -9,14 +9,13 @@ import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/onboarding/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
 import 'app/routes/app_pages.dart';
-///TODO try to add the background to learn sl
-///TODO modify the ui of video's screen
+
 ///TODO: if the user is signed in add his name to the screen s
-///TODO ADD THE App bar to the screens "learn sl screen"
 ///TODO MAke sure all are responsive
 ///TODO check if the user is connected to the network before navigating to features
 /// TODO check if it is the first time a user accessed the app before the onboarding
 ///TODO Add a back button in the quiz screen and show a dialoge asking the user if he is sure as it  would remove his progress
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();

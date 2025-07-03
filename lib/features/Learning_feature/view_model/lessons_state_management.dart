@@ -3,7 +3,7 @@ import 'package:sign2/features/Learning_feature/model/data_sources/firebase_data
 import 'package:sign2/features/Learning_feature/model/models/lesson_model.dart';
 
 class LessonsStateManagement extends GetxController {
- 
+
   var lessons = <LessonModel>[].obs;
   var isLoading = true.obs;
   var lessonIndex = 0.obs;

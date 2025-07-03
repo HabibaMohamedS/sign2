@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,12 +21,12 @@ class CircularMenuItem extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Column(
-              ///TODO:Make sure that what ever the screen size is, the menu items are always circles
+             
               //mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 130.w,
-                  height: 130.h,
+                  width: 150.r,
+                  height: 150.r,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     boxShadow: [
@@ -46,7 +48,8 @@ class CircularMenuItem extends StatelessWidget {
                 ),
                 SizedBox(
                   //height: 56.h,
-                  width: 128.w,
+                  width: min(128.w,140),
+                  
                   child: Text( title,
                     textAlign: TextAlign.center,
                     style: AppTextStyle.menuItemText
