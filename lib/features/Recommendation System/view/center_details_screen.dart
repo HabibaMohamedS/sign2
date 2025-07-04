@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CenterDetailsScreen extends StatelessWidget {
   final LearningCenter center;
   const CenterDetailsScreen({super.key, required this.center});
-  ///TODO:add responsiveness to the screen 
-  ///the texts style is aleady defined in another file 
+
+  ///TODO:add responsiveness to the screen
+  ///the texts style is aleady defined in another file
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +50,6 @@ class CenterDetailsScreen extends StatelessWidget {
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: AppColors.darkNavy,
-    
                       /// el looon weeheshhh
                       size: 24,
                     ),
@@ -123,7 +124,12 @@ class CenterDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final uri = Uri(scheme: 'tel', path: center.phone);
+                          if (await canLaunchUrl(uri)) {
+                            launchUrl(uri);
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(136, 48),
                           backgroundColor: AppColors.darkNavy,

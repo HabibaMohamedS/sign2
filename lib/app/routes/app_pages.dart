@@ -35,7 +35,7 @@ class AppPages {
     ),
     GetPage(
       name: LearnSlScreen.routeName,
-      page: () => LearnSlScreen.learnSLScreen(),
+      page: () => LearnSlScreen(),
     ),
     GetPage(
         name: CategoryDetailsScreen.routeName,
