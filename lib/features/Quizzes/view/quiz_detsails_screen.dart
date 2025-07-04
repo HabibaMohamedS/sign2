@@ -101,50 +101,15 @@ class QuizDetailsScreen extends StatelessWidget {
                               );
                             }
                         ),
-                      )
-                      );
-                    }),
-                    SizedBox(height: 20.h),
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomElevatedButton(
-                        buttonText: controller.isSubmitted.value
-                            ? (index == controller.quizQuestions.length - 1
-                            ? 'Finish'
-                            : 'Next')
-                            : 'Submit',
-                        onPressed: () {
-                          if (!controller.isSubmitted.value) {
-                            controller.submitAnswer();
-                          } else {
-                            controller.goToNextQuestion();
-                          }
-                        },
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomElevatedButton(
-                          buttonText: 'Back',
-                          onPressed: (){
-                            Get.toNamed(
-                              CategoryDetailsScreen.routeName,
-                              arguments: {
-                                'playlistId': playlistId,
-                                'title': title,
-                              },
-                            );
-                          }
-                      ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-        );
-      }),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }
