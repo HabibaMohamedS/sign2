@@ -97,7 +97,15 @@ class SignToTextController extends GetxController {
 
   Future<void> uploadAndTranslate(XFile file) async {
   try {
-      final req = http.MultipartRequest('POST', Uri.parse(ApiConstants.translateVideoUrl))
+      // final req = http.MultipartRequest('POST', Uri.parse(ApiConstants.translateVideoUrl))
+      //   ..files.add(await http.MultipartFile.fromPath('video', file.path));
+      final isFrontCamera =
+          cameras?[currentCameraIndex].lensDirection ==
+          CameraLensDirection.front;
+      final flipQuery = isFrontCamera ? '?flip=true' : '';
+      final uri = Uri.parse('${ApiConstants.translateVideoUrl}$flipQuery');
+
+      final req = http.MultipartRequest('POST', uri)
         ..files.add(await http.MultipartFile.fromPath('video', file.path));
       final res = await req.send();
       final text = await res.stream.bytesToString();

@@ -101,10 +101,10 @@ class QuizDetailsScreen extends StatelessWidget {
                               );
                             }
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );

@@ -50,7 +50,6 @@ class CenterDetailsScreen extends StatelessWidget {
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: AppColors.darkNavy,
-
                       /// el looon weeheshhh
                       size: 24,
                     ),
