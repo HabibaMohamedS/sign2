@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sign2/features/Recommendation%20System/model/firebase_operations.dart';
+import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/support/custom_widgets/custom_centers_card.dart';
 import 'package:sign2/support/theme/app_colors.dart';
-
 
 ///TODO :add responsiveness ti=o the screen
 class LearningCenters extends StatelessWidget {
@@ -19,7 +18,7 @@ class LearningCenters extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () =>Get.back(),
+            onPressed: () => Get.back(),
             icon: const Icon(Icons.arrow_back_rounded),
             color: AppColors.darkNavy,
           ),
@@ -34,7 +33,7 @@ class LearningCenters extends StatelessWidget {
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text("No learning centers found."));
             }
-      
+
             final centers = snapshot.data!;
             return Column(
               children: [
@@ -61,8 +60,10 @@ class LearningCenters extends StatelessWidget {
                                 icon: const Icon(Icons.filter_alt_outlined),
                               ),
                               border: OutlineInputBorder(
+
                                 borderSide: BorderSide(color: AppColors.darkNavy),
                                 borderRadius: BorderRadius.circular(12.r),
+
                               ),
                             ),
                           ),
