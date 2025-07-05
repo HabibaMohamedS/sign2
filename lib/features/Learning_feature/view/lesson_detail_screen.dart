@@ -6,6 +6,7 @@ import 'package:sign2/features/Learning_feature/view/video_screen.dart';
 import 'package:sign2/features/Learning_feature/view_model/lessons_state_management.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/custom_widgets/custom_elevated_button.dart';
+import 'package:sign2/support/custom_widgets/framed_custom_btn.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
 
@@ -129,7 +130,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CustomElevatedButton(
+          FramedCustomButton(
             onPressed: currentIndex > 0
                 ? () => lessonController.updateLessonIndex(currentIndex - 1)
                 : () => Get.back(),

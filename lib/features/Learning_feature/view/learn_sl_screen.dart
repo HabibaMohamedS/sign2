@@ -53,7 +53,7 @@ class LearnSlScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 18.0.w),
                     child: Text(
                       "Master Arabic Sign Language one step at a time",
-                      style: AppTextStyle.caption,
+                      style: AppTextStyle.caption.copyWith(fontWeight: FontWeight.w500,letterSpacing: 0.5,height: 1.5,fontSize: 16.sp)
                     ),
                   ),
 

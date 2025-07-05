@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sign2/features/Learning_feature/view/learn_sl_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
 
@@ -188,7 +189,7 @@ class CustomAppBar extends StatelessWidget {
                   weight: 800,
                 ),
                 onPressed: () {
-                  Get.back();
+                  Get.offAndToNamed(LearnSlScreen.routeName);
                 },
               ),
             ),
