@@ -15,7 +15,7 @@ class NetworkController extends GetxController {
     _subscription = Connectivity().onConnectivityChanged.listen((result) async {
       // connected.value = await InternetConnection.isDeviceOnline();
       _checkConnection();
-    });
+    }) as StreamSubscription<ConnectivityResult>;
   }
 
   Future<void> _checkConnection() async {

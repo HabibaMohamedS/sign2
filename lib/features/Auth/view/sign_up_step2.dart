@@ -42,7 +42,12 @@ class _SignUpStep2State extends State<SignUpStep2> {
       FirebaseAuthentication auth = FirebaseAuthentication();
       String result = await auth.register(user);
       print(result);
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> MainMenuScreen(user: user,)), (route)=>false);
+      if (result == "success") {
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> MainMenuScreen(user: user,)), (route)=>false);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registered successfully"), backgroundColor: Colors.green,));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result), backgroundColor: Colors.red,));
+      }
     }
   }
   @override
