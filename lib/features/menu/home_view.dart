@@ -9,8 +9,11 @@ import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_images.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
 
+import '../Auth/model/UserModel.dart';
+
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  final UserModel? user;
+  const HomeView({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 8.0.w),
               child: Text(
-                'Hi 🌟 \n Omar!',
+                'Hi 🌟 \n${user?.username??"guest"}!',
                 softWrap: true,
                 style: AppTextStyle.titles.copyWith(
                   fontSize: 27,

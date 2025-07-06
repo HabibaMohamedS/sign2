@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sign2/features/Auth/Controller/firebase_auth.dart';
 import 'package:sign2/features/Auth/view/sign_up_screen.dart';
+import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
 // or wherever your Register screen is
@@ -64,27 +66,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     TextFormField(
+                      style: TextStyle(color: AppColors.darkNavy),
                       controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: 'Email or username',
-                        hintText: 'Enter your Email or Username',
+                        hintText: 'Enter your email address',
                         prefixIcon: const Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator:
-                          (value) =>
-                              value!.isEmpty
-                                  ? 'Please enter your email or username'
-                                  : null,
+                      validator: (value) => value!.isEmpty
+                          ? 'Please enter your email or username'
+                          : null,
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      style: TextStyle(color: AppColors.darkNavy),
                       controller: _passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
-                        labelText: 'Password',
                         hintText: 'Enter your Password',
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
@@ -103,23 +103,49 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator:
-                          (value) =>
-                              value!.isEmpty
-                                  ? 'Please enter your password'
-                                  : null,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please Enter your password";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                   ],
                 ),
               ),
 
-              const Spacer(), // Push login button to the bottom
+              const Spacer(),
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        FirebaseAuthentication auth = FirebaseAuthentication();
+                        final user = await auth.login(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+
+                        if (user != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Logged in successfully"),
+                            backgroundColor: Colors.green,
+                          ));
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => MainMenuScreen(user: user)),
+                                (route) => false,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Login failed. Check your credentials."),
+                            backgroundColor: Colors.red,
+                          ));
+                        }
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -144,17 +170,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const SignUpStep1(),
-                            ),
-                            (route) => false,
-                          );
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpStep1()),
+                                  (route) => false);
                         },
                         child: Text(
                           "Register",
-                          style: TextStyle(color: AppColors.darkNavy),
+                          style: TextStyle(
+                            color: AppColors.darkNavy,
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 20), // Add bottom padding

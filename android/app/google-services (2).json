@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "405655643611",
+    "project_id": "fahm-dictionary",
+    "storage_bucket": "fahm-dictionary.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405655643611:android:d5576d86f00ac5b2b873fe",
+        "android_client_info": {
+          "package_name": "com.example.gp_dictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405655643611-54ee5o297fq6poiro5cv0stoqvhld64c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gp_dictionary",
+            "certificate_hash": "0d551d45ce8c872b31cdb9d1901575cf73598e9d"
+          }
+        },
+        {
+          "client_id": "405655643611-famcbblmscjejrgqu16hsbeq51i0n1t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi7ROjD11IAhji6TZyWUz9pXZX_b-hzao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405655643611-famcbblmscjejrgqu16hsbeq51i0n1t0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "405655643611-48qcbfpl1sv87ivnvvoa5gfse7vh622l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gpDictionary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

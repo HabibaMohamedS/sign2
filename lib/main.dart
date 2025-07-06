@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           ),
 
           initialBinding: MyBinding(),
-          initialRoute:AppRoutes.splash,
+          initialRoute: '/welcome',
           getPages: AppPages.routes,
           // onInit: () {
           //   if (storage.seenOnboarding) {

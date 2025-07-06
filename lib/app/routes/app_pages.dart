@@ -12,6 +12,9 @@ import 'package:sign2/features/onboarding/view/onboarding_view.dart';
 import 'package:sign2/features/profile/view/profile_view.dart';
 import 'package:sign2/features/sign-to-text/views/sign_to_text_view.dart';
 import 'package:sign2/features/splash/view/splash_view.dart';
+import 'package:sign2/features/auth/view/sign_up_screen.dart';
+import 'package:sign2/features/auth/view/welcome_screen.dart';
+import '../../test/firebase_test_screen.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -23,6 +26,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.onboardingRoute,
       page: () => const OnboardingView(),
+    ),
+    GetPage(
+      name: '/welcome',
+      page: () => const WelcomeScreen(),
+      binding: MyBinding(), // Optional: add a proper binding if needed
+    ),
+    GetPage(
+      name: '/signup',
+      page: () => const SignUpStep1(),
+      binding: MyBinding(), // Optional: add a proper binding if needed
     ),
     GetPage(
       name: AppRoutes.videoTranslate,
@@ -38,6 +51,10 @@ class AppPages {
       page: () => LearnSlScreen(),
     ),
     GetPage(
+      name: '/firebaseTest',
+      page: () => const FirebaseTestScreen(),
+    ),
+    GetPage(
         name: CategoryDetailsScreen.routeName,
         page: () => CategoryDetailsScreen(),
         binding: MyBinding()),
@@ -49,6 +66,7 @@ class AppPages {
     GetPage(name: QuizDetailsScreen.routeName, page: () => QuizDetailsScreen()),
     GetPage(name: GradeScreen.routeName, page: () => const GradeScreen()),
     GetPage(name: LearningCenters.routeName, page: () => const LearningCenters()),
+
     //GetPage(name: VideoScreen.routeName, page: () =>  VideoScreen())
     GetPage(
     name: AppRoutes.profile, // e.g. '/profile'

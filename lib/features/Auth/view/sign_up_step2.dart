@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sign2/features/Auth/Controller/firebase_auth.dart';
 import 'package:sign2/features/Auth/model/UserModel.dart';
+import 'package:sign2/features/menu/home_view.dart';
+import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
 class SignUpStep2 extends StatefulWidget {
@@ -39,13 +42,9 @@ class _SignUpStep2State extends State<SignUpStep2> {
       FirebaseAuthentication auth = FirebaseAuthentication();
       String result = await auth.register(user);
       print(result);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> MainMenuScreen(user: user,)), (route)=>false);
     }
   }
-
-  void _onSkip() {
-    // Handle skip functionality
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,13 +86,6 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                   IconButton(
                                     icon: const Icon(Icons.arrow_back),
                                     onPressed: () => Navigator.pop(context),
-                                  ),
-                                  TextButton(
-                                    onPressed: _onSkip,
-                                    child: const Text(
-                                      "Skip",
-                                      style: TextStyle(color: Colors.black87),
-                                    ),
                                   ),
                                 ],
                               ),
