@@ -8,6 +8,7 @@ import 'package:sign2/app/bindings/binding.dart';
 import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/onboarding/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
+import 'package:sign2/support/network/network_depency_injection.dart';
 import 'app/routes/app_pages.dart';
 
 ///TODO: if the user is signed in add his name to the screen s
@@ -24,6 +25,7 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  NetworkDepencyInjection.init();
   //runApp(SignLanguageApp());
 }
 
