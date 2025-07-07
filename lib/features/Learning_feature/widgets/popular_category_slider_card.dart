@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sign2/support/theme/app_colors.dart';
@@ -16,16 +17,14 @@ class PopularCategorySliderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Handle tap event
-        log("Card tapped");
-      },
+      onTap: onTap,
 
       child: SizedBox(
-        height: 241.h,
+       // height: 241.h,
         child: InkWell(
           onTap: onTap,
           child: Column(
+           // spacing: min(20.h,10),
             children: [
               Container(
                 padding: EdgeInsets.all(25.0.h),

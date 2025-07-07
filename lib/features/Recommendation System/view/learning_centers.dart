@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
@@ -40,15 +39,15 @@ class LearningCenters extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     separatorBuilder:
-                        (context, index) => SizedBox(height: 30.h),
+                        (context, index) => SizedBox(height: 30),
                     itemCount: centers.length + 1,
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return Padding(
                           padding:  EdgeInsets.only(
-                            top: 24.h,
-                            right: 24.w,
-                            left: 24.w,
+                            top: 24,
+                            right: 24,
+                            left: 24,
                           ),
                           child: TextFormField(
                             style: TextStyle(color: AppColors.darkNavy),
@@ -56,13 +55,15 @@ class LearningCenters extends StatelessWidget {
                               focusColor: AppColors.darkNavy,
                               hintText: "Search for a center",
                               suffixIcon: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.back();
+                                },
                                 icon: const Icon(Icons.filter_alt_outlined),
                               ),
                               border: OutlineInputBorder(
 
                                 borderSide: BorderSide(color: AppColors.darkNavy),
-                                borderRadius: BorderRadius.circular(12.r),
+                                borderRadius: BorderRadius.circular(12),
 
                               ),
                             ),

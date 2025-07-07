@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -19,26 +18,35 @@ class NetworkController extends GetxController {
   }
 
   Future<void> _checkConnection() async {
-  final wasConnected = connected.value;
-  connected.value = await InternetConnection.isDeviceOnline();
+    final wasConnected = connected.value;
+    connected.value = await InternetConnection.isDeviceOnline();
 
-  if (!connected.value && wasConnected) {
-    // Just lost connection
-    Get.rawSnackbar(
-      message: 'PLEASE CONNECT TO THE INTERNET',
-      isDismissible: false,
-      duration: const Duration(days: 1),
-      margin: EdgeInsets.zero,
-      snackStyle: SnackStyle.FLOATING,
-      icon: const Icon(Icons.wifi_off_rounded, size: 35),
-    );
-  } else if (connected.value && !wasConnected) {
-    // Just regained connection
-    if (Get.isSnackbarOpen) {
-      Get.closeCurrentSnackbar();
+    if (!connected.value && wasConnected) {
+      // Just lost connection
+      Get.rawSnackbar(
+        message: 'PLEASE CONNECT TO THE INTERNET',
+        isDismissible: false,
+        duration: const Duration(days: 1),
+        margin: EdgeInsets.zero,
+        snackStyle: SnackStyle.FLOATING,
+        icon: const Icon(Icons.wifi_off_rounded, size: 35),
+      );
+    } else if (connected.value && !wasConnected) {
+      // Just regained connection
+      if (Get.isSnackbarOpen) {
+        Get.closeCurrentSnackbar();
+      }
+    } else {
+      
+      Get.rawSnackbar(
+        message: ' CONNECTED TO THE INTERNET',
+        isDismissible: true,
+        margin: EdgeInsets.zero,
+        snackStyle: SnackStyle.FLOATING,
+        icon: const Icon(Icons.wifi_rounded, size: 35),
+      );
     }
   }
-}
 
   @override
   void onClose() {
