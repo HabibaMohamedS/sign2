@@ -15,6 +15,7 @@ import 'package:sign2/features/sign-to-text/views/sign_to_text_view.dart';
 import 'package:sign2/features/splash/view/splash_view.dart';
 import 'package:sign2/features/auth/view/sign_up_screen.dart';
 import 'package:sign2/features/auth/view/welcome_screen.dart';
+import 'package:sign2/services/auth_gaurd.dart';
 import '../../test/firebase_test_screen.dart';
 import 'app_routes.dart';
 
@@ -72,6 +73,7 @@ class AppPages {
       name: AppRoutes.profile,
       page: () => const ProfileView(),
       binding: MyBinding(),
+      middlewares:[AuthGuard()],
     ),
     GetPage(
       name: AppRoutes.login,

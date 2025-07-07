@@ -26,89 +26,87 @@ class GradeScreen extends StatelessWidget {
       GradeController(correctAnswers: correct, incorrectAnswers: incorrect),
     );
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF9F3FF),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30.h),
-              Center(
-                child: Text(
-                  'Good Job!',
-                  style: AppTextStyle.heading.copyWith(
-                    color: AppColors.darkPurple,
-                    fontSize: 18.sp,
-                  ),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9F3FF),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 30.h),
+            Center(
+              child: Text(
+                'Good Job!',
+                style: AppTextStyle.heading.copyWith(
+                  color: AppColors.darkPurple,
+                  fontSize: 18.sp,
                 ),
               ),
-              SizedBox(height: 20.h),
-              Container(
-                width: 400.h,
-                height: 350.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/Trophy.png',
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        child: Text(
-                          'You got +${controller.totalPoints} quiz points!',
-                          textAlign: TextAlign.center,
-                          style: AppTextStyle.QHeader,
-                        ),
+            ),
+            SizedBox(height: 20.h),
+            Container(
+              width: 400.h,
+              height: 350.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Stack(
+                children: [
+                  Image.asset(
+                    'assets/images/Trophy.png',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      child: Text(
+                        'You got +${controller.totalPoints} quiz points!',
+                        textAlign: TextAlign.center,
+                        style: AppTextStyle.QHeader,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30.h),
-              Text('Correct answers',
-                  style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
-              Text('$correct questions',
-                  style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
-              SizedBox(height: 20.h),
-              Text('Incorrect answers',
-                  style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
-              Text('$incorrect questions',
-                  style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FramedCustomButton(
-                    buttonText: 'Retake',
-                    onPressed: () async {
-                      final quizController = Get.find<QuizController>();
-                      quizController.resetQuiz();
-                      await quizController.generateQuizFromPlaylist(
-                        playlistId: playlistId,
-                        title: title,
-                      );
-                    },
-                  ),
-                  CustomElevatedButton(
-                    buttonText: 'Done',
-                    onPressed: () {
-                      Get.offAllNamed(LearnSlScreen.routeName);
-                    },
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
-            ],
-          ),
+            ),
+            SizedBox(height: 30.h),
+            Text('Correct answers',
+                style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
+            Text('$correct questions',
+                style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
+            SizedBox(height: 20.h),
+            Text('Incorrect answers',
+                style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
+            Text('$incorrect questions',
+                style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FramedCustomButton(
+                  buttonText: 'Retake',
+                  onPressed: () async {
+                    final quizController = Get.find<QuizController>();
+                    quizController.resetQuiz();
+                    await quizController.generateQuizFromPlaylist(
+                      playlistId: playlistId,
+                      title: title,
+                    );
+                  },
+                ),
+                CustomElevatedButton(
+                  buttonText: 'Done',
+                  onPressed: () {
+                    Get.offAllNamed(LearnSlScreen.routeName);
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+          ],
         ),
       ),
     );

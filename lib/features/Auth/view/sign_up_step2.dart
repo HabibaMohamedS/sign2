@@ -51,210 +51,208 @@ class _SignUpStep2State extends State<SignUpStep2> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // Prevent auto resize
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFF5EDF8), Color(0xFFFDEEEA)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5EDF8), Color(0xFFFDEEEA)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        // Top Section
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 16,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Back + Skip
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      // Top Section
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Back + Skip
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "Create Account",
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "Step 2 out of 2",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black54,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 2,
+                              width: double.infinity,
+                              child: Row(
                                 children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.arrow_back),
-                                    onPressed: () => Navigator.pop(context),
+                                  Expanded(
+                                    child: Container(
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      color: Colors.deepPurple,
+                                    ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                "Create Account",
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text(
-                                "Step 2 out of 2",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              SizedBox(
-                                height: 2,
-                                width: double.infinity,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        color: Colors.deepPurple,
+                            ),
+                          ],
+                        ),
+                      ),
+      
+                      // Centered Form Fields
+                      Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                            ),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: AppColors.darkNavy,
+                                    ),
+                                    controller: _govController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Government',
+                                      hintText: 'Enter Government',
+                                      prefixIcon: const Icon(
+                                        Icons.location_on_outlined,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          12,
+                                        ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Container(
-                                        color: Colors.deepPurple,
+                                    validator:
+                                        (value) =>
+                                            value!.isEmpty
+                                                ? 'Please enter your government'
+                                                : null,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: AppColors.darkNavy,
+                                    ),
+                                    controller: _addressController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Address',
+                                      hintText: 'Enter Address',
+                                      prefixIcon: const Icon(
+                                        Icons.home_outlined,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          12,
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                    validator:
+                                        (value) =>
+                                            value!.isEmpty
+                                                ? 'Please enter your address'
+                                                : null,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: AppColors.darkNavy,
+                                    ),
+                                    controller: _phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                      labelText: 'Phone number',
+                                      hintText: 'Enter Phone number',
+                                      prefixIcon: const Icon(
+                                        Icons.phone_outlined,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          12,
+                                        ),
+                                      ),
+                                    ),
+                                    validator:
+                                        (value) =>
+                                            value!.isEmpty
+                                                ? 'Please enter your phone number'
+                                                : null,
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-
-                        // Centered Form Fields
-                        Expanded(
-                          child: Center(
-                            child: Padding(
+                      ),
+      
+                      // Bottom: Continue Button
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _onContinue,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
+                                vertical: 16,
                               ),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    TextFormField(
-                                      style: TextStyle(
-                                        color: AppColors.darkNavy,
-                                      ),
-                                      controller: _govController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Government',
-                                        hintText: 'Enter Government',
-                                        prefixIcon: const Icon(
-                                          Icons.location_on_outlined,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                      ),
-                                      validator:
-                                          (value) =>
-                                              value!.isEmpty
-                                                  ? 'Please enter your government'
-                                                  : null,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    TextFormField(
-                                      style: TextStyle(
-                                        color: AppColors.darkNavy,
-                                      ),
-                                      controller: _addressController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Address',
-                                        hintText: 'Enter Address',
-                                        prefixIcon: const Icon(
-                                          Icons.home_outlined,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                      ),
-                                      validator:
-                                          (value) =>
-                                              value!.isEmpty
-                                                  ? 'Please enter your address'
-                                                  : null,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    TextFormField(
-                                      style: TextStyle(
-                                        color: AppColors.darkNavy,
-                                      ),
-                                      controller: _phoneController,
-                                      keyboardType: TextInputType.phone,
-                                      decoration: InputDecoration(
-                                        labelText: 'Phone number',
-                                        hintText: 'Enter Phone number',
-                                        prefixIcon: const Icon(
-                                          Icons.phone_outlined,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                      ),
-                                      validator:
-                                          (value) =>
-                                              value!.isEmpty
-                                                  ? 'Please enter your phone number'
-                                                  : null,
-                                    ),
-                                  ],
-                                ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-
-                        // Bottom: Continue Button
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: _onContinue,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 16,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

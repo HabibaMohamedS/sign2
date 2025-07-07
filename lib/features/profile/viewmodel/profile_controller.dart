@@ -26,7 +26,7 @@ class ProfileController extends GetxController {
   String get email => _user.email;
   String? get imageUrl => _user.imageUrl;
 
-  // ---------- Avatar ----------
+  //Avatar 
   Future<void> changeAvatar(ImageSource source) async {
     final picked = await picker.pickImage(source: source, imageQuality: 85);
     if (picked == null) return;
@@ -46,7 +46,7 @@ class ProfileController extends GetxController {
     Get.snackbar('Profile', 'Photo updated successfully');
   }
 
-  // ---------- Save text fields ----------
+  //Save text fields
   Future<void> saveChanges() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     await _firestore.collection('users').doc(uid).update({
@@ -62,7 +62,7 @@ class ProfileController extends GetxController {
     Get.snackbar('Profile', 'Changes saved successfully');
   }
 
-  // ---------- Logout ----------
+  //Logout
   Future<void> logout() async {
     await _authService.logout();
     Get.offAllNamed('/login');

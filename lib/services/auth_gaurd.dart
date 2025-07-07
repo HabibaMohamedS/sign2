@@ -9,9 +9,8 @@ class AuthGuard extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     final cache = StorageService();
     if (!cache.isLoggedIn || cache.cachedUser == null) {
-      // Jump to login; keep the intended route so you
-      // can redirect back after successful login if you like.
-      return const RouteSettings(name: AppRoutes.login);
+      // user is not authenticated – redirect to login
+      return  RouteSettings(name: '${AppRoutes.login}?next=$route');
     }
     return null; // user is authenticated – continue
   }

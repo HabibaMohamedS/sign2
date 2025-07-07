@@ -12,6 +12,7 @@ class SettingsView extends StatelessWidget {
     return Column(
       spacing: 10.h,
       children: [
+        SizedBox(height: 50.h,),
         SwitchListTile.adaptive(
           inactiveThumbColor:  Theme.of(context).colorScheme.secondary,
           trackOutlineColor:  WidgetStatePropertyAll(Theme.of(context).colorScheme.secondary),

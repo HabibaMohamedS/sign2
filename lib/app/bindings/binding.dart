@@ -5,7 +5,7 @@ import 'package:sign2/features/Learning_feature/view_model/youTube_controller.da
 import 'package:sign2/features/onboarding/viewmodel/onboarding_controller.dart';
 import 'package:sign2/features/profile/viewmodel/profile_controller.dart';
 import 'package:sign2/features/splash/viewmodel/splash_controller.dart';
-
+import 'package:sign2/services/storage_services.dart';
 
 class MyBinding extends Bindings {
   @override
@@ -14,10 +14,12 @@ class MyBinding extends Bindings {
     Get.lazyPut<LessonsStateManagement>(() => LessonsStateManagement());
     Get.lazyPut<LessonsVideoController>(() => LessonsVideoController());
     Get.lazyPut<LessonsStateManagement>(() => LessonsStateManagement());
-    Get.lazyPut<YoutubePlayerGetXController>(() => YoutubePlayerGetXController());
-    //onboarding 
+    Get.lazyPut<YoutubePlayerGetXController>(
+      () => YoutubePlayerGetXController(),
+    );
     Get.lazyPut<OnboardingController>(() => OnboardingController());
-    Get.lazyPut<ProfileController>(() => ProfileController( Get.find()));
-   // Get.lazyPut<YoutubePlayerGetXController>(() => YoutubePlayerGetXController());
+    
+    final user = StorageService().cachedUser;
+    Get.lazyPut<ProfileController>(() => ProfileController(user!));
   }
 }
