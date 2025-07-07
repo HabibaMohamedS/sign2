@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sign2/features/Auth/Controller/firebase_auth.dart';
 import 'package:sign2/features/Auth/view/sign_up_screen.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
-
-// or wherever your Register screen is
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => Navigator.pop(context),
               ),
-              const Text(
-                "Login",
+              Text(
+                "4".tr,
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -69,14 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(color: AppColors.darkNavy),
                       controller: _emailController,
                       decoration: InputDecoration(
-                        hintText: 'Enter your email address',
+                        hintText: '37'.tr,
                         prefixIcon: const Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       validator: (value) => value!.isEmpty
-                          ? 'Please enter your email or username'
+                          ? '38'.tr
                           : null,
                     ),
                     const SizedBox(height: 20),
@@ -85,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
-                        hintText: 'Enter your Password',
+                        hintText: '39'.tr,
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -105,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please Enter your password";
+                          return "40".tr;
                         } else {
                           return null;
                         }
@@ -130,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
 
                         if (user != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Logged in successfully"),
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("41".tr),
                             backgroundColor: Colors.green,
                           ));
                           Navigator.of(context).pushAndRemoveUntil(
@@ -139,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 (route) => false,
                           );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Login failed. Check your credentials."),
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("42".tr),
                             backgroundColor: Colors.red,
                           ));
                         }
@@ -153,8 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
-                      'Login',
+                    child: Text(
+                      '4'.tr,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
@@ -164,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account? ",
+                        "43".tr,
                         style: TextStyle(color: AppColors.darkNavy),
                       ),
                       TextButton(
@@ -175,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (route) => false);
                         },
                         child: Text(
-                          "Register",
+                          "44".tr,
                           style: TextStyle(
                             color: AppColors.darkNavy,
                           ),

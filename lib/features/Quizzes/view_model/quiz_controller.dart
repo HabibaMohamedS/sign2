@@ -39,7 +39,7 @@ class QuizController extends GetxController {
       final correctIndex = allOptions.indexOf(correctTitle);
 
       questions.add(QuizQuestion(
-        question: "What is the correct title for this video?",
+        question: "63".tr,
         options: allOptions,
         correctAnswerIndex: correctIndex,
         videoUrl: lesson.videoId ?? "",

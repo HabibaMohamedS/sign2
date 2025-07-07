@@ -44,7 +44,7 @@ class _SignUpStep2State extends State<SignUpStep2> {
       print(result);
       if (result == "success") {
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> MainMenuScreen(user: user,)), (route)=>false);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registered successfully"), backgroundColor: Colors.green,));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("25".tr), backgroundColor: Colors.green,));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result), backgroundColor: Colors.red,));
       }
@@ -95,8 +95,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                 ],
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                "Create Account",
+                              Text(
+                                "6".tr,
                                 style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
@@ -104,8 +104,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                "Step 2 out of 2",
+                              Text(
+                                "26".tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black54,
@@ -152,8 +152,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       ),
                                       controller: _govController,
                                       decoration: InputDecoration(
-                                        labelText: 'Government',
-                                        hintText: 'Enter Government',
+                                        labelText: '27'.tr,
+                                        hintText: '28'.tr,
                                         prefixIcon: const Icon(
                                           Icons.location_on_outlined,
                                         ),
@@ -166,7 +166,7 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       validator:
                                           (value) =>
                                               value!.isEmpty
-                                                  ? 'Please enter your government'
+                                                  ? '29'.tr
                                                   : null,
                                     ),
                                     const SizedBox(height: 20),
@@ -176,8 +176,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       ),
                                       controller: _addressController,
                                       decoration: InputDecoration(
-                                        labelText: 'Address',
-                                        hintText: 'Enter Address',
+                                        labelText: '30'.tr,
+                                        hintText: '31'.tr,
                                         prefixIcon: const Icon(
                                           Icons.home_outlined,
                                         ),
@@ -190,7 +190,7 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       validator:
                                           (value) =>
                                               value!.isEmpty
-                                                  ? 'Please enter your address'
+                                                  ? '32'.tr
                                                   : null,
                                     ),
                                     const SizedBox(height: 20),
@@ -201,8 +201,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       controller: _phoneController,
                                       keyboardType: TextInputType.phone,
                                       decoration: InputDecoration(
-                                        labelText: 'Phone number',
-                                        hintText: 'Enter Phone number',
+                                        labelText: '33'.tr,
+                                        hintText: '34'.tr,
                                         prefixIcon: const Icon(
                                           Icons.phone_outlined,
                                         ),
@@ -215,7 +215,7 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                       validator:
                                           (value) =>
                                               value!.isEmpty
-                                                  ? 'Please enter your phone number'
+                                                  ? '35'.tr
                                                   : null,
                                     ),
                                   ],
@@ -241,8 +241,8 @@ class _SignUpStep2State extends State<SignUpStep2> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: const Text(
-                                'Continue',
+                              child: Text(
+                                '24'.tr,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

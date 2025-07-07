@@ -37,7 +37,7 @@ class GradeScreen extends StatelessWidget {
               SizedBox(height: 30.h),
               Center(
                 child: Text(
-                  'Good Job!',
+                  '58'.tr,
                   style: AppTextStyle.heading.copyWith(
                     color: AppColors.darkPurple,
                     fontSize: 18.sp,
@@ -64,7 +64,9 @@ class GradeScreen extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                         child: Text(
-                          'You got +${controller.totalPoints} quiz points!',
+                          "68".trParams({
+                            "points": "${controller.totalPoints}",
+                          }),
                           textAlign: TextAlign.center,
                           style: AppTextStyle.QHeader,
                         ),
@@ -74,21 +76,23 @@ class GradeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30.h),
-              Text('Correct answers',
+              Text('59'.tr,
                   style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
-              Text('$correct questions',
-                  style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
+              Text("69".trParams({
+                "count": "$correct",
+              }), style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
               SizedBox(height: 20.h),
-              Text('Incorrect answers',
+              Text('60'.tr,
                   style: AppTextStyle.QBody.copyWith(color: AppColors.darkPurple)),
-              Text('$incorrect questions',
-                  style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
+              Text("70".trParams({
+                "count": "$incorrect",
+              }), style: AppTextStyle.QBody.copyWith(fontWeight: FontWeight.bold)),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FramedCustomButton(
-                    buttonText: 'Retake',
+                    buttonText: '61'.tr,
                     onPressed: () async {
                       final quizController = Get.find<QuizController>();
                       quizController.resetQuiz();
@@ -99,7 +103,7 @@ class GradeScreen extends StatelessWidget {
                     },
                   ),
                   CustomElevatedButton(
-                    buttonText: 'Done',
+                    buttonText: '62'.tr,
                     onPressed: () {
                       Get.offAllNamed(LearnSlScreen.routeName);
                     },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
 
 class LessonProgress extends StatelessWidget {
@@ -13,7 +14,7 @@ class LessonProgress extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Your Progress",
+            "67".tr,
             style: AppTextStyle.titles,
           ),
           SizedBox(height: 10.h),

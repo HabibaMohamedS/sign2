@@ -99,7 +99,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
                     lessonCount: lessonsStateManagement.lessons.length),
                 Padding(
                   padding: EdgeInsets.all(20.0.sp),
-                  child: Text("Your Progress", style: AppTextStyle.titles),
+                  child: Text("67".tr, style: AppTextStyle.titles),
                 ),
                 SizedBox(height: 10.h),
                 Expanded(

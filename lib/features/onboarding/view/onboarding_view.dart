@@ -26,30 +26,30 @@ class OnboardingView extends GetView<OnboardingController> {
             children: [
               // — Screen 1 —
               OnboardingPage(
-                text: 'Welcome to Fahm where you can be understood!',
-                btn: "Let's begin!",
+                text: '86'.tr,
+                btn: "87".tr,
                 showLogo: false,
                 onTap: controller.next,
               ),
               // — Screen 2 —
               OnboardingPage(
                 img: AppImages.onboarding1,
-                text: 'Now you can translate from sign language to text, just click on the record button and get started.',
-                btn: 'Next',
+                text: '88'.tr,
+                btn: '54'.tr,
                 onTap: controller.next,
               ),
               // — Screen 3 —
               OnboardingPage(
                 img: AppImages.onboarding2,
-                text: 'Use our learning section to benefit from a wide range of Arabic sign language gestures.',
-                btn: 'Next',
+                text: '89'.tr,
+                btn: '54'.tr,
                 onTap: controller.next,
               ),
               // — Screen 4 —
               OnboardingPage(
                 img: AppImages.onboarding3,
-                text: 'Search for the most suitable Arabic sign language centers based on your preferences.',
-                btn: 'Next',
+                text: '90'.tr,
+                btn: '54'.tr,
                 onTap: controller.next,
               ),
               // — Screen 5 (sign-up prompt) —

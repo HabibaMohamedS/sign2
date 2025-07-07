@@ -31,7 +31,7 @@ class LearningCenters extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: Text("Error: ${snapshot.error}"));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text("No learning centers found."));
+              return Center(child: Text("82".tr));
             }
 
             final centers = snapshot.data!;
@@ -54,7 +54,7 @@ class LearningCenters extends StatelessWidget {
                             style: TextStyle(color: AppColors.darkNavy),
                             decoration: InputDecoration(
                               focusColor: AppColors.darkNavy,
-                              hintText: "Search for a center",
+                              hintText: "79".tr,
                               suffixIcon: IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.filter_alt_outlined),

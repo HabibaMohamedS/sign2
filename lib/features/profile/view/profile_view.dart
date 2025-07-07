@@ -46,25 +46,25 @@ class ProfileView extends GetView<ProfileController> {
               ),
               SizedBox(height: 24.h),
               CustomTextField(
-                label: 'Username',
+                label: '10'.tr,
                 initialValue: controller.username.value,
                 onChanged: (v) => controller.username.value = v,
               ),
               SizedBox(height: 12.h),
               CustomTextField(
-                label: 'Email',
+                label: '13'.tr,
                 initialValue: controller.email,
                 readOnly: true,
               ),
               SizedBox(height: 12.h),
               CustomTextField(
-                label: 'Address',
+                label: '30'.tr,
                 initialValue: controller.address.value,
                 onChanged: (v) => controller.address.value = v,
               ),
               SizedBox(height: 12.h),
               CustomTextField(
-                label: 'Phone Number',
+                label: '33'.tr,
                 initialValue: controller.phone.value,
                 keyboard: TextInputType.phone,
                 onChanged: (v) => controller.phone.value = v,
@@ -76,7 +76,7 @@ class ProfileView extends GetView<ProfileController> {
                     ? ''
                     : '${controller.dob.value!.day}/${controller.dob.value!.month}/${controller.dob.value!.year}';
                 return CustomTextField(
-                  label: 'Date of Birth',
+                  label: '91'.tr,
                   initialValue: dobStr,
                   readOnly: true,
                   onTap: () async {
@@ -103,7 +103,7 @@ class ProfileView extends GetView<ProfileController> {
                     padding: EdgeInsets.symmetric(vertical: 14.h,horizontal: 12.w),
                   ),
                   onPressed: controller.saveChanges,
-                  child: Text('Save',style: TextStyle(color: AppColors.white,fontSize: 20.sp)),
+                  child: Text('92'.tr,style: TextStyle(color: AppColors.white,fontSize: 20.sp)),
                 ),
               ),
               SizedBox(height: 32.h),
@@ -125,7 +125,7 @@ class ProfileView extends GetView<ProfileController> {
           children: [
             ListTile(
               leading: Icon(Icons.camera_alt, color: AppColors.darkPurple),
-              title: const Text('Camera'),
+              title: Text('93'.tr),
               onTap: () {
                 controller.changeAvatar(ImageSource.camera);
                 Get.back();
@@ -133,7 +133,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
             ListTile(
               leading: Icon(Icons.photo_library, color: AppColors.darkPurple),
-              title: const Text('Gallery'),
+              title: Text('94'.tr),
               onTap: () {
                 controller.changeAvatar(ImageSource.gallery);
                 Get.back();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
@@ -167,7 +168,7 @@ class CenterDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${center.price}LE / Week",
+                          '80'.trParams({'price': center.price.toString()}),
                           style: TextStyle(
                             fontSize: 22.sp,
                             color: AppColors.darkNavy,
@@ -186,7 +187,7 @@ class CenterDetailsScreen extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Text("Call", style: AppTextStyle.buttonText),
+                              Text("81".tr, style: AppTextStyle.buttonText),
                               SizedBox(width: 5.w),
                               const Icon(
                                 Icons.call_outlined,
@@ -211,7 +212,7 @@ class CenterDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${center.price}LE / Week",
+                        '80'.trParams({'price': center.price.toString()}),
                         style: TextStyle(
                           fontSize: 22,
                           color: AppColors.darkNavy,
@@ -235,7 +236,7 @@ class CenterDetailsScreen extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            Text("Call", style: AppTextStyle.buttonText),
+                            Text("81".tr, style: AppTextStyle.buttonText),
                             const SizedBox(width: 5),
                             const Icon(
                               Icons.call_outlined,

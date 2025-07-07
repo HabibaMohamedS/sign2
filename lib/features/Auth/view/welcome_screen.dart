@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sign2/features/Auth/view/login_screen.dart';
 import '../../menu/main_menu_screen.dart';
 import 'sign_up_screen.dart';
@@ -26,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
                     (route) => false,
               );
             },
-            child: const Text("Skip"),
+            child: Text("5".tr),
           ),
         ],
       ),
@@ -34,10 +35,10 @@ class WelcomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            const Expanded(
+             Expanded(
               child: Center(
                 child: Text(
-                  "Let’s create your\naccount!",
+                  "1".tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 36,
@@ -69,8 +70,8 @@ class WelcomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Sign me up!',
+                  child: Text(
+                    '2'.tr,
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -80,8 +81,8 @@ class WelcomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Already have an account? ",
+                    Text(
+                      "3".tr,
                       style: TextStyle(color: Color.fromRGBO(82, 44, 93, 1)),
                     ),
                     GestureDetector(
@@ -92,8 +93,8 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text(
-                        "Login",
+                      child: Text(
+                        "4".tr,
                         style: TextStyle(
                           color: Color.fromRGBO(21, 0, 22, 1),
                           fontWeight: FontWeight.bold,

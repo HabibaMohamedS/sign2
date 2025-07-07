@@ -41,7 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   icon: const Icon(Icons.search),
                 ),
                 label: Text(
-                  "Search for a center...",
+                  "79".tr,
                   style: TextStyle(color: AppColors.darkPurple, fontSize: 16),
                 ),
                 border: OutlineInputBorder(

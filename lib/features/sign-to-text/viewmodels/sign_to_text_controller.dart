@@ -162,12 +162,12 @@ class SignToTextController extends GetxController {
         final cleaned = mainText.toString().split(RegExp(r'[.,;:|،]')).first.trim();
         translatedText.value = cleaned.isNotEmpty ? cleaned : 'No simple translation found.';
       } else {
-        translatedText.value = 'Translation failed: ${response.statusCode}';
+        translatedText.value = '77'.trParams({"status": response.statusCode.toString()});
       }
     } on TimeoutException {
-      translatedText.value = 'Translation failed: Timeout';
+      translatedText.value = '78'.tr;
     } catch (e) {
-      translatedText.value = 'Translation failed: $e';
+      translatedText.value = '77'.trParams({"error": e.toString()});
     } finally {
       isTranslating.value = false;
     }

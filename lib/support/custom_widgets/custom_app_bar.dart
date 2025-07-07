@@ -165,7 +165,7 @@ class CustomAppBar extends StatelessWidget {
                 backgroundColor: AppColors.darkNavy,
                 padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 35.w),
               ),
-              child: Text("Start Quiz", style: AppTextStyle.buttonLabel),
+              child: Text("76".tr, style: AppTextStyle.buttonLabel),
             ),
           ),
           // ... Back button and bookmark unchanged ...

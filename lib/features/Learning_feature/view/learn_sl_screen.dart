@@ -48,16 +48,16 @@ class LearnSlScreen extends StatelessWidget {
                   //   color: AppColors.orange,
                   //   minHeight: 32.0.h,
                   // ),
-                  _buildTitle("Learn ArSL 🌟"),
+                  _buildTitle("48".tr),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18.0.w),
                     child: Text(
-                      "Master Arabic Sign Language one step at a time",
+                      "49".tr,
                       style: AppTextStyle.caption.copyWith(fontWeight: FontWeight.w500,letterSpacing: 0.5,height: 1.5,fontSize: 16.sp)
                     ),
                   ),
 
-                  _buildTitle("Categories"),
+                  _buildTitle("50".tr),
                   CarouselSlider(
                     options: CarouselOptions(
                       initialPage: 1,
@@ -71,7 +71,7 @@ class LearnSlScreen extends StatelessWidget {
                           return SliderCard(
                             categoryName: category.title ?? "",
                             cardContent:
-                                "Find out how to do Arabic ${category.title} in ArSL.",
+                            "51".trParams({"title": category.title ?? ""}),
                             onTap: () {
                               Get.toNamed(
                                 CategoryDetailsScreen.routeName,
@@ -84,7 +84,7 @@ class LearnSlScreen extends StatelessWidget {
                           );
                         }).toList(),
                   ),
-                  _buildTitle("Popular"),
+                  _buildTitle("52".tr),
 
                   SizedBox(
                     height: 250.h,

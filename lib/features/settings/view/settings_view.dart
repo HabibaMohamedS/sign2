@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sign2/support/theme/app_colors.dart';
+
+import '../../../Locale/locale_controller.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -36,7 +40,7 @@ class SettingsView extends StatelessWidget {
                 child: Padding(
                   padding:  EdgeInsets.all(12.0.w),
                   child: Text(
-                    isDark ? "Dark Mode" : "Light Mode",
+                    isDark ? "85".tr : "84".tr,
                     softWrap: true,
                     style:  TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 20.sp),
@@ -53,7 +57,7 @@ class SettingsView extends StatelessWidget {
           ),
           title: Padding(
             padding: EdgeInsets.all(8.0.w),
-            child:  Text("language",
+            child:  Text("83".tr,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp)),
           ),
           trailing: Container(
@@ -81,8 +85,13 @@ class SettingsView extends StatelessWidget {
                 )
               ],
               onChanged: (value) {
+                final controller = Get.find<LocaleController>();
                 if(value!=null) {
-                //  TO:do
+                  if (value == 'ar') {
+                    controller.changeLocale('ar', 'EG');
+                  } else if (value == 'en') {
+                    controller.changeLocale('en', 'US');
+                  }
                 }
               },
               dropdownColor: Theme.of(context).primaryColor.withOpacity(0.4),

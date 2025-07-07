@@ -36,7 +36,9 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
           onPressed: () => Get.back(),
         ),
         title: Obx(() => Text(
-              "Lesson ${lessonController.lessonIndex.value + 1}",
+          "65".trParams({
+            "number": "${lessonController.lessonIndex.value + 1}",
+          }),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.sp,
@@ -95,7 +97,9 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             onPressed: () => Get.back(),
           ),
           Text(
-            "Lesson ${lessonIndex + 1}",
+            "65".trParams({
+              "number": "${lessonIndex + 1}",
+            }),
             style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           const SizedBox(width: 48), // For balance
@@ -134,13 +138,13 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             onPressed: currentIndex > 0
                 ? () => lessonController.updateLessonIndex(currentIndex - 1)
                 : () => Get.back(),
-            buttonText: 'Previous',
+            buttonText: '53'.tr,
           ),
           CustomElevatedButton(
             onPressed: currentIndex < lessonController.lessons.length - 1
                 ? () => lessonController.updateLessonIndex(currentIndex + 1)
                 : () => Get.back(),
-            buttonText: "Next",
+            buttonText: "54".tr,
           ),
         ],
       ),

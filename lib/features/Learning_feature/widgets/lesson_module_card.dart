@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_images.dart';
 
@@ -67,7 +68,9 @@ class LessonModuleCard extends StatelessWidget {
                 spacing: 20.h,
                 children: [
                   Text(
-                    'lesson ${lesson.lessonNo}',
+                    "65".trParams({
+                      "number": lesson.lessonNo.toString(),
+                    }),
                     style: TextStyle(
                         fontSize: 20.sp,
                         color: lesson.isActive

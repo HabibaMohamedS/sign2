@@ -115,7 +115,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                             Column(
                               children: [
                                 Text(
-                                  'Translating...',
+                                  '73'.tr,
                                   style: TextStyle(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w500,
@@ -136,7 +136,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Translation',
+                                        '74'.tr,
                                         style: TextStyle(
                                           fontSize: 26.sp,
                                           fontWeight: FontWeight.bold,
@@ -212,7 +212,7 @@ class SignToTextScreen extends GetView<SignToTextController> {
                               ),
                             ),
                             child: Text(
-                              'Record again',
+                              '75'.tr,
                               style: TextStyle(
                                 color: AppColors.darkPurple,
                                 fontWeight: FontWeight.bold,

@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sign2/Locale/locale.dart';
 import 'package:sign2/app/bindings/binding.dart';
 import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/onboarding/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
 import 'package:sign2/support/network/network_depency_injection.dart';
+import 'Locale/locale_controller.dart';
 import 'app/routes/app_pages.dart';
 
 ///TODO: if the user is signed in add his name to the screen s
@@ -24,17 +26,17 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
   NetworkDepencyInjection.init();
   //runApp(SignLanguageApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localeController = Get.put(LocaleController());
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
@@ -49,13 +51,15 @@ class MyApp extends StatelessWidget {
           ),
         );
         // final storage = Get.find<StorageService>();
-        return GetMaterialApp(
+        return Obx(()=>GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
           theme: ThemeData(
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
             fontFamily: 'Poppins',
           ),
+          locale: localeController.currentLocale.value,
+          translations: MyLocale(),
 
           initialBinding: MyBinding(),
           initialRoute: '/welcome',
@@ -65,8 +69,9 @@ class MyApp extends StatelessWidget {
           //     Get.offAllNamed(MainMenuScreen.routeName);
           //   }
           // },
-        //  home: const MainMenuScreen(),
-        
+          //  home: const MainMenuScreen(),
+
+        )
         );
       },
     );

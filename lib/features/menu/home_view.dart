@@ -27,7 +27,9 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 8.0.w),
               child: Text(
-                'Hi 🌟 \n${user?.username??"guest"}!',
+                "64".trParams({
+                  "name": user?.username ?? "guest",
+                }),
                 softWrap: true,
                 style: AppTextStyle.titles.copyWith(
                   fontSize: 27,
@@ -46,13 +48,13 @@ class HomeView extends StatelessWidget {
                   children: [
                     CircularMenuItem(
                       imagePath: AppImages.translateLogo,
-                      title: "Translate to Text",
+                      title: "45".tr,
                       onTap: () => Get.toNamed(AppRoutes.videoTranslate),
                     ),
                     SizedBox(height: 170.h),
                     CircularMenuItem(
                       imagePath: AppImages.discoverPlacesLogo,
-                      title: "Discover Places",
+                      title: "46".tr,
                       onTap: () => Get.toNamed(LearningCenters.routeName),
                     ),
                   ],
@@ -62,7 +64,7 @@ class HomeView extends StatelessWidget {
                   children: [
                     CircularMenuItem(
                       imagePath: AppImages.learnSignLogo,
-                      title: "Learn Sign Language",
+                      title: "47".tr,
                       onTap: () => Get.toNamed(LearnSlScreen.routeName),
                     ),
                   ],

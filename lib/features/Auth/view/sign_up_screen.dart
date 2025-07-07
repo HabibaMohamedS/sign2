@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'sign_up_step2.dart';
 import 'welcome_screen.dart';
@@ -67,8 +68,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                 },
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                "Create Account",
+                              Text(
+                                "6".tr,
                                 style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
@@ -76,8 +77,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                "Step 1 out of 2",
+                              Text(
+                                "7".tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black54,
@@ -122,7 +123,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       controller: username,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please enter your username";
+                                          return "8".tr;
                                         } else {
                                           return null;
                                         }
@@ -131,8 +132,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                         color: AppColors.darkNavy,
                                       ),
                                       decoration: InputDecoration(
-                                        labelText: 'Username',
-                                        hintText: 'Enter Username',
+                                        labelText: '10'.tr,
+                                        hintText: '9'.tr,
                                         prefixIcon: const Icon(
                                           Icons.person_outline,
                                         ),
@@ -148,9 +149,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       controller: email,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please enter your email address";
+                                          return "11".tr;
                                         } else if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value)) {
-                                          return "Please enter a valid email address";
+                                          return "12".tr;
                                         } else {
                                           return null;
                                         }
@@ -159,8 +160,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                         color: AppColors.darkNavy,
                                       ),
                                       decoration: InputDecoration(
-                                        labelText: 'Email',
-                                        hintText: 'Enter Email',
+                                        labelText: '13'.tr,
+                                        hintText: '14'.tr,
                                         prefixIcon: const Icon(
                                           Icons.email_outlined,
                                         ),
@@ -175,11 +176,11 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                     TextFormField(
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please enter your password";
+                                          return "15".tr;
                                         } else if (value.length < 8) {
-                                          return "Password must be at least 8 characters long";
+                                          return "16".tr;
                                         } else if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]').hasMatch(value)) {
-                                          return "Password must contain letters and numbers";
+                                          return "17".tr;
                                         } else {
                                           return null;
                                         }
@@ -190,8 +191,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       ),
                                       obscureText: !_isPasswordVisible,
                                       decoration: InputDecoration(
-                                        labelText: 'Password',
-                                        hintText: 'Enter Password',
+                                        labelText: '19'.tr,
+                                        hintText: '18'.tr,
                                         prefixIcon: const Icon(
                                           Icons.lock_outline,
                                         ),
@@ -220,9 +221,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       controller: confirmPassword,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please Confirm your password";
+                                          return "20".tr;
                                         } else if (value != password.text) {
-                                          return "Passwords do not match";
+                                          return "21".tr;
                                         } else {
                                           return null;
                                         }
@@ -232,8 +233,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       ),
                                       obscureText: !_isConfirmPasswordVisible,
                                       decoration: InputDecoration(
-                                        labelText: 'Confirm password',
-                                        hintText: 'Confirm-password',
+                                        labelText: '22'.tr,
+                                        hintText: '23'.tr,
                                         prefixIcon: const Icon(
                                           Icons.lock_outline,
                                         ),
@@ -296,8 +297,8 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: const Text(
-                                'Continue',
+                              child: Text(
+                                '24'.tr,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

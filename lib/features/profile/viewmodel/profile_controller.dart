@@ -21,14 +21,14 @@ class ProfileController extends GetxController {
     if (picked != null) {
       avatarFile.value = File(picked.path);
       // TODO: upload `avatarFile` to Firebase Storage & update Firestore.
-      Get.snackbar('Profile', 'Photo updated successfully');
+      Get.snackbar('Profile', '95'.tr);
     }
   }
 
   /// Save editable fields
   void saveChanges() {
     // TODO: push username/address/phone/dob to Firebase user document.
-    Get.snackbar('Profile', 'Changes saved successfully');
+    Get.snackbar('Profile', '96'.tr);
   }
 
   /// Logout

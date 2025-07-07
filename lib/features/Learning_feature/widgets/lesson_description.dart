@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
 
@@ -24,7 +25,9 @@ class LessonDescription extends StatelessWidget {
             children: [
               ImageIcon(const AssetImage("assets/images/icon-pie-chart.png"),
                   color: AppColors.orange),
-              Text("${lessonCount} Lessons",
+              Text("72".trParams({
+                "count": lessonCount.toString(),
+              }),
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -35,9 +38,9 @@ class LessonDescription extends StatelessWidget {
           // SizedBox(
           //   height: 1.h,
           // ),
-          Text(
-            "Learn How to fingerspell ${title} in Arabic sign language.",
-            style: AppTextStyle.bodyText.copyWith(
+          Text("71".trParams({
+              "word": "$title",
+            }), style: AppTextStyle.bodyText.copyWith(
               color: AppColors.darkNavy,
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,

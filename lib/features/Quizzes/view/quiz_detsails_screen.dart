@@ -53,7 +53,9 @@ class QuizDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Question ${index + 1}", style: AppTextStyle.QHeader),
+                      Text("66".trParams({
+                        "number": "${index + 1}",
+                      }), style: AppTextStyle.QHeader),
                       SizedBox(height: 8.h),
                       Text(question.question, style: AppTextStyle.QBody),
                       SizedBox(height: 20.h),
@@ -74,9 +76,9 @@ class QuizDetailsScreen extends StatelessWidget {
                         child: CustomElevatedButton(
                           buttonText: controller.isSubmitted.value
                               ? (index == controller.quizQuestions.length - 1
-                              ? 'Finish'
-                              : 'Next')
-                              : 'Submit',
+                              ? '57'.tr
+                              : '54'.tr)
+                              : '56'.tr,
                           onPressed: () {
                             if (!controller.isSubmitted.value) {
                               controller.submitAnswer();
@@ -90,7 +92,7 @@ class QuizDetailsScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: CustomElevatedButton(
-                            buttonText: 'Quit',
+                            buttonText: '55'.tr,
                             onPressed: (){
                               Get.offAllNamed(
                                 CategoryDetailsScreen.routeName,
