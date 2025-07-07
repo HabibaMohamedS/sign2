@@ -16,7 +16,7 @@ import 'app/routes/app_pages.dart';
 ///TODO check if the user is connected to the network before navigating to features
 /// TODO check if it is the first time a user accessed the app before the onboarding
 ///TODO Add a back button in the quiz screen and show a dialoge asking the user if he is sure as it  would remove his progress
-
+///TODO:  CHECK THE BUTTONS IN THE SPLASH 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -24,8 +24,9 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
   NetworkDepencyInjection.init();
+  runApp(const MyApp());
+   //NetworkDepencyInjection.init();
   //runApp(SignLanguageApp());
 }
 

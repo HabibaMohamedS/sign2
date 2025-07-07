@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sign2/features/Learning_feature/view_model/learn_sl_state_management.dart';
+import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_images.dart';
 import '../../../support/theme/app_text_styles.dart';
 import '../../../support/theme/app_colors.dart';
@@ -38,7 +39,7 @@ class LearnSlScreen extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () => Get.back(),
+                    onPressed: () =>  Get.offAndToNamed(MainMenuScreen.routeName),
                   ),
                   // _buildTitle("Your Progress"),
                   // LinearProgressIndicator(
