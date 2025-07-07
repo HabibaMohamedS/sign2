@@ -40,8 +40,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   @override
   Widget build(BuildContext context) {
     final fixedTabs = [
-      const SettingsView(),
-      HomeView(user: widget.user),
+    const SettingsView(),
+    HomeView(user: _storage.cachedUser),
     ];
 
     return Scaffold(
@@ -59,7 +59,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       ),
       body: Obx(() {
         //Rebuild only when login state changes
-        final profileTab = _storage.isLoggedIn && _storage.cachedUser != null
+        final profileTab = _storage.isLoggedIn 
             ? const ProfileView()
             : const GuestProfileTab();
 

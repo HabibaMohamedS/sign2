@@ -38,7 +38,7 @@ class LearnSlScreen extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () =>  Get.offAndToNamed(MainMenuScreen.routeName),
+                  onPressed: () =>  Get.offAllNamed(MainMenuScreen.routeName),
                 ),
                 // _buildTitle("Your Progress"),
                 // LinearProgressIndicator(

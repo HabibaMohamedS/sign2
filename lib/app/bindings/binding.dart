@@ -18,8 +18,9 @@ class MyBinding extends Bindings {
       () => YoutubePlayerGetXController(),
     );
     Get.lazyPut<OnboardingController>(() => OnboardingController());
-    
-    final user = StorageService().cachedUser;
-    Get.lazyPut<ProfileController>(() => ProfileController(user!));
+
+    Get.lazyPut<ProfileController>(
+      () => ProfileController(StorageService().cachedUser!),
+    );
   }
 }

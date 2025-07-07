@@ -29,9 +29,7 @@ class FirebaseAuthentication {
       });
 
       // persist
-      _storage
-        ..isLoggedIn = true
-        ..cachedUser = user.copyWith(imageUrl: null);
+      _storage.cachedUser = user.copyWith(imageUrl: null);
 
       return "success";
       
@@ -79,11 +77,8 @@ class FirebaseAuthentication {
         imageUrl: userData['imageUrl'] ?? AppImages.defaultAvatar,
       );
 
-      //print("#########${userDoc['username']}");
+      _storage.cachedUser = userModel;
 
-      _storage
-        ..isLoggedIn = true
-        ..cachedUser = userModel;
       return userModel;
     } catch (e) {
       //print('Login Exception: $e');
@@ -94,6 +89,6 @@ class FirebaseAuthentication {
    /// Logout
   Future<void> logout() async {
     await _auth.signOut();
-    _storage.clear();
+    _storage.clear(); 
   }
 }

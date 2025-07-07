@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sign2/app/routes/app_routes.dart';
-import 'package:sign2/features/auth/view/sign_up_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
 class GuestProfileTab extends StatelessWidget {
