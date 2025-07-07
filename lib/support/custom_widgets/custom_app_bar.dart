@@ -189,7 +189,7 @@ class CustomAppBar extends StatelessWidget {
                   weight: 800,
                 ),
                 onPressed: () {
-                  Get.offAndToNamed(LearnSlScreen.routeName);
+                  Get.offAllNamed(LearnSlScreen.routeName);
                 },
               ),
             ),
