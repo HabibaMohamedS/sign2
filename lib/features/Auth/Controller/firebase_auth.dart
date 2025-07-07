@@ -84,6 +84,7 @@ class FirebaseAuthentication {
       _storage
         ..isLoggedIn = true
         ..cachedUser = userModel;
+      return userModel;
     } catch (e) {
       //print('Login Exception: $e');
       return null;
