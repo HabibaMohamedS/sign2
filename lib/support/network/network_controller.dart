@@ -21,24 +21,22 @@ class NetworkController extends GetxController {
  Future<void> _checkConnection() async {
   final wasConnected = connected.value;
   await Future.delayed(const Duration(seconds: 1));
-connected.value = await InternetConnection.isDeviceOnline();
-
-  // Debug logs
-  log('wasConnected: $wasConnected, connected: ${connected.value}');
+  final isOnline = await InternetConnection.isDeviceOnline();
+  log('wasConnected: $wasConnected, isOnline: $isOnline');
+  connected.value = isOnline;
 
   if (!connected.value && wasConnected) {
-    // Just lost connection
     if (Get.isSnackbarOpen) Get.closeCurrentSnackbar();
     Get.rawSnackbar(
       message: 'PLEASE CONNECT TO THE INTERNET',
       isDismissible: false,
-      duration: const Duration(days: 1),
+      duration: connected.value?Duration(seconds: 3): Duration(days: 1),
       margin: EdgeInsets.zero,
       snackStyle: SnackStyle.FLOATING,
       icon: const Icon(Icons.wifi_off_rounded, size: 35),
     );
   } else if (connected.value && !wasConnected) {
-    // Just regained connection
+    log("connected");
     if (Get.isSnackbarOpen) Get.closeCurrentSnackbar();
     Get.rawSnackbar(
       message: 'CONNECTED TO THE INTERNET',
@@ -48,7 +46,10 @@ connected.value = await InternetConnection.isDeviceOnline();
       icon: const Icon(Icons.wifi_rounded, size: 35),
     );
   }
-  // No snackbar if there is no state change
+  else if(connected.value){
+    log("connected");
+    if (Get.isSnackbarOpen) Get.closeCurrentSnackbar();
+  }
 }
 
   @override
