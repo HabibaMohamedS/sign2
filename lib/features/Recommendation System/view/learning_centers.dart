@@ -1,6 +1,7 @@
 // List<LearningCenter> result = [];
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/features/Recommendation%20System/view/search_screen.dart';
@@ -88,7 +89,9 @@ class _LearningCentersState extends State<LearningCenters> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: const Icon(Icons.arrow_back_rounded),
             color: AppColors.darkNavy),
       ),
