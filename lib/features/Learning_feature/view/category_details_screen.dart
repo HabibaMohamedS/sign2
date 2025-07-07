@@ -9,8 +9,6 @@ import 'package:sign2/features/Learning_feature/widgets/lesson_description.dart'
 import 'package:sign2/features/Learning_feature/widgets/lesson_module_card.dart';
 import 'package:sign2/support/custom_widgets/custom_app_bar.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
-
-
 import '../../Quizzes/view/quiz_detsails_screen.dart';
 import '../../Quizzes/view_model/quiz_controller.dart';
 
@@ -63,11 +61,12 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
     final title = args['title'] as String? ?? '';
     if (playlistId.isEmpty) return;
 
-    final allLessons = await dataSource.fetchLessons(playlistId);
-    allLessons.shuffle();
+    // final allLessons = await dataSource.fetchLessons(playlistId);
+    // allLessons.shuffle();
+    final quizLessons = await dataSource.fetchQuizLessons(playlistId);
 
-    final quizLessons =
-        allLessons.length > 10 ? allLessons.take(10).toList() : allLessons;
+    // final quizLessons =
+    //     allLessons.length > 10 ? allLessons.take(10).toList() : allLessons;
 
     final quizController = Get.put(QuizController());
     quizController.generateQuiz(quizLessons);
