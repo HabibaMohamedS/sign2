@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sign2/features/Auth/Controller/firebase_auth.dart';
 import 'package:sign2/features/Auth/model/UserModel.dart';
-import 'package:sign2/features/menu/home_view.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
@@ -16,7 +14,6 @@ class SignUpStep2 extends StatefulWidget {
 
 class _SignUpStep2State extends State<SignUpStep2> {
   final _formKey = GlobalKey<FormState>();
-
   final _govController = TextEditingController();
   final _addressController = TextEditingController();
   final _phoneController = TextEditingController();

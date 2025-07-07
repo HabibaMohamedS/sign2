@@ -4,8 +4,6 @@ import 'package:sign2/features/Auth/view/sign_up_screen.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
-// or wherever your Register screen is
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -75,9 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator: (value) => value!.isEmpty
-                          ? 'Please enter your email or username'
-                          : null,
+                      validator:
+                          (value) =>
+                              value!.isEmpty
+                                  ? 'Please enter your email or username'
+                                  : null,
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -121,28 +121,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ElevatedButton(
+                    // <<< THIS is the place
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        FirebaseAuthentication auth = FirebaseAuthentication();
+                        final auth = FirebaseAuthentication();
                         final user = await auth.login(
                           _emailController.text,
                           _passwordController.text,
                         );
 
                         if (user != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Logged in successfully"),
-                            backgroundColor: Colors.green,
-                          ));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Logged in successfully"),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
                           Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => MainMenuScreen(user: user)),
-                                (route) => false,
+                            MaterialPageRoute(
+                              builder: (_) => MainMenuScreen(user: user),
+                            ),
+                            (route) => false,
                           );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Login failed. Check your credentials."),
-                            backgroundColor: Colors.red,
-                          ));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Login failed. Check your credentials.",
+                              ),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
                         }
                       }
                     },
@@ -159,7 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -170,17 +178,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUpStep1()),
-                                  (route) => false);
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpStep1(),
+                            ),
+                            (route) => false,
+                          );
                         },
                         child: Text(
                           "Register",
-                          style: TextStyle(
-                            color: AppColors.darkNavy,
-                          ),
+                          style: TextStyle(color: AppColors.darkNavy),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20), // Add bottom padding

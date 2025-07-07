@@ -17,7 +17,7 @@ class MyBinding extends Bindings {
     Get.lazyPut<YoutubePlayerGetXController>(() => YoutubePlayerGetXController());
     //onboarding 
     Get.lazyPut<OnboardingController>(() => OnboardingController());
-    Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.lazyPut<ProfileController>(() => ProfileController( Get.find()));
    // Get.lazyPut<YoutubePlayerGetXController>(() => YoutubePlayerGetXController());
   }
 }

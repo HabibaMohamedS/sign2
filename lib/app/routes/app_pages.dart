@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sign2/app/bindings/binding.dart';
 import 'package:sign2/app/bindings/sign_to_text_binding.dart';
+import 'package:sign2/features/Auth/view/login_screen.dart';
 import 'package:sign2/features/Learning_feature/view/category_details_screen.dart';
 import 'package:sign2/features/Learning_feature/view/learn_sl_screen.dart';
 import 'package:sign2/features/Learning_feature/view/lesson_detail_screen.dart';
@@ -70,6 +71,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.profile,
       page: () => const ProfileView(),
+      binding: MyBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.login,
+      page: () => LoginScreen(),
       binding: MyBinding(),
     ),
   ];
