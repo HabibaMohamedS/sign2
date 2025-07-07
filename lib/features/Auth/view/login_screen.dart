@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 10),
             IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.back(),
             ),
             const Text(
               "Login",
