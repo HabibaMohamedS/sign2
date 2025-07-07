@@ -19,59 +19,58 @@ import 'app_routes.dart';
 
 class AppPages {
   static final List<GetPage> routes = [
-    GetPage(
-      name: AppRoutes.splash,
-      page: () => SplashView(),
-    ),
+    GetPage(name: AppRoutes.splash, page: () => SplashView()),
     GetPage(
       name: AppRoutes.onboardingRoute,
       page: () => const OnboardingView(),
     ),
     GetPage(
-      name: '/welcome',
+      name: AppRoutes.welcome,
       page: () => const WelcomeScreen(),
-      binding: MyBinding(), // Optional: add a proper binding if needed
+      binding: MyBinding(),
     ),
     GetPage(
-      name: '/signup',
+      name: AppRoutes.signUp,
       page: () => const SignUpStep1(),
-      binding: MyBinding(), // Optional: add a proper binding if needed
+      binding: MyBinding(),
     ),
     GetPage(
       name: AppRoutes.videoTranslate,
       page: () => SignToTextScreen(),
       binding: SignToTextBinding(),
     ),
+    GetPage(name: MainMenuScreen.routeName, page: () => const MainMenuScreen()),
+    GetPage(name: LearnSlScreen.routeName, page: () => LearnSlScreen()),
+    GetPage(name: '/firebaseTest', page: () => const FirebaseTestScreen()),
+    
     GetPage(
-      name: MainMenuScreen.routeName,
-      page: () => const MainMenuScreen(),
+      name: CategoryDetailsScreen.routeName,
+      page: () => CategoryDetailsScreen(),
+      binding: MyBinding(),
     ),
-    GetPage(
-      name: LearnSlScreen.routeName,
-      page: () => LearnSlScreen(),
-    ),
-    GetPage(
-      name: '/firebaseTest',
-      page: () => const FirebaseTestScreen(),
-    ),
-    GetPage(
-        name: CategoryDetailsScreen.routeName,
-        page: () => CategoryDetailsScreen(),
-        binding: MyBinding()),
     GetPage(
       name: LessonDetailScreen.routeName,
       page: () => LessonDetailScreen(),
-      binding: MyBinding(), // Assuming you have a binding class for this screen
+      binding: MyBinding(),
     ),
-    GetPage(name: QuizDetailsScreen.routeName, page: () => QuizDetailsScreen()),
-    GetPage(name: GradeScreen.routeName, page: () => const GradeScreen()),
-    GetPage(name: LearningCenters.routeName, page: () => const LearningCenters()),
-
-    //GetPage(name: VideoScreen.routeName, page: () =>  VideoScreen())
     GetPage(
-    name: AppRoutes.profile,
-    page: () => const ProfileView(),
-    binding: MyBinding(),
-),
+      name: QuizDetailsScreen.routeName, 
+      page: () => QuizDetailsScreen(),
+    ),
+    GetPage(
+      name: GradeScreen.routeName, 
+      page: () => const GradeScreen(),
+    ),
+
+    GetPage(
+      name: LearningCenters.routeName,
+      page: () => const LearningCenters(),
+    ),
+
+    GetPage(
+      name: AppRoutes.profile,
+      page: () => const ProfileView(),
+      binding: MyBinding(),
+    ),
   ];
 }

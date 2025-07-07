@@ -1,9 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sign2/features/menu/main_menu_screen.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'sign_up_step2.dart';
-import 'welcome_screen.dart';
+
 
 class SignUpStep1 extends StatefulWidget {
   const SignUpStep1({super.key});
@@ -58,12 +58,15 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                 alignment: Alignment.topLeft,
                                 icon: const Icon(Icons.arrow_back),
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const WelcomeScreen(),
-                                    ),
-                                  );
+                                  Get.offAllNamed(
+                                    MainMenuScreen.routeName,
+                                  ); 
+                                  // Navigator.pushReplacement(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (_) => const WelcomeScreen(),
+                                  //   ),
+                                  // );
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -149,7 +152,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "Please enter your email address";
-                                        } else if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value)) {
+                                        } else if (!RegExp(
+                                          r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+                                        ).hasMatch(value)) {
                                           return "Please enter a valid email address";
                                         } else {
                                           return null;
@@ -178,7 +183,9 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                           return "Please enter your password";
                                         } else if (value.length < 8) {
                                           return "Password must be at least 8 characters long";
-                                        } else if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]').hasMatch(value)) {
+                                        } else if (!RegExp(
+                                          r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]',
+                                        ).hasMatch(value)) {
                                           return "Password must contain letters and numbers";
                                         } else {
                                           return null;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/onboarding/viewmodel/onboarding_controller.dart';
 import 'package:sign2/support/custom_widgets/onboarding_page.dart';
 import 'package:sign2/support/theme/app_images.dart';
@@ -15,7 +16,7 @@ class OnboardingView extends GetView<OnboardingController> {
           children: [
             Positioned.fill(
               child: Image.asset(
-                AppImages.backgroundImage, // Your single background image
+                AppImages.backgroundImage, 
                 fit: BoxFit.cover,
               ),
             ),
@@ -56,8 +57,7 @@ class OnboardingView extends GetView<OnboardingController> {
               OnboardingPage(
                 text: "Let's create your account!",
                 btn: 'Sign me up!',
-                onTap: () =>{//Get.offAllNamed('/signin')
-                },
+                onTap: () =>{Get.offAllNamed(AppRoutes.signUp)},
                 trailing: TextButton(
                   onPressed: controller.complete,
                   child: const Text('Skip'),

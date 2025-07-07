@@ -3,4 +3,6 @@ abstract class AppRoutes {
   static const onboardingRoute = '/onboarding';
   static const splash = '/splash';
   static const profile = '/profile';
+  static const welcome = '/welcome';
+  static const signUp = '/signup';
 }

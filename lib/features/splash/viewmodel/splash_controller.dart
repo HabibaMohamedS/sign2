@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sign2/app/routes/app_routes.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
-import 'package:sign2/features/onboarding/services/storage_services.dart';
+import 'package:sign2/services/storage_services.dart';
 
 class SplashController extends GetxController {
   @override

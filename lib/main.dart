@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sign2/app/bindings/binding.dart';
 import 'package:sign2/app/routes/app_routes.dart';
-import 'package:sign2/features/onboarding/services/storage_services.dart';
+import 'package:sign2/services/storage_services.dart';
 import 'package:sign2/firebase_options.dart';
 import 'package:sign2/support/network/network_depency_injection.dart';
 import 'app/routes/app_pages.dart';
@@ -24,9 +24,9 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NetworkDepencyInjection.init();
+  //NetworkDepencyInjection.init();
   runApp(const MyApp());
-   //NetworkDepencyInjection.init();
+  NetworkDepencyInjection.init();
   //runApp(SignLanguageApp());
 }
 
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
         );
-        // final storage = Get.find<StorageService>();
+      
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
@@ -59,15 +59,9 @@ class MyApp extends StatelessWidget {
           ),
 
           initialBinding: MyBinding(),
-          initialRoute: '/welcome',
+          initialRoute: AppRoutes.splash,
           getPages: AppPages.routes,
-          // onInit: () {
-          //   if (storage.seenOnboarding) {
-          //     Get.offAllNamed(MainMenuScreen.routeName);
-          //   }
-          // },
-        //  home: const MainMenuScreen(),
-        
+         
         );
       },
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
-import 'package:sign2/features/onboarding/services/storage_services.dart';
+import 'package:sign2/services/storage_services.dart';
 
 class OnboardingController extends GetxController {
   final pageIndex = 0.obs;
