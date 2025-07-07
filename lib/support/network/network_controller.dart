@@ -18,7 +18,7 @@ class NetworkController extends GetxController {
     });
   }
 
- Future<void> checkConnection() async {
+Future<void> checkConnection() async {
   final wasConnected = connected.value;
   await Future.delayed(const Duration(seconds: 1));
   final isOnline = await InternetConnection.isDeviceOnline();
