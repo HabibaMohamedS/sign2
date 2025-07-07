@@ -69,7 +69,7 @@ class AppPages {
 
     //GetPage(name: VideoScreen.routeName, page: () =>  VideoScreen())
     GetPage(
-    name: AppRoutes.profile, // e.g. '/profile'
+    name: AppRoutes.profile,
     page: () => const ProfileView(),
     binding: MyBinding(),
 ),

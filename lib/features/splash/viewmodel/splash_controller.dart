@@ -7,15 +7,15 @@ class SplashController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   final storage = Get.find<StorageService>();
-    //   Get.log('seenOnboarding=${storage.seenOnboarding}');
-    //
-    //   if (storage.seenOnboarding) {
-    //     Get.offAllNamed(MainMenuScreen.routeName);
-    //   } else {
-    //     Get.offAllNamed(AppRoutes.onboardingRoute);
-    //   }
-    // });
+    Future.delayed(const Duration(seconds: 3), () {
+      final storage = Get.find<StorageService>();
+      Get.log('seenOnboarding=${storage.seenOnboarding}');
+    
+      if (storage.seenOnboarding) {
+        Get.offAllNamed(MainMenuScreen.routeName);
+      } else {
+        Get.offAllNamed(AppRoutes.onboardingRoute);
+      }
+    });
   }
 }
