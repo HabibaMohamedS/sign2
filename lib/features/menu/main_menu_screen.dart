@@ -1,15 +1,18 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sign2/features/Auth/model/UserModel.dart';
 import 'package:sign2/features/menu/home_view.dart';
 import 'package:sign2/features/profile/view/profile_view.dart';
 import 'package:sign2/features/settings/view/settings_view.dart';
 import 'package:sign2/support/theme/app_images.dart';
 import '../../support/theme/app_colors.dart';
 
+
 class MainMenuScreen extends StatefulWidget {
   static const String routeName = "/mainMenu";
-  const MainMenuScreen({super.key});
+  final UserModel? user;
+  const MainMenuScreen({super.key, this.user,});
 
   @override
   State<MainMenuScreen> createState() => _MainMenuScreenState();
@@ -19,7 +22,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
-    final tabs = const [SettingsView(), HomeView(), ProfileView()];
+    final tabs = [const SettingsView(), HomeView(user: widget.user,), const ProfileView()];
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar:

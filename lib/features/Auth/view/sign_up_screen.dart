@@ -119,9 +119,10 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextFormField(
+                                      controller: username,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please enter your name";
+                                          return "Please enter your username";
                                         } else {
                                           return null;
                                         }
@@ -144,9 +145,12 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
+                                      controller: email,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "Please enter your email address";
+                                        } else if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value)) {
+                                          return "Please enter a valid email address";
                                         } else {
                                           return null;
                                         }
@@ -171,7 +175,11 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                     TextFormField(
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Please enters your password";
+                                          return "Please enter your password";
+                                        } else if (value.length < 8) {
+                                          return "Password must be at least 8 characters long";
+                                        } else if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]').hasMatch(value)) {
+                                          return "Password must contain letters and numbers";
                                         } else {
                                           return null;
                                         }
@@ -214,7 +222,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                                         if (value!.isEmpty) {
                                           return "Please Confirm your password";
                                         } else if (value != password.text) {
-                                          return "Please enter matching passwords";
+                                          return "Passwords do not match";
                                         } else {
                                           return null;
                                         }

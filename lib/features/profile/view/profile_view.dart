@@ -7,6 +7,8 @@ import 'package:sign2/support/custom_widgets/custom_textfield.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_images.dart';
 
+import '../../Auth/model/UserModel.dart';
+
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
 
