@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:sign2/features/Auth/view/login_screen.dart';
-
+import '../../menu/main_menu_screen.dart';
 import 'sign_up_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -19,7 +18,17 @@ class WelcomeScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [TextButton(onPressed: () {}, child: const Text("Skip"))],
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const MainMenuScreen()),
+                    (route) => false,
+              );
+            },
+            child: const Text("Skip"),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -88,68 +97,6 @@ class WelcomeScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Color.fromRGBO(21, 0, 22, 1),
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 25),
-
-                const Center(
-                  child: Text(
-                    "Or login with account",
-                    style: TextStyle(color: Color.fromRGBO(82, 44, 93, 1)),
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                // Social buttons
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.g_mobiledata_rounded,
-                          size: 28,
-                          color: Color.fromRGBO(21, 0, 22, 1),
-                        ),
-                        label: const Text(
-                          "Google",
-                          style: TextStyle(color: Color.fromRGBO(21, 0, 22, 1)),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          side: const BorderSide(
-                            color: Color.fromRGBO(21, 0, 22, 1),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.facebook,
-                          size: 24,
-                          color: Color.fromRGBO(21, 0, 22, 1),
-                        ),
-                        label: const Text(
-                          "Facebook",
-                          style: TextStyle(color: Color.fromRGBO(21, 0, 22, 1)),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          side: const BorderSide(
-                            color: Color.fromRGBO(21, 0, 22, 1),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                       ),
                     ),

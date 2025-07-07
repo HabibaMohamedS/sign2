@@ -38,12 +38,12 @@ class SplashController extends GetxController {
     super.onReady();
     Future.delayed(const Duration(seconds: 3), () {
       final storage = Get.find<StorageService>();
-      Get.log('seenOnboarding=${storage.seenOnboarding}');     
-
+      Get.log('seenOnboarding=${storage.seenOnboarding}');
+    
       if (storage.seenOnboarding) {
         Get.offAllNamed(MainMenuScreen.routeName);
       } else {
-        Get.offAllNamed(AppRoutes.onboardingRoute);            
+        Get.offAllNamed(AppRoutes.onboardingRoute);
       }
     });
   }

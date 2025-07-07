@@ -12,10 +12,11 @@ class NetworkController extends GetxController {
   void onInit() {
     super.onInit();
     checkConnection();
-    _subscription = Connectivity().onConnectivityChanged.listen((result) async {
+   _subscription = Connectivity().onConnectivityChanged.listen((result) async {
       // connected.value = await InternetConnection.isDeviceOnline();
       checkConnection();
     });
+
   }
 
 Future<void> checkConnection() async {
