@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/features/Recommendation%20System/view/search_screen.dart';
 import 'package:sign2/support/custom_widgets/custom_centers_card.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
+List<LearningCenter> result = [];
+
 class LearningCenters extends StatefulWidget {
+  static const String routeName = '/learning_centers';
   const LearningCenters({super.key});
-  static String routeName="/learningCenter";
 
   @override
   State<LearningCenters> createState() => _LearningCentersState();
 }
 
 class _LearningCentersState extends State<LearningCenters> {
+  
   List<LearningCenter> centers = [];
   bool _isLoading = true;
   String? _errorMessage;
@@ -87,9 +89,7 @@ class _LearningCentersState extends State<LearningCenters> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () {},
             icon: const Icon(Icons.arrow_back_rounded),
             color: AppColors.darkNavy),
       ),

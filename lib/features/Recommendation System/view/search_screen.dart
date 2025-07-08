@@ -4,6 +4,7 @@ import 'package:sign2/features/Recommendation%20System/model/learning_center_mod
 import 'package:sign2/support/custom_widgets/custom_centers_card.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
+
 final TextEditingController controller = TextEditingController();
 final operations = FirebaseOperations();
 List<LearningCenter> result = [];

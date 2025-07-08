@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 
+
 class FirebaseOperations {
   Future<List<LearningCenter>> fetchLearningCenters() async {
     List<LearningCenter> centers;
     final snapshot =
         await FirebaseFirestore.instance.collection('learning_centers').get();
-    centers =
-        snapshot.docs.map((doc) {
-          return LearningCenter.fromJson(doc.data());
-        }).toList();
+    centers = snapshot.docs.map((doc) {
+      return LearningCenter.fromJson(doc.data());
+    }).toList();
     return centers;
   }
 
@@ -18,19 +18,14 @@ class FirebaseOperations {
       if (nameQuery.isEmpty) {
         return [];
       }
-      final querySnapshot =
-          await FirebaseFirestore.instance
-              .collection("learning_centers")
-              .where(
-                'nameLowerCase',
-                isGreaterThanOrEqualTo: nameQuery.toLowerCase(),
-              )
-              .where(
-                'nameLowerCase',
-                isLessThanOrEqualTo: '${nameQuery.toLowerCase()}\uf8ff',
-              )
-              .limit(20)
-              .get();
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("learning_centers")
+          .where('nameLowerCase',
+              isGreaterThanOrEqualTo: nameQuery.toLowerCase())
+          .where('nameLowerCase',
+              isLessThanOrEqualTo: '${nameQuery.toLowerCase()}\uf8ff')
+          .limit(20)
+          .get();
       print(querySnapshot.docs.length);
       return querySnapshot.docs
           .map((doc) => LearningCenter.fromJson(doc.data()))
@@ -44,11 +39,9 @@ class FirebaseOperations {
   Future<List<LearningCenter>> sortCenters(String value) async {
     final snapshot =
         await FirebaseFirestore.instance.collection('learning_centers').get();
-    List<LearningCenter> centers =
-        snapshot.docs.map((doc) {
-          return LearningCenter.fromJson(doc.data());
-        }).toList();
-
+    List<LearningCenter> centers = snapshot.docs.map((doc) {
+      return LearningCenter.fromJson(doc.data());
+    }).toList();
     if (value == "Highest Price") {
       centers.sort((a, b) => (b.price).compareTo(a.price));
       print(centers[0].price);

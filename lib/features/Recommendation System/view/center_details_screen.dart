@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:sign2/features/Recommendation%20System/model/learning_center_model.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 import 'package:sign2/support/theme/app_text_styles.dart';
@@ -44,6 +43,8 @@ class CenterDetailsScreen extends StatelessWidget {
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: AppColors.darkNavy,
+
+                      /// el looon weeheshhh
                       size: 24,
                     )),
               )
