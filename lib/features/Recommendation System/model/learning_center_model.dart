@@ -19,13 +19,13 @@ class LearningCenter {
 
   factory LearningCenter.fromJson(Map<String, dynamic> json) {
     return LearningCenter(
-      image: json['image'] as String,
-      phone: json['phone'] as String,
-      name: json['name'] as String,
-      price: (json['price'] as String),
-      address: json['address'] as String,
-      description: json['description'] as String,
-      rating: (json['rating'] as String),
+      image: json['image'] ?? '',
+      phone: json['phone'] ?? "",
+      name: json['name'] ?? "",
+      price: json['price'] ?? "",
+      address: json['address'] ?? "",
+      description: json['description'] ?? "",
+      rating: json['rating'] ?? "",
     );
   }
 
