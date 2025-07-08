@@ -30,7 +30,7 @@ class StorageService {
   }
 
   //On‑boarding flag
-  bool get seenOnboarding => _box.read('seenOnboarding') ?? false;
+  bool get seenOnboarding =>  _box.read('seenOnboarding') ?? false;
   set seenOnboarding(bool v) => _box.write('seenOnboarding', v);
 
   void clear() => cachedUser = null;
