@@ -32,16 +32,4 @@ class LearnSlViewModel extends GetxController {
       isLoading.value = false;
     }
   }
-
-  // Future<List<CategoryModel>> fetchLessons(String playlistId) async {
-  //   final snapshot = await FirebaseFirestore.instance
-  //       .collection('youtube_playlists')
-  //       .doc(playlistId)
-  //       .collection('videos')
-  //       .get();
-
-  //   return snapshot.docs.map((doc) {
-  //     return CategoryModel.fromJson(doc.id as Map<String, dynamic>, doc.data());
-  //   }).toList();
-  // }
 }

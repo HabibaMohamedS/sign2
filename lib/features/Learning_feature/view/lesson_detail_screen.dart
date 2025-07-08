@@ -9,7 +9,6 @@ import 'package:sign2/support/custom_widgets/custom_elevated_button.dart';
 import 'package:sign2/support/custom_widgets/framed_custom_btn.dart';
 import 'package:sign2/support/theme/app_colors.dart';
 
-
 class LessonDetailScreen extends StatefulWidget {
   static const String routeName = "/lessonDetailScreen";
 
@@ -25,14 +24,13 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //extendBodyBehindAppBar: true, // Allows body to extend under AppBar
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: AppColors.darkNavy, // Makes AppBar transparent
-        elevation: 0, // Removes shadow
+        backgroundColor: AppColors.darkNavy,
+        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios,
-              color: Colors.white), // Back button
+              color: Colors.white),
           onPressed: () => Get.back(),
         ),
         title: Obx(() => Text(
@@ -69,7 +67,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             Expanded(
               child: VideoScreen(
                 key: ValueKey(
-                    lesson.videoId), // This forces rebuild when videoId changes
+                    lesson.videoId), //forces rebuild in case of changes "of vidId"
                 videoId: lesson.videoId ?? 'dQw4w9WgXcQ',
               ),
             ),
@@ -80,9 +78,6 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
       }),
     );
   }
-
-  // ... rest of your existing _buildAppBar, _buildLessonDetails,
-  // and _buildNavigationButtons methods remain the same ...
 
   Widget _buildAppBar(int lessonIndex) {
     return Padding(
@@ -98,7 +93,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             "Lesson ${lessonIndex + 1}",
             style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 48), // For balance
+          const SizedBox(width: 48),
         ],
       ),
     );
@@ -115,10 +110,6 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8.h),
-          // Text(
-          //   lesson.thumbnail ?? "No description available",
-          //   style: TextStyle(fontSize: 14.sp),
-          // ),
         ],
       ),
     );

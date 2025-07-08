@@ -1,5 +1,4 @@
  import 'package:flutter/material.dart';
- import 'package:get/get.dart';
  import 'package:sign2/features/Quizzes/view_model/quiz_controller.dart';
 
  class OptionTile extends StatelessWidget {

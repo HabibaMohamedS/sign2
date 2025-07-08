@@ -18,21 +18,19 @@ class LessonModuleCard extends StatelessWidget {
           Flexible(
             flex: 1,
             child: Container(
-              // padding: EdgeInsets.only(top:10.h),
               child: Column(spacing: 5.h, children: [
                 Padding(
                   padding: EdgeInsets.only(right: 10.sp),
                   child: SizedBox(
                     height: 52.sp,
-                    width: 52
-                        .sp, // Ensure it's a circle by setting both height and width
+                    width: 52.sp,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: lesson.isActive
                             ? AppColors.darkNavy
                             : AppColors.lightOrange,
                         shape: const CircleBorder(),
-                        padding: EdgeInsets.zero, // No internal padding
+                        padding: EdgeInsets.zero,
                       ),
                       onPressed: onPressed,
                       child: Icon(
@@ -55,7 +53,6 @@ class LessonModuleCard extends StatelessWidget {
             flex: 5,
             child: Container(
               padding: EdgeInsets.all(30.h),
-              //height: 161.h,
               width: 246.w,
               decoration: BoxDecoration(
                   color: lesson.isActive
@@ -97,28 +94,16 @@ class LessonModuleCard extends StatelessWidget {
 class LessonModuleCardModel {
   final int lessonNo;
   final String name;
-  // final String imagePath;
-  // final int lessonCount;
-  // Color iconColor;
-  // Color iconBorder;
-  // Color iconBackground;
   bool isCompleted;
   bool isLocked;
   bool isActive;
   String description;
-  //IconData icon;
   LessonModuleCardModel({
     required this.lessonNo,
     required this.name,
-    // required this.imagePath,
-    // required this.lessonCount,
-    // required this.iconColor,
-    // required this.iconBorder,
-    // required this.iconBackground,
     required this.isCompleted,
     required this.isLocked,
     required this.isActive,
     required this.description,
-    // required this.icon,
   });
 }

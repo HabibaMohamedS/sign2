@@ -32,9 +32,6 @@ class LessonDescription extends StatelessWidget {
             ],
           ),
           Text(title??"", style: AppTextStyle.titles,),
-          // SizedBox(
-          //   height: 1.h,
-          // ),
           Text(
             "Learn How to fingerspell ${title} in Arabic sign language.",
             style: AppTextStyle.bodyText.copyWith(
@@ -43,8 +40,6 @@ class LessonDescription extends StatelessWidget {
               fontWeight: FontWeight.w600,
               height:2
             ),
-
-            
           ),
         ],
       ),

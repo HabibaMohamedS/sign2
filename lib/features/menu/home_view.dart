@@ -39,7 +39,6 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 65.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -69,7 +68,7 @@ class HomeView extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 40.h), // Add some bottom padding
+            SizedBox(height: 40.h),
           ],
         ),
       ),

@@ -9,7 +9,7 @@ class OnboardingPage extends StatelessWidget {
   final String btn;
   final bool showLogo;
   final VoidCallback? onTap;
-  final Widget? trailing; // Changed from leading to trailing for better semantics
+  final Widget? trailing;
   
   const OnboardingPage({
     this.img,
@@ -33,7 +33,7 @@ class OnboardingPage extends StatelessWidget {
             children: [
               if (showLogo)
                 SizedBox(
-                      width: 120.w,  // Adjust as needed
+                      width: 120.w,
                       height: 120.h,
                       child: Image.asset(
                         AppImages.logo,

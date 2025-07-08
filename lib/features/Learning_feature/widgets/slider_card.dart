@@ -29,28 +29,9 @@ class SliderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               spacing: 15.h,
               children: [
-          //       Container(
-          //   height: 76.h,
-          //   //TODO: make this dynamic
-          //   width: 104.w,
-          //  // padding: EdgeInsets.symmetric(horizontal: 25.w),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.lightOrange,
-          //     borderRadius: BorderRadius.circular(32),
-          //   ),
-          //   child: Center(
-          //     child: Text( categoryName,
-          //       style: AppTextStyle.titles.copyWith(
-          //         fontSize: 20.sp,
-          //         fontWeight: FontWeight.bold,
-          //         color: AppColors.darkNavy,
-          //       ),
-          //     ),
-          //   ),
-          // ),
                 Container(
-                  height: 86.h,//76.h
-                  width: 124.w,//104.w
+                  height: 86.h,
+                  width: 124.w,
                   decoration: BoxDecoration(
                     color: AppColors.lightOrange,
                     borderRadius: BorderRadius.circular(32),
@@ -61,8 +42,8 @@ class SliderCard extends StatelessWidget {
                       child: Text(
                         categoryName,
                         textAlign: TextAlign.center,
-                        maxLines: 2, // Allow up to 2 lines
-                        overflow: TextOverflow.ellipsis, // Add "..." if too long
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: AppTextStyle.titles.copyWith(
                           fontSize: 15.sp,

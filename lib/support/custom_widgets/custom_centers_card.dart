@@ -25,7 +25,7 @@ class CustomCentersCard extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                blurRadius: 4, // Soften the shadow
+                blurRadius: 4,
                 offset: const Offset(0, 4),
                 color: Colors.black.withOpacity(0.25),
               ),

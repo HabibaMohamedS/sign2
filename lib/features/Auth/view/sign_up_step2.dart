@@ -130,7 +130,7 @@ class _SignUpStep2State extends State<SignUpStep2> {
                         ),
                       ),
       
-                      // Centered Form Fields
+                      // Center: Form Fields
                       Expanded(
                         child: Center(
                           child: Padding(

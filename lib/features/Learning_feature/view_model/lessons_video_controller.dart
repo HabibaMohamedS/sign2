@@ -22,7 +22,7 @@ class LessonsVideoController extends GetxController {
       log("No video ID available for lesson $lessonIndex");
       return;
     }
-    // Initialize player here — safe because GetX already created the instance
+    // init player here "GetX already created the instance"
     initialize(lesson.videoId ?? "");
   }
 

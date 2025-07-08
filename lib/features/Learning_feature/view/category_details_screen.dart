@@ -17,8 +17,6 @@ class CategoryDetailsScreen extends StatefulWidget {
 
   const CategoryDetailsScreen({
     super.key,
-    // required this.playlistId,
-    // this.title,
   });
 
   @override
@@ -26,28 +24,11 @@ class CategoryDetailsScreen extends StatefulWidget {
 }
 
 class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
-  // final String playlistId;
-  //final LessonsStateManagement lessonsStateManagement = Get.find<LessonsStateManagement>(); saraa
-
-  //final playlistId = "";
-  // int lessonIndex = 0;
- 
-
-  // void initState() {
-
-  //   lessonsStateManagement.fetchLessonData(Get.arguments['playlistId'] ?? "");
-  // }
 
   late LessonsStateManagement lessonsStateManagement;
   final FirebaseDataSource dataSource = FirebaseDataSource();
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   lessonsStateManagement = Get.find<LessonsStateManagement>();
-  //   lessonsStateManagement.fetchLessonData(Get.arguments['playlistId'] ?? "");
-  // }
-
   void initState() {
     super.initState();
     lessonsStateManagement = Get.find<LessonsStateManagement>();
@@ -61,12 +42,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
     final title = args['title'] as String? ?? '';
     if (playlistId.isEmpty) return;
 
-    // final allLessons = await dataSource.fetchLessons(playlistId);
-    // allLessons.shuffle();
     final quizLessons = await dataSource.fetchQuizLessons(playlistId);
-
-    // final quizLessons =
-    //     allLessons.length > 10 ? allLessons.take(10).toList() : allLessons;
 
     final quizController = Get.put(QuizController());
     quizController.generateQuiz(quizLessons);
@@ -81,7 +57,6 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
   Widget build(BuildContext context) {
     final String playlistId = Get.arguments['playlistId'] ?? "";
      final String? title = Get.arguments['title'] ?? "";
-    final args = Get.arguments as Map<String, dynamic>? ?? {};
 
     return Scaffold(
       body: Obx(() {
@@ -90,7 +65,6 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const CustomAppBar(),
               CustomAppBar(onStartQuiz: _startQuiz),
               LessonDescription(
                   title: title,
@@ -118,12 +92,10 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
                                   isLocked: false,
                                   isActive: index ==
                                       lessonsStateManagement
-                                          .lessonIndex.value, // Customize this
-                                  description: "", // Add real data if needed
+                                          .lessonIndex.value,
+                                  description: "",
                                 ),
                                 onPressed: () {
-                                  // lessonsStateManagement
-                                  //     .updateLessonIndex(index);
                                   log(" pressed Lesson index: $index");
                                   lessonsStateManagement
                                       .updateLessonIndex(index);

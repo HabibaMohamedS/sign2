@@ -31,10 +31,4 @@ class LessonsStateManagement extends GetxController {
       Get.snackbar('Error', 'Failed to fetch lessons: $e');
     }
   }
-
-  // void updateLessonIndex(int index) {
-  //   if (index >= 0 && index < lessons.length) {
-  //     lessonIndex.value = index;
-  //   }
-//  }
 }

@@ -48,7 +48,7 @@ class _FirebaseTestScreenState extends State<FirebaseTestScreen> {
         child: Text(
           message,
           style: const TextStyle(
-            color: Colors.black, // ✅ Set text color to black
+            color: Colors.black,
             fontSize: 18,
           ),
           textAlign: TextAlign.center,

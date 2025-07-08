@@ -38,16 +38,16 @@ class YoutubePlayerGetXController extends GetxController {
         youtubePlayerController.dispose();
       }
 
-      // Initialize new controller (auto-initializes internally)
+      // Initialize new controller
       youtubePlayerController = YoutubePlayerController(
         initialVideoId: videoId,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
 
-      // Track player readiness via listener
+      // Track player readiness
       youtubePlayerController.addListener(_handlePlayerState);
 
-      isLoading.value = false; // Update loading state
+      isLoading.value = false;
 
     } catch (e) {
       errorMessage.value = "Failed to load video: $e";

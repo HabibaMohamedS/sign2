@@ -177,9 +177,9 @@ class SignToTextScreen extends GetView<SignToTextController> {
                                   child: DropdownButton<String>(
                                     value: controller.selectedLanguage.value,
                                     dropdownColor: AppColors.darkNavy,
-                                    style: const TextStyle(color: Colors.white), // Selected text color
+                                    style: const TextStyle(color: Colors.white),
                                     iconEnabledColor: Colors.white,
-                                    underline: const SizedBox(), // Remove underline
+                                    underline: const SizedBox(),
                                     onChanged: (v) {
                                       controller.selectedLanguage.value = v!;
                                       controller.translateToMultiLanguage();
@@ -230,6 +230,3 @@ class SignToTextScreen extends GetView<SignToTextController> {
     );
   }
 }
-
-// This widget is the main screen for the sign-to-text feature, 
-//displaying the camera preview and translation results.

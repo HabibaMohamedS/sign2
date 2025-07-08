@@ -6,7 +6,6 @@ import 'package:sign2/support/theme/app_text_styles.dart';
 class CustomElevatedButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
-  //Color backgroundColor;
   const CustomElevatedButton({super.key, required this.buttonText, required this.onPressed});
 
   @override

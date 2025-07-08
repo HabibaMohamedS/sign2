@@ -1,5 +1,3 @@
-// List<LearningCenter> result = [];
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sign2/features/Recommendation%20System/controller/firebase_operations.dart';

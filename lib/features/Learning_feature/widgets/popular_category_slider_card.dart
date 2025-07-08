@@ -22,7 +22,6 @@ class PopularCategorySliderCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Column(
-           // spacing: min(20.h,10),
             children: [
               Container(
                 padding: EdgeInsets.all(25.0.h),
@@ -34,7 +33,6 @@ class PopularCategorySliderCard extends StatelessWidget {
                 ),
                 child: Image.asset(
                   "assets/images/bro.png",
-                  // fit: BoxFit.cover,
                 ),
               ),
               SizedBox(height: 20.h),

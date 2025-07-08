@@ -16,9 +16,6 @@ class LessonModel {
   factory LessonModel.fromJson(Map<String, dynamic> json) {
 
     String? rawTitle = json['title'];
-    //finds anything inside quotes and
-    // If match found, take what's inside the quotes,
-    //otherwise use the whole string --> rawtitle
     final match = RegExp(r'["“”](.*?)["“”]').firstMatch(rawTitle ?? '');
     final cleanedTitle = match != null ? match.group(1)?.trim() : rawTitle?.trim();
 

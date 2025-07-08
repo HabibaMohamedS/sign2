@@ -50,10 +50,10 @@ class _VideoScreenState extends State<VideoScreen> {
       ),
     )..loadVideoById(videoId: widget.videoId);
 
-    // Listen to player state changes
+    // track changes, to manually restart if there is a change
     _controller.listen((event) {
       if (event.playerState == PlayerState.ended) {
-        _controller.loadVideoById(videoId: widget.videoId); // manually restart
+        _controller.loadVideoById(videoId: widget.videoId);
       }
     });
   }

@@ -8,7 +8,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:sign2/core/constants/api_constants.dart';
 
 class SignToTextController extends GetxController {
-  // Using Rxn for nullable reactive variables
   final cameraController = Rxn<CameraController>();
   List<CameraDescription>? cameras;
   int currentCameraIndex = 0;
@@ -77,24 +76,6 @@ class SignToTextController extends GetxController {
     }
   }
 
-  // Future<void> uploadAndTranslate(XFile file) async {
-  //   try {
-  //     final req = http.MultipartRequest(
-  //       'POST',
-  //       Uri.parse(ApiConstants.translateVideoUrl),
-  //     )..files.add(await http.MultipartFile.fromPath('video', file.path));
-
-  //     final streamed = await req.send();
-  //     final respStr = await streamed.stream.bytesToString();
-  //     translation.value =
-  //         streamed.statusCode == 200 ? respStr : 'Error ${streamed.statusCode}';
-  //   } catch (e) {
-  //     translation.value = 'Upload failed: $e';
-  //   } finally {
-  //     isTranslating.value = false;
-  //   }
-  // }
-
   Future<void> uploadAndTranslate(XFile file) async {
   try {
       final req = http.MultipartRequest('POST', Uri.parse(ApiConstants.translateVideoUrl))
@@ -116,15 +97,6 @@ class SignToTextController extends GetxController {
 }
 
 
-  // Future<void> speakTranslation() async {
-  //   if (translation.value?.isNotEmpty ?? false) {
-  //     await tts.setLanguage("ar-SA");
-  //     await tts.setPitch(1.0);
-  //     await tts.setSpeechRate(0.5);
-  //     await tts.speak(translation.value!);
-  //   }
-  // }
-
   Future<void> speakTranslation() async {
   final text = translatedText.value;
     if (text != null && text.isNotEmpty) {
@@ -135,7 +107,6 @@ class SignToTextController extends GetxController {
     }
 }
 
-  ///to be implemented
   Future<void> translateToMultiLanguage() async {
   isTranslating.value = true;
     final source = originalTranslation.value.trim();
@@ -178,6 +149,3 @@ class SignToTextController extends GetxController {
     super.onClose();
   }
 }
-
-// This controller manages the camera, video recording, uploading, and translation of sign language to text.
-// It also handles text-to-speech for the translated text.

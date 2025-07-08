@@ -13,7 +13,6 @@ class NetworkController extends GetxController {
     super.onInit();
     _checkConnection();
     _subscription = Connectivity().onConnectivityChanged.listen((result) async {
-      // connected.value = await InternetConnection.isDeviceOnline();
       _checkConnection();
     }) as StreamSubscription<ConnectivityResult>;
   }

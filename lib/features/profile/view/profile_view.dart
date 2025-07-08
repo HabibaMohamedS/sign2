@@ -17,7 +17,7 @@ class ProfileView extends GetView<ProfileController> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20.h),
+            SizedBox(height: 100.h),
             //Username
             CustomTextField(
               label: 'Username',

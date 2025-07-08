@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sign2/features/Learning_feature/view_model/learn_sl_state_management.dart';
 import 'package:sign2/features/menu/main_menu_screen.dart';
-import 'package:sign2/support/theme/app_images.dart';
 import '../../../support/theme/app_text_styles.dart';
-import '../../../support/theme/app_colors.dart';
-
 import '../widgets/popular_category_slider_card.dart';
 import '../widgets/slider_card.dart';
 import 'category_details_screen.dart';
@@ -40,14 +37,6 @@ class LearnSlScreen extends StatelessWidget {
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: () =>  Get.offAllNamed(MainMenuScreen.routeName),
                 ),
-                // _buildTitle("Your Progress"),
-                // LinearProgressIndicator(
-                //   value: 0.5,
-                //   backgroundColor: const Color.fromARGB(62, 158, 158, 158),
-                //   borderRadius: BorderRadius.circular(32.r),
-                //   color: AppColors.orange,
-                //   minHeight: 32.0.h,
-                // ),
                 _buildTitle("Learn ArSL 🌟"),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0.w),

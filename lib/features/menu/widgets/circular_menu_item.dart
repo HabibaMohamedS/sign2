@@ -15,12 +15,9 @@ class CircularMenuItem extends StatelessWidget {
     return Builder(
       builder: (context) {
         return SizedBox(
-          // height: 200.h,
           child: InkWell(
             onTap: onTap,
             child: Column(
-             
-              //mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 150.r,
@@ -45,14 +42,11 @@ class CircularMenuItem extends StatelessWidget {
             
                 ),
                 SizedBox(
-                  //height: 56.h,
                   width: min(128.w,140),
-                  
                   child: Text( title,
                     textAlign: TextAlign.center,
                     style: AppTextStyle.menuItemText
                     ),
-            
                 ),
               ],
             ),

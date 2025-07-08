@@ -1,5 +1,4 @@
-// this file contains the color palette for the app
-// and is used to define the colors used in the app's UI.
+
 import 'package:flutter/material.dart';
 
 class AppColors {

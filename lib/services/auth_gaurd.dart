@@ -1,4 +1,3 @@
-// routes/auth_middleware.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sign2/app/routes/app_routes.dart';
@@ -9,9 +8,9 @@ class AuthGuard extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     final cache = StorageService();
     if (!cache.isLoggedIn || cache.cachedUser == null) {
-      // user is not authenticated – redirect to login
+      // user is not authenticated redirect to login
       return  RouteSettings(name: '${AppRoutes.login}?next=$route');
     }
-    return null; // user is authenticated – continue
+    return null; // user is authenticated, continue
   }
 }

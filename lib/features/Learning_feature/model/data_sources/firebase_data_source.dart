@@ -7,7 +7,6 @@ import 'package:sign2/features/Learning_feature/model/models/lesson_model.dart';
 class FirebaseDataSource implements DataSource {
   @override
   Future<List<String>> fetchCategories() {
-    // TODO: implement fetchCategories
     throw UnimplementedError();
   }
 
@@ -26,16 +25,18 @@ class FirebaseDataSource implements DataSource {
         return LessonModel.fromJson(data);
       }).toList();
     } on FirebaseException catch (e) {
+
       // Handle Firestore-specific errors
       log('Firestore error: ${e.message}');
       if (e.code == 'permission-denied') {
-        // You can throw a custom exception or handle it gracefully
         log('You do not have permission to access this data.');
+
       } else if (e.code == 'unavailable') {
         log('Firestore service is currently unavailable.');
       }
-      throw e; // Return empty list or rethrow if needed
+      throw e; // Return empty list or rethrow
     } catch (e, stackTrace) {
+
       // Handle other unexpected errors
       debugPrint('Unexpected error: $e');
       debugPrintStack(stackTrace: stackTrace);
@@ -55,23 +56,27 @@ class FirebaseDataSource implements DataSource {
       final allLessons =
           snapshot.docs.map((doc) => LessonModel.fromJson(doc.data())).toList();
 
-      allLessons.shuffle(); // Randomize
+      allLessons.shuffle(); // Randomize 10 lessons to be taken for ques
       return allLessons.length > 10 ? allLessons.take(10).toList() : allLessons;
+
     } on FirebaseException catch (e) {
+
       // Handle Firestore-specific errors
       log('Firestore error: ${e.message}');
       if (e.code == 'permission-denied') {
-        // You can throw a custom exception or handle it gracefully
+
         log('You do not have permission to access this data.');
       } else if (e.code == 'unavailable') {
         log('Firestore service is currently unavailable.');
       }
-      throw e; // Return empty list or rethrow if needed
+      throw e; // Return empty list or rethrow
     } catch (e, stackTrace) {
+
       // Handle other unexpected errors
       debugPrint('Unexpected error: $e');
       debugPrintStack(stackTrace: stackTrace);
       throw e;
+
     } // Or rethrow
   }
 }

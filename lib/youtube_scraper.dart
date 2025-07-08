@@ -9,7 +9,7 @@ class YouTubeScraper {
 
   YouTubeScraper({required this.apiKey, required this.channelId});
 
-  /// Fetches **all** playlists from a YouTube channel and stores them in Firestore.
+  /// Fetches all playlists from a YouTube channel and stores them in Firestore.
   Future<void> fetchAndStorePlaylists() async {
     String nextPageToken = '';
 
@@ -42,7 +42,6 @@ class YouTubeScraper {
 
           print("Batch of playlists stored successfully!");
 
-          // Get the nextPageToken for pagination
           nextPageToken = data['nextPageToken'] ?? '';
         } else {
           print("Failed to fetch playlists: ${response.statusCode}");
@@ -57,7 +56,7 @@ class YouTubeScraper {
     print("All playlists have been fetched and stored!");
   }
 
-  /// Fetches **all** videos from a playlist and stores them in Firestore.
+  /// Fetches all videos from a playlist and stores them in Firestore.
   Future<void> fetchAndStoreVideos(String playlistId) async {
     String nextPageToken = '';
 
@@ -91,7 +90,6 @@ class YouTubeScraper {
 
           print("Batch of videos for Playlist [$playlistId] stored successfully!");
 
-          // Get the nextPageToken for pagination
           nextPageToken = data['nextPageToken'] ?? '';
         } else {
           print("Failed to fetch videos: ${response.statusCode}");

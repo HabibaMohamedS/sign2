@@ -58,7 +58,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         ],
       ),
       body: Obx(() {
-        //Rebuild only when login state changes
+        //rebuild when login state changes
         final profileTab = _storage.isLoggedIn 
             ? const ProfileView()
             : const GuestProfileTab();

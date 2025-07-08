@@ -59,13 +59,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                               onPressed: () {
                                 Get.offAllNamed(
                                   MainMenuScreen.routeName,
-                                ); 
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (_) => const WelcomeScreen(),
-                                //   ),
-                                // );
+                                );
                               },
                             ),
                             const SizedBox(height: 10),
@@ -269,8 +263,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                           ),
                         ),
                       ),
-      
-                      // Bottom: Continue button
+
                       Padding(
                         padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
                         child: SizedBox(
