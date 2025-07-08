@@ -78,6 +78,24 @@ class ProfileView extends GetView<ProfileController> {
               ),
             ),
             SizedBox(height: 32.h),
+             SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.darkPurple,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r)),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
+                ),
+                onPressed: c.logout,
+                child: Text(
+                  'logout',
+                  style: TextStyle(color: AppColors.white, fontSize: 20.sp),
+                ),
+              ),
+            ),
+            SizedBox(height: 32.h),
           ],
         ),
       ),

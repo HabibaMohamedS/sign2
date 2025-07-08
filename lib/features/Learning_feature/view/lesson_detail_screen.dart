@@ -107,7 +107,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
         children: [
           Text(
             lesson.title ?? "No Title",
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold,color: AppColors.darkNavy),
           ),
           SizedBox(height: 8.h),
         ],
