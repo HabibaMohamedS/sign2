@@ -55,8 +55,8 @@ By addressing communication challenges and promoting Arabic Sign Language learni
   <img width="250" height="500" alt="Splash Screen" src="https://github.com/user-attachments/assets/23e0a2c7-76a2-4a8c-8255-391d9c5e6bd2" />
   <img width="250" height="500" alt="Welcome" src="https://github.com/user-attachments/assets/dc216221-d3db-4a00-a980-6b3cceacf232" />
  <img width="250" height="500" alt="Onboarding" src="https://github.com/user-attachments/assets/ea12dddb-66bd-42d0-9e31-103b92a4fbae" />
-<img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/2e9d7d87-4d00-4da6-967d-dca9b6aa644f" />
-<img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/3b2123a9-9dda-44e9-84bb-0e2433d75523" />
+<img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/edd8162a-ea41-4f8c-a681-4c5a3a722f13" />
+<img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/e3e07ac1-763e-472b-adef-d43c9170224d" />
  </p>
  <p align="center">
  <img width="250" height="500" alt="Welcome (1)" src="https://github.com/user-attachments/assets/d8d745b0-cc50-46c7-93fe-f13f094f1619" />
@@ -71,7 +71,7 @@ By addressing communication challenges and promoting Arabic Sign Language learni
    </p>
    <p align="center">
      <img width="250" height="550" alt="Learn Sign Language" src="https://github.com/user-attachments/assets/4a68269f-9575-4155-95d5-b47335bdc0ec" />
-<img width="250" height="620" alt="Category details screen" src="https://github.com/user-attachments/assets/102789f2-a200-4bcb-a77e-87abe0b6d56f" />
+<img width="250" height="650" alt="Category details screen" src="https://github.com/user-attachments/assets/102789f2-a200-4bcb-a77e-87abe0b6d56f" />
 <img width="250" height="500" alt="lesson details screen" src="https://github.com/user-attachments/assets/0d0f833e-b863-464b-84de-ce7c838d764f" />
     </p>
     <p align="center">
