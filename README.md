@@ -70,8 +70,8 @@ By addressing communication challenges and promoting Arabic Sign Language learni
 <img width="250" height="500" alt="Sign to Text (2)" src="https://github.com/user-attachments/assets/3cad5607-e728-4912-8cc8-d7d9855ecc81" />
    </p>
    <p align="center">
+     <img width="250" height="500" alt="Learn Sign Language" src="https://github.com/user-attachments/assets/4a68269f-9575-4155-95d5-b47335bdc0ec" />
 <img width="250" height="500" alt="Category details screen" src="https://github.com/user-attachments/assets/102789f2-a200-4bcb-a77e-87abe0b6d56f" />
-<img width="390" height="500" alt="Learn Sign Language" src="https://github.com/user-attachments/assets/4a68269f-9575-4155-95d5-b47335bdc0ec" />
 <img width="250" height="500" alt="lesson details screen" src="https://github.com/user-attachments/assets/0d0f833e-b863-464b-84de-ce7c838d764f" />
     </p>
     <p align="center">
